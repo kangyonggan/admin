@@ -1,60 +1,65 @@
 <template>
-  <el-menu
-    background-color="#1d1e23"
-    text-color="#d5d5d5"
-    active-text-color="#fff"
-    :unique-opened="true"
-    :collapse="isCollapse"
-    :style="{width: isCollapse ? '' : '220px'}"
-  >
-    <el-submenu
-      v-for="menu in menus"
-      :key="menu.code"
-      :index="menu.code"
+  <el-collapse-transition>
+    <el-menu
+      background-color="#1d1e23"
+      text-color="#d5d5d5"
+      active-text-color="#fff"
+      :unique-opened="true"
+      :collapse="isCollapse"
+      :style="{width: isCollapse ? '' : '220px'}"
     >
-      <template slot="title">
-        <i :class="menu.icon" />
-        <span slot="title">{{ menu.name }}</span>
-      </template>
-      <el-menu-item-group
-        v-for="subMenu in menu.children"
-        :key="subMenu.code"
+      <el-submenu
+        v-for="menu in menus"
+        :key="menu.code"
+        :index="menu.code"
       >
-        <el-menu-item>{{ subMenu.name }}</el-menu-item>
-      </el-menu-item-group>
-    </el-submenu>
-    <div
-      class="collapse"
-      @click="isCollapse = !isCollapse"
-    >
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="收缩侧栏"
-        placement="right-end"
+        <template slot="title">
+          <i :class="menu.icon" />
+          <span slot="title">{{ menu.name }}</span>
+        </template>
+        <el-menu-item-group
+          v-for="subMenu in menu.children"
+          :key="subMenu.code"
+        >
+          <el-menu-item>{{ subMenu.name }}</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <div
+        class="collapse"
+        @click="isCollapse = !isCollapse"
       >
-        <i
-          class="el-icon-d-arrow-left"
-          v-show="!isCollapse"
-        />
-      </el-tooltip>
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="展开侧栏"
-        placement="right-end"
-      >
-        <i
-          class="el-icon-d-arrow-right"
-          v-show="isCollapse"
-        />
-      </el-tooltip>
-    </div>
-  </el-menu>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="收缩侧栏"
+          placement="right-end"
+        >
+          <i
+            class="el-icon-d-arrow-left"
+            v-show="!isCollapse"
+          />
+        </el-tooltip>
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="展开侧栏"
+          placement="right-end"
+        >
+          <i
+            class="el-icon-d-arrow-right"
+            v-show="isCollapse"
+          />
+        </el-tooltip>
+      </div>
+    </el-menu>
+  </el-collapse-transition>
 </template>
 
 <script>
+    import ElCollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+
     export default {
+        components: {ElCollapseTransition},
         data() {
             return {
                 isCollapse: document.body.clientWidth < 800,
@@ -102,7 +107,7 @@
 
 <style scoped lang="scss">
   .el-menu {
-    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
 
     .collapse {
       cursor: pointer;
