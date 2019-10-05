@@ -4,6 +4,8 @@
     text-color="#d5d5d5"
     active-text-color="#fff"
     :unique-opened="true"
+    :collapse="isCollapse"
+    :style="{width: isCollapse ? '' : '220px'}"
   >
     <el-submenu
       v-for="menu in menus"
@@ -11,7 +13,7 @@
       :index="menu.code"
     >
       <template slot="title">
-        <i :class="menu.icon"/>
+        <i :class="menu.icon" />
         <span slot="title">{{ menu.name }}</span>
       </template>
       <el-menu-item-group
@@ -21,6 +23,33 @@
         <el-menu-item>{{ subMenu.name }}</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
+    <div
+      class="collapse"
+      @click="isCollapse = !isCollapse"
+    >
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="收缩侧栏"
+        placement="right-end"
+      >
+        <i
+          class="el-icon-d-arrow-left"
+          v-show="!isCollapse"
+        />
+      </el-tooltip>
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="展开侧栏"
+        placement="right-end"
+      >
+        <i
+          class="el-icon-d-arrow-right"
+          v-show="isCollapse"
+        />
+      </el-tooltip>
+    </div>
   </el-menu>
 </template>
 
@@ -28,6 +57,7 @@
     export default {
         data() {
             return {
+                isCollapse: document.body.clientWidth < 800,
                 menus: [{
                     name: '系统',
                     code: 'SYSTEM',
@@ -58,13 +88,33 @@
                     }]
                 }]
             };
+        },
+        mounted() {
+            const that = this;
+            window.onresize = () => {
+                return (() => {
+                    that.isCollapse = document.body.clientWidth < 800;
+                })();
+            };
         }
     };
 </script>
 
 <style scoped lang="scss">
   .el-menu {
-    width: 220px;
     height: calc(100vh - 60px);
+
+    .collapse {
+      cursor: pointer;
+      text-align: center;
+      border-top: 1px solid #282828;
+      border-bottom: 1px solid #2d2d2d;
+      line-height: 30px;
+
+      i {
+        color: #d5d5d5;
+        font-size: 12px;
+      }
+    }
   }
 </style>
