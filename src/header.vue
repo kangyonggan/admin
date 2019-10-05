@@ -10,7 +10,7 @@
     <el-menu
       mode="horizontal"
       background-color="#333"
-      text-color="#d5d5d5"
+      text-color="#e2e2e2"
     >
       <el-submenu index="0">
         <template slot="title">
@@ -37,7 +37,7 @@
 
     .logo {
       float: left;
-      color: #d5d5d5;
+      color: #e2e2e2;
       font-size: 22px;
       text-decoration: none;
     }
