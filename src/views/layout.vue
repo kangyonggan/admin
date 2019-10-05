@@ -18,3 +18,9 @@
         components: {Heder, Aside}
     };
 </script>
+
+<style scoped lang="scss">
+  .el-container {
+    width: 100%;
+  }
+</style>

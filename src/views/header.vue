@@ -45,5 +45,9 @@
     .el-menu {
       float: right;
     }
+
+    .el-menu.el-menu--horizontal {
+      border-bottom: 0;
+    }
   }
 </style>

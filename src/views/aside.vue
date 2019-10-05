@@ -61,6 +61,7 @@
 
 <script>
     import ElCollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+    import {debounce} from 'lodash';
 
     export default {
         components: {ElCollapseTransition},
@@ -112,13 +113,13 @@
                 }]
             };
         },
+        methods: {
+            windowResize: function () {
+                this.isCollapse = document.body.clientWidth < 800;
+            }
+        },
         mounted() {
-            const that = this;
-            window.onresize = () => {
-                return (() => {
-                    that.isCollapse = document.body.clientWidth < 800;
-                })();
-            };
+            window.onresize = debounce(this.windowResize, 200);
         }
     };
 </script>
