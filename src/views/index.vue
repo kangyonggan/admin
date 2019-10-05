@@ -5,11 +5,15 @@
 </template>
 
 <script>
-export default {};
+    export default {
+        mounted() {
+            console.log('init');
+        }
+    };
 </script>
 
 <style scoped lang="scss">
-    .red {
-        color: red;
-    }
+  .red {
+    color: red;
+  }
 </style>
