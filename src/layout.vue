@@ -1,13 +1,20 @@
 <template>
   <div>
-    <div>navbar</div>
-    <div>sidebar</div>
-    <div>
-      <router-view/>
-    </div>
+    <Heder />
+    <el-container>
+      <Aside />
+      <el-main>
+        <router-view />
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
-    export default {};
+    import Heder from './header';
+    import Aside from './aside';
+
+    export default {
+        components: {Heder, Aside}
+    };
 </script>
