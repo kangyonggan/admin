@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import layout from './layout.vue';
+import layout from './views/layout.vue';
 import router from './router';
 import './assets/style/reset.scss';
 import 'element-ui/lib/theme-chalk/index.css';

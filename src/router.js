@@ -5,14 +5,18 @@ Vue.use(VueRouter);
 
 const routers = [{
     path: '/',
-    name: 'index',
     meta: {
         title: '首页'
     },
     component: (resolve) => require(['./views/index.vue'], resolve)
 }, {
+    path: '/system/user',
+    meta: {
+        title: '用户管理'
+    },
+    component: (resolve) => require(['./views/system/user/list.vue'], resolve)
+}, {
     path: '*',
-    name: '404',
     meta: {
         title: '资源不存在'
     },

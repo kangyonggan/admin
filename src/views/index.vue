@@ -5,11 +5,7 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('init');
-        }
-    };
+    export default {};
 </script>
 
 <style scoped lang="scss">
