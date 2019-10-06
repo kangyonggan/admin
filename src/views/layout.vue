@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Heder />
+    <navbar />
     <el-container>
-      <Aside />
+      <sidebar />
       <el-main>
         <router-view />
       </el-main>
@@ -11,16 +11,10 @@
 </template>
 
 <script>
-    import Heder from './header';
-    import Aside from './aside';
+    import navbar from './navbar';
+    import sidebar from './sidebar';
 
     export default {
-        components: {Heder, Aside}
+        components: {navbar, sidebar}
     };
 </script>
-
-<style scoped lang="scss">
-  .el-container {
-    width: 100%;
-  }
-</style>

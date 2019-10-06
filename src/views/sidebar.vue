@@ -11,17 +11,17 @@
       router
     >
       <el-submenu
-        v-for="menu in menus"
-        :key="menu.name"
-        :index="menu.name"
+        v-for="(menu, index) in menus"
+        :key="index"
+        :index="'index-' + index"
       >
         <template slot="title">
           <i :class="menu.icon" />
           <span slot="title">{{ menu.name }}</span>
         </template>
         <el-menu-item-group
-          v-for="subMenu in menu.children"
-          :key="subMenu.path"
+          v-for="(subMenu, idx) in menu.children"
+          :key="idx"
         >
           <el-menu-item :index="subMenu.path">
             {{ subMenu.name }}
