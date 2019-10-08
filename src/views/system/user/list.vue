@@ -2,15 +2,23 @@
   <div>
     <el-form
       :inline="true"
+      :model="params"
+      ref="form"
     >
       <el-row>
-        <el-form-item label="账号">
+        <el-form-item
+          label="账号"
+          prop="account"
+        >
           <el-input
             v-model="params.account"
             clearable
           />
         </el-form-item>
-        <el-form-item label="创建日期">
+        <el-form-item
+          label="创建日期"
+          prop="createdTime"
+        >
           <el-date-picker
             type="daterange"
             v-model="params.createdTime"
@@ -22,24 +30,24 @@
         <el-form-item>
           <el-button
             type="primary"
+            @click="$refs.table.reload(params)"
           >
             查询
           </el-button>
           <el-button
             type="warning"
+            @click="$refs.form.resetFields()"
           >
             清空
-          </el-button>
-          <el-button
-            type="success"
-          >
-            新增
           </el-button>
         </el-form-item>
       </el-row>
     </el-form>
 
-    <base-table url="/admin/system/user" ref="table">
+    <base-table
+      url="/admin/system/user"
+      ref="table"
+    >
       <el-table-column
         prop="id"
         label="ID"
@@ -63,15 +71,8 @@
     export default {
         data() {
             return {
-                params: {
-                    account: 'admin',
-                    pageNum: 2,
-                    pageSize: 10
-                }
+                params: {}
             };
-        },
-        mounted() {
-            this.$refs.table.load(this.params);
         }
     };
 </script>

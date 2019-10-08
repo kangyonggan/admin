@@ -12,27 +12,6 @@ util.title = function (title) {
     window.document.title = title;
 };
 
-/**
- * 获取mockjs中get请求入参
- *
- * @param url
- * @returns {*}
- */
-util.getRequestParameters = function (url) {
-    let params = {};
-    const index = url.indexOf('?');
-    if (index === -1) {
-        return params;
-    }
-    url = url.substring(index + 1).split('&');
-    url.forEach(function (item) {
-        const param = item.split('=');
-        params[param[0]] = param[1];
-    });
-
-    return params;
-};
-
 export default util;
 
 Vue.prototype.util = util;
