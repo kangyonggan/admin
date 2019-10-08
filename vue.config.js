@@ -1,7 +1,7 @@
 module.exports = {
     productionSourceMap: false,
     configureWebpack: () => {
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV !== 'production') {
             return {
                 resolve: {
                     alias: {
