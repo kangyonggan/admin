@@ -1,5 +1,8 @@
 <template>
-  <div v-loading="loading">
+  <div
+    v-loading="loading"
+    style="margin-top: 20px;"
+  >
     <el-table
       :data="pageInfo.list"
       stripe
@@ -28,6 +31,8 @@
 </template>
 
 <script>
+    import qs from 'qs';
+
     export default {
         props: {
             url: {
@@ -49,9 +54,7 @@
         methods: {
             request: function () {
                 this.loading = true;
-                this.axios.get(this.url, {
-                    params: this.params
-                }).then((res) => {
+                this.axios.get(this.url + '?' + qs.stringify(this.params)).then((res) => {
                     this.pageInfo = res.data.pageInfo;
                 }).catch(err => {
                     console.error(err);

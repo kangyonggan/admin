@@ -1,49 +1,27 @@
 <template>
   <div>
-    <el-form
-      :inline="true"
-      :model="params"
-      ref="form"
-    >
-      <el-row>
-        <el-form-item
-          label="账号"
-          prop="account"
+    <!--搜索表单-->
+    <base-search-form :model="params">
+      <base-input
+        label="账号"
+        v-model="params.account"
+        prop="account"
+      />
+      <base-daterange
+        label="创建日期"
+        v-model="params.createdTime"
+        prop="createdTime"
+      />
+      <template slot="actions">
+        <el-button
+          type="success"
         >
-          <el-input
-            v-model="params.account"
-            clearable
-          />
-        </el-form-item>
-        <el-form-item
-          label="创建日期"
-          prop="createdTime"
-        >
-          <el-date-picker
-            type="daterange"
-            v-model="params.createdTime"
-          />
-        </el-form-item>
-      </el-row>
+          新增
+        </el-button>
+      </template>
+    </base-search-form>
 
-      <el-row>
-        <el-form-item>
-          <el-button
-            type="primary"
-            @click="$refs.table.reload(params)"
-          >
-            查询
-          </el-button>
-          <el-button
-            type="warning"
-            @click="$refs.form.resetFields()"
-          >
-            清空
-          </el-button>
-        </el-form-item>
-      </el-row>
-    </el-form>
-
+    <!--表格-->
     <base-table
       url="/admin/system/user"
       ref="table"

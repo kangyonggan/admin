@@ -1,4 +1,5 @@
 import Mock from 'mockjs';
+import qs from 'qs';
 
 const response = {
     respCo: '0000',
@@ -6,8 +7,8 @@ const response = {
 };
 
 Mock.mock(/\/admin\/system\/user\??.*/, 'get', req => {
+    console.log(req);
     const params = getRequestParameters(req.url);
-    console.log(params);
 
     const pageNum = params['pageNum'] * 1;
     const pageSize = params['pageSize'] * 1;
@@ -45,11 +46,5 @@ const getRequestParameters = function (url) {
     if (index === -1) {
         return params;
     }
-    url = url.substring(index + 1).split('&');
-    url.forEach(function (item) {
-        const param = item.split('=');
-        params[param[0]] = param[1];
-    });
-
-    return params;
+    return qs.parse(url.substring(index + 1));
 };
