@@ -2,8 +2,8 @@ import Mock from 'mockjs';
 import qs from 'qs';
 
 const response = {
-    respCo: '0000',
-    respMsg: '操作成功'
+    success: true,
+    msg: '操作成功'
 };
 
 Mock.mock(/\/admin\/system\/user\??.*/, 'get', req => {

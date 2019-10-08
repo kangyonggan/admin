@@ -8,6 +8,7 @@
       stripe
       border
       @sort-change="changeSort"
+      :empty-text="emptyText"
     >
       <slot />
     </el-table>
@@ -48,16 +49,27 @@
                     pageNum: 1,
                     pageSize: 10
                 },
+                emptyText: '正在查询',
                 pageInfo: {}
             };
         },
         methods: {
             request: function () {
                 this.loading = true;
+                this.emptyText = '正在查询';
                 this.axios.get(this.url + '?' + qs.stringify(this.params)).then((res) => {
-                    this.pageInfo = res.data.pageInfo;
+                    if (res.data.success && res.data.pageInfo) {
+                        this.pageInfo = res.data.pageInfo;
+                        if (!this.pageInfo.total) {
+                            this.emptyText = '暂无数据';
+                        }
+                    } else {
+                        console.log(111);
+                        this.pageInfo = {};
+                        this.emptyText = res.data.msg;
+                    }
                 }).catch(err => {
-                    console.error(err);
+                    this.emptyText = err + '';
                 }).finally(() => {
                     this.loading = false;
                 });
