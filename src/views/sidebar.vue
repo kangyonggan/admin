@@ -5,9 +5,9 @@
       text-color="#b5b5b5"
       active-text-color="#fff"
       :unique-opened="true"
-      :collapse="$store.getters.getSmallScreen"
+      :collapse="isCollapse"
       :default-active="$route.path"
-      :style="{width: $store.getters.getSmallScreen ? '' : '200px'}"
+      :style="{width: isCollapse ? '' : '200px'}"
       router
     >
       <el-submenu
@@ -30,7 +30,7 @@
       </el-submenu>
       <div
         class="collapse"
-        @click="$store.commit('setSmallScreen', !$store.getters.getSmallScreen)"
+        @click="isCollapse = !isCollapse"
       >
         <el-tooltip
           class="item"
@@ -40,7 +40,7 @@
         >
           <i
             class="el-icon-d-arrow-left"
-            v-show="!$store.getters.getSmallScreen"
+            v-show="!isCollapse"
           />
         </el-tooltip>
         <el-tooltip
@@ -51,7 +51,7 @@
         >
           <i
             class="el-icon-d-arrow-right"
-            v-show="$store.getters.getSmallScreen"
+            v-show="isCollapse"
           />
         </el-tooltip>
       </div>
@@ -66,6 +66,7 @@
         components: {ElCollapseTransition},
         data() {
             return {
+                isCollapse: document.body.clientWidth < 910,
                 menus: [{
                     name: '系统',
                     icon: 'el-icon-setting',
@@ -110,6 +111,11 @@
                     }]
                 }]
             };
+        },
+        watch: {
+            '$store.state.smallScreen': function () {
+                this.isCollapse = this.$store.getters.getSmallScreen;
+            }
         }
     };
 </script>
