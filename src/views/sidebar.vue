@@ -5,9 +5,9 @@
       text-color="#b5b5b5"
       active-text-color="#fff"
       :unique-opened="true"
-      :collapse="isCollapse"
+      :collapse="$store.getters.getSmallScreen"
       :default-active="$route.path"
-      :style="{width: isCollapse ? '' : '200px'}"
+      :style="{width: $store.getters.getSmallScreen ? '' : '200px'}"
       router
     >
       <el-submenu
@@ -30,7 +30,7 @@
       </el-submenu>
       <div
         class="collapse"
-        @click="isCollapse = !isCollapse"
+        @click="$store.commit('setSmallScreen', !$store.getters.getSmallScreen)"
       >
         <el-tooltip
           class="item"
@@ -40,7 +40,7 @@
         >
           <i
             class="el-icon-d-arrow-left"
-            v-show="!isCollapse"
+            v-show="!$store.getters.getSmallScreen"
           />
         </el-tooltip>
         <el-tooltip
@@ -51,7 +51,7 @@
         >
           <i
             class="el-icon-d-arrow-right"
-            v-show="isCollapse"
+            v-show="$store.getters.getSmallScreen"
           />
         </el-tooltip>
       </div>
@@ -61,13 +61,11 @@
 
 <script>
     import ElCollapseTransition from 'element-ui/lib/transitions/collapse-transition';
-    import {debounce} from 'lodash';
 
     export default {
         components: {ElCollapseTransition},
         data() {
             return {
-                isCollapse: document.body.clientWidth < 800,
                 menus: [{
                     name: '系统',
                     icon: 'el-icon-setting',
@@ -112,14 +110,6 @@
                     }]
                 }]
             };
-        },
-        methods: {
-            windowResize: function () {
-                this.isCollapse = document.body.clientWidth < 800;
-            }
-        },
-        mounted() {
-            window.onresize = debounce(this.windowResize, 200);
         }
     };
 </script>

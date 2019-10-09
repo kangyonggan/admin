@@ -53,15 +53,7 @@
 </script>
 
 <style scoped lang="scss">
-  h1 {
-    font-size: 26px;
-    font-weight: bold;
-  }
   ul {
-    margin-left: 30px;
-    margin-top: 30px;
-    list-style: disc;
-
     li {
       line-height: 34px;
     }

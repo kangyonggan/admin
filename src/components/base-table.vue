@@ -20,7 +20,7 @@
       <el-pagination
         :current-page="params.pageNum"
         :page-size="params.pageSize"
-        :layout="isSimple ? 'total, sizes, prev, next, jumper' : 'total, sizes, prev, pager, next, jumper'"
+        :layout="$store.getters.getSmallScreen ? 'total, sizes, prev, next, jumper' : 'total, sizes, prev, pager, next, jumper'"
         :total="pageInfo.total"
         @next-click="jump"
         @prev-click="jump"
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-    import {debounce} from 'lodash';
     import qs from 'qs';
 
     export default {
@@ -45,7 +44,6 @@
         },
         data() {
             return {
-                isSimple: document.body.clientWidth < 910,
                 loading: false,
                 params: {
                     pageNum: 1,
@@ -106,14 +104,10 @@
                     this.params.sortOrder = undefined;
                 }
                 this.request();
-            },
-            windowResize: function () {
-                this.isSimple= document.body.clientWidth < 910;
             }
         },
         mounted() {
             this.request();
-            window.onresize = debounce(this.windowResize, 200);
         }
     };
 </script>
