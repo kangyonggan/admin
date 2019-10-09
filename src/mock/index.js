@@ -44,14 +44,13 @@ Mock.mock('/logout', 'get', () => {
  */
 Mock.mock(/\/system\/user\??.*/, 'get', req => {
     const params = getRequestParameters(req.url);
-    const pageNum = params['pageNum'] * 1;
     const pageSize = params['pageSize'] * 1;
 
     const list = Mock.mock(function () {
         const list = [];
         for (let i = 0; i < pageSize; i++) {
             const item = {};
-            item.id = (pageNum - 1) * pageSize + 1 + i;
+            item.id = Mock.Random.natural();
             item.account = Mock.mock(/[a-zA-Z][a-zA-Z0-9]{4,19}/);
             item.name = Mock.Random.cname();
             item.isDeleted = Mock.Random.boolean() * 1;
