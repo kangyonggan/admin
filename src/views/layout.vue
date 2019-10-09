@@ -9,6 +9,7 @@
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.5)"
       >
+        <breadcrumb />
         <router-view />
       </el-main>
     </el-container>
@@ -18,10 +19,11 @@
 <script>
     import navbar from './navbar';
     import sidebar from './sidebar';
+    import breadcrumb from './breadcrumb';
     import {debounce} from 'lodash';
 
     export default {
-        components: {navbar, sidebar},
+        components: {navbar, sidebar, breadcrumb},
         methods: {
             windowResize: function () {
                 this.$store.commit('setSmallScreen', document.body.clientWidth < 910);
@@ -47,6 +49,10 @@
     .el-loading-spinner i {
       color: #eaeaea;
       font-size: 45px;
+    }
+
+    .el-main {
+      padding: 5px 20px 20px 20px;
     }
   }
 </style>

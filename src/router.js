@@ -13,6 +13,10 @@ const routers = [{
 }, {
     path: '/system/user',
     meta: {
+        breadcrumbs: [{
+            icon: 'el-icon-setting',
+            title: '系统'
+        }],
         title: '用户管理'
     },
     component: (resolve) => require(['./views/system/user/list.vue'], resolve)
