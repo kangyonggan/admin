@@ -9,6 +9,7 @@
       type="daterange"
       value-format="yyyy-MM-dd"
       unlink-panels
+      :editable="false"
       range-separator="至"
       :start-placeholder="startPlaceholder ? startPlaceholder : '请选择开始日期'"
       :end-placeholder="endPlaceholder ? endPlaceholder : '请选择结束日期'"
