@@ -12,41 +12,59 @@ const response = {
 };
 
 Mock.mock(/\/admin\/system\/user\??.*/, 'get', req => {
-    console.log(req);
     const params = getRequestParameters(req.url);
-
     const pageNum = params['pageNum'] * 1;
     const pageSize = params['pageSize'] * 1;
 
-    const list = Mock.mock({
-        'list|10': [{
-            'id|+1': pageSize * (pageNum - 1) + 1,
-            'date': '@datetime("yyyy-MM-dd HH:mm:ss")',
-            'name|+1': '@cname'
-        }]
+    const list = Mock.mock(function () {
+        const list = [];
+        for (let i = 0; i < pageSize; i++) {
+            const item = {};
+            item.id = (pageNum - 1) * pageSize + 1 + i;
+            item.account = Mock.mock(/[a-zA-Z][a-zA-Z0-9]{4,19}/);
+            item.name = Mock.Random.cname();
+            item.isDeleted = Mock.Random.boolean() * 1;
+            item.createdTime = getRandomTimestamp();
+
+            list.push(item);
+        }
+
+        return list;
     });
 
-    console.log(Mock.Random.name());
-    console.log(Mock.mock({
-        name: '@name'
-    }));
-    console.log(Mock.mock('@name'));
-
-    const pageInfo = {
-        pageNum: pageNum,
-        pageSize: pageSize,
-        total: 3267
-    };
-
-    Object.assign(pageInfo, list);
-    const res = Object.assign({}, response);
-    res.pageInfo = pageInfo;
-
-    return res;
+    return getResponseWithPageInfo(list);
 });
 
+/**************************************** 下面是通用的工具方法 ***************************************/
+
 /**
- * 获取mockjs中get请求入参
+ * 获取一个随机时间戳
+ *
+ * @returns {number}
+ */
+const getRandomTimestamp = function () {
+    let arr = Mock.Random.datetime('yyyy,MM,dd,HH,mm,ss,SSS').split(',');
+    return new Date(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5], arr[6]).getTime();
+};
+
+
+/**
+ * 组装一个带有pageInfo的响应
+ *
+ * @param list
+ */
+const getResponseWithPageInfo = function (list) {
+    const pageInfo = {
+        total: 53267,
+        list: list
+    };
+    return Object.assign({
+        pageInfo: pageInfo
+    }, response);
+};
+
+/**
+ * 获取url中的参数
  *
  * @param url
  * @returns {*}

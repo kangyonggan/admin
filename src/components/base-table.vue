@@ -64,7 +64,6 @@
                             this.emptyText = '暂无数据';
                         }
                     } else {
-                        console.log(111);
                         this.pageInfo = {};
                         this.emptyText = res.data.msg;
                     }
