@@ -1,6 +1,11 @@
 import Mock from 'mockjs';
 import qs from 'qs';
 
+// 默认响应时间：10-100ms
+Mock.setup({
+    timeout: '10-1500'
+});
+
 const response = {
     success: true,
     msg: '操作成功'
@@ -16,56 +21,16 @@ Mock.mock(/\/admin\/system\/user\??.*/, 'get', req => {
     const list = Mock.mock({
         'list|10': [{
             'id|+1': pageSize * (pageNum - 1) + 1,
-            'date': Mock.Random.date('yyyy-MM-dd'),
-            'name|+1': Mock.Random.name()
+            'date': '@datetime("yyyy-MM-dd HH:mm:ss")',
+            'name|+1': '@cname'
         }]
     });
 
+    console.log(Mock.Random.name());
     console.log(Mock.mock({
-        'name|3-5': 'abc'
+        name: '@name'
     }));
-    console.log(Mock.mock({
-        'name|2': 'abc'
-    }));
-    console.log(Mock.mock({
-        'name|1-10': 0
-    }));
-    console.log(Mock.mock({
-        'name|1-10.2-3': 0
-    }));
-    console.log(Mock.mock({
-        'name|1': true
-    }));
-    console.log(Mock.mock({
-        'name|2': {a: 1, b: 2, c: 3, d: 4}
-    }));
-    console.log(Mock.mock({
-        'name|2-3': {a: 1, b: 2, c: 3, d: 4}
-    }));
-    console.log(Mock.mock({
-        'name|1': [1, 2, 3, 4]
-    }));
-    console.log(Mock.mock({
-        'name|2': [1, 2, 3, 4]
-    }));
-    console.log(Mock.mock({
-        'name|1-2': [1, 2, 3, 4]
-    }));
-    console.log(Mock.mock({
-        'name': function () {
-            return Math.random().toFixed(2);
-        }
-    }));
-    console.log(Mock.mock({
-        'name': /[a-z][0-3][A-Z][1-2][0-9]*_?\d/
-    }));
-    console.log(Mock.mock({
-        'name': {
-            first: '@first',
-            last: '@last',
-            fullname: '@first @last'
-        }
-    }));
+    console.log(Mock.mock('@name'));
 
     const pageInfo = {
         pageNum: pageNum,
