@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-loading="loading"
-    style="margin-top: 20px;"
-  >
+  <div style="margin-top: 20px;">
     <el-table
       :data="pageInfo.list"
       stripe
@@ -44,7 +41,6 @@
         },
         data() {
             return {
-                loading: false,
                 params: {
                     pageNum: 1,
                     pageSize: 10
@@ -55,7 +51,7 @@
         },
         methods: {
             request: function () {
-                this.loading = true;
+                this.$store.commit('setLoading', true);
                 this.emptyText = '正在查询';
                 this.axios.get(this.url + '?' + qs.stringify(this.params)).then((res) => {
                     if (res.data.success && res.data.pageInfo) {
@@ -70,7 +66,7 @@
                 }).catch(err => {
                     this.emptyText = err + '';
                 }).finally(() => {
-                    this.loading = false;
+                    this.$store.commit('setLoading', false);
                 });
             },
             reload: function (params) {
