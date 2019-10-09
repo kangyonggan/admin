@@ -65,17 +65,13 @@
                     }
 
                     this.loading = true;
-                    this.axios.post('/login', this.params).then((res) => {
-                        if (res.data.success) {
-                            sessionStorage.setItem('token', res.data.token);
-                            this.$router.push({
-                                path: '/index'
-                            });
-                        } else {
-                            this.error(res.data.msg);
-                        }
-                    }).catch(err => {
-                        this.error(err + '');
+                    this.post('/login', this.params).then((data) => {
+                        sessionStorage.setItem('token', data.token);
+                        this.$router.push({
+                            path: '/index'
+                        });
+                    }).catch(msg => {
+                        this.error(msg);
                     }).finally(() => {
                         this.loading = false;
                     });
