@@ -1,43 +1,50 @@
 <template>
-  <el-card>
-    <div slot="header">
-      用户登录
-    </div>
-    <el-form
-      ref="form"
-      :model="params"
-      :rules="rules"
-      label-position="left"
-      label-width="53px"
-    >
-      <base-input
-        label="账号"
-        v-model="params.account"
-        prop="account"
-      />
-      <base-input
-        style="margin-top: 30px;"
-        type="password"
-        label="密码"
-        v-model="params.password"
-        prop="password"
-      />
-      <el-button
-        type="primary"
-        size="medium"
-        @click="login"
+  <div class="login-container">
+    <el-card>
+      <div slot="header">
+        用户登录
+      </div>
+      <el-form
+        ref="form"
+        :model="params"
+        :rules="rules"
+        label-position="left"
+        label-width="53px"
       >
-        登录
-      </el-button>
-    </el-form>
-  </el-card>
+        <base-input
+          label="账号"
+          v-model="params.account"
+          prop="account"
+        />
+        <base-input
+          style="margin-top: 30px;"
+          type="password"
+          label="密码"
+          v-model="params.password"
+          prop="password"
+        />
+        <el-button
+          v-loading="loading"
+          type="primary"
+          size="medium"
+          @click="login"
+        >
+          登录
+        </el-button>
+      </el-form>
+    </el-card>
+  </div>
 </template>
 
 <script>
     export default {
         data() {
             return {
-                params: {},
+                loading: false,
+                params: {
+                    account: 'admin',
+                    password: 'admin'
+                },
                 rules: {
                     account: [
                         {required: true, message: '账号为必填项'},
@@ -53,20 +60,41 @@
         methods: {
             login: function () {
                 this.$refs.form.validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                    if (!valid) {
+                        return;
                     }
+
+                    this.loading = true;
+                    this.axios.post('/login', this.params).then((res) => {
+                        if (res.data.success) {
+                            sessionStorage.setItem('token', res.data.token);
+                            this.$router.push({
+                                path: '/index'
+                            });
+                        } else {
+                            this.$message({
+                                showClose: true,
+                                message: res.data.msg,
+                                type: 'error'
+                            });
+                        }
+                    }).catch(err => {
+                        this.$message({
+                            showClose: true,
+                            message: '' + err,
+                            type: 'error'
+                        });
+                    }).finally(() => {
+                        this.loading = false;
+                    });
                 });
             }
         }
     };
 </script>
 
-<style lang="scss">
-  body {
+<style scoped lang="scss">
+  .login-container {
     width: 100%;
     height: 100%;
     background: url('../assets/images/login_bg.jpg') no-repeat;

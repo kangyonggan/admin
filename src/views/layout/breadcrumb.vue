@@ -24,6 +24,10 @@
                 title: ''
             };
         },
+        mounted() {
+            this.title = this.$route.meta.title;
+            this.breadcrumbs = this.$route.meta.breadcrumbs;
+        },
         watch: {
             '$route'(newRoute) {
                 this.title = newRoute.meta.title;

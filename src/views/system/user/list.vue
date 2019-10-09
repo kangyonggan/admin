@@ -23,7 +23,7 @@
 
     <!--表格-->
     <base-table
-      url="/admin/system/user"
+      url="/system/user"
       ref="table"
     >
       <el-table-column

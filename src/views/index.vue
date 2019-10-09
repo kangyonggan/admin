@@ -34,6 +34,12 @@
       </li>
       <li>
         <a
+          href="https://vuex.vuejs.org/zh/guide/"
+          target="_blank"
+        >https://vuex.vuejs.org/zh/guide/</a>
+      </li>
+      <li>
+        <a
           href="http://www.axios-js.com/"
           target="_blank"
         >http://www.axios-js.com/</a>

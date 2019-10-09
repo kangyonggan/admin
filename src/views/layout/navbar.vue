@@ -7,14 +7,25 @@
       后台管理系统
     </router-link>
 
-    <el-dropdown trigger="click">
+    <el-dropdown
+      trigger="click"
+      @command="handleCommand"
+    >
       <span>
-        管理员<i class="el-icon-arrow-down el-icon--right" />
+        管理员
+        <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>个人资料</el-dropdown-item>
-        <el-dropdown-item>修改密码</el-dropdown-item>
-        <el-dropdown-item divided>
+        <el-dropdown-item command="0">
+          个人资料
+        </el-dropdown-item>
+        <el-dropdown-item command="1">
+          修改密码
+        </el-dropdown-item>
+        <el-dropdown-item
+          divided
+          command="2"
+        >
           安全退出
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -23,7 +34,24 @@
 </template>
 
 <script>
-    export default {};
+    export default {
+        methods: {
+            handleCommand: function (command) {
+                if (command === '0') {
+                    console.log('个人资料');
+                } else if (command === '1') {
+                    console.log('修改密码');
+                } else if (command === '2') {
+                    this.axios.get('/logout').finally(() => {
+                        sessionStorage.removeItem('token');
+                        this.$router.push({
+                            name: 'login'
+                        });
+                    });
+                }
+            }
+        }
+    };
 </script>
 
 <style scoped lang="scss">
@@ -43,7 +71,8 @@
       float: right;
 
       span {
-        color: #e2e2e2
+        color: #e2e2e2;
+        cursor: pointer;
       }
     }
   }

@@ -27,22 +27,23 @@ const routers = [
                     title: '用户管理'
                 },
                 component: (resolve) => require(['./views/system/user/list.vue'], resolve)
+            },
+            {
+                path: '/*',
+                meta: {
+                    title: '资源不存在'
+                },
+                component: (resolve) => require(['./views/404.vue'], resolve)
             }
         ]
     },
     {
         path: '/login',
+        name: 'login',
         meta: {
             title: '用户登录'
         },
         component: (resolve) => require(['./views/login.vue'], resolve)
-    },
-    {
-        path: '*',
-        meta: {
-            title: '资源不存在'
-        },
-        component: (resolve) => require(['./views/404.vue'], resolve)
     }];
 
 const router = new VueRouter({
@@ -52,7 +53,20 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     util.title(to.meta.title);
-    next();
+
+    if (to.name === 'login') {
+        next();
+        return;
+    }
+
+    let token = sessionStorage.getItem('token');
+    if (token) {
+        next();
+    } else {
+        next({
+            name: 'login'
+        });
+    }
 });
 
 export default router;

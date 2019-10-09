@@ -11,7 +11,38 @@ const response = {
     msg: '操作成功'
 };
 
-Mock.mock(/\/admin\/system\/user\??.*/, 'get', req => {
+/**
+ * 登录
+ */
+Mock.mock('/login', 'post', req => {
+    const params = JSON.parse(req.body);
+    if (params.account === 'admin' && params.password === 'admin') {
+        return Object.assign({
+            token: Mock.Random.string(),
+            user: {
+                account: params.account,
+                name: '管理员'
+            }
+        }, response);
+    }
+
+    return {
+        success: false,
+        msg: '账号或密码错误'
+    };
+});
+
+/**
+ * 退出
+ */
+Mock.mock('/logout', 'get', () => {
+    return response;
+});
+
+/**
+ * 用户列表
+ */
+Mock.mock(/\/system\/user\??.*/, 'get', req => {
     const params = getRequestParameters(req.url);
     const pageNum = params['pageNum'] * 1;
     const pageSize = params['pageSize'] * 1;
