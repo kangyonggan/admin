@@ -1,7 +1,7 @@
 <template>
   <el-breadcrumb>
     <span style="float: left;margin-right: 15px;">当前位置：</span>
-    <el-breadcrumb-item :to="{ path: '/' }">
+    <el-breadcrumb-item :to="{ path: '/index' }">
       <i class="el-icon-s-home" />首页
     </el-breadcrumb-item>
     <el-breadcrumb-item

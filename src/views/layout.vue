@@ -17,9 +17,9 @@
 </template>
 
 <script>
-    import navbar from './navbar';
-    import sidebar from './sidebar';
-    import breadcrumb from './breadcrumb';
+    import navbar from './layout/navbar';
+    import sidebar from './layout/sidebar';
+    import breadcrumb from './layout/breadcrumb';
     import {debounce} from 'lodash';
 
     export default {
@@ -38,21 +38,17 @@
     };
 </script>
 
-<style lang="scss">
-  body {
-    margin: 0;
+<style lang="scss" scoped>
+  .el-loading-spinner .el-loading-text {
+    color: #eaeaea;
+  }
 
-    .el-loading-spinner .el-loading-text {
-      color: #eaeaea;
-    }
+  .el-loading-spinner i {
+    color: #eaeaea;
+    font-size: 45px;
+  }
 
-    .el-loading-spinner i {
-      color: #eaeaea;
-      font-size: 45px;
-    }
-
-    .el-main {
-      padding: 5px 20px 20px 20px;
-    }
+  .el-main {
+    padding: 5px 20px 20px 20px;
   }
 </style>

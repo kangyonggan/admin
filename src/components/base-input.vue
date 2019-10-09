@@ -5,6 +5,7 @@
   >
     <el-input
       :value="value"
+      :type="type"
       @input="$emit('input', $event)"
       :placeholder="placeholder ? placeholder : '请输入' + label"
       clearable
@@ -27,6 +28,11 @@
                 required: false,
                 type: [String, Number],
                 default: ''
+            },
+            type: {
+                required: false,
+                type: String,
+                default: 'text'
             },
             placeholder: {
                 required: false,
