@@ -72,18 +72,10 @@
                                 path: '/index'
                             });
                         } else {
-                            this.$message({
-                                showClose: true,
-                                message: res.data.msg,
-                                type: 'error'
-                            });
+                            this.error(res.data.msg);
                         }
                     }).catch(err => {
-                        this.$message({
-                            showClose: true,
-                            message: '' + err,
-                            type: 'error'
-                        });
+                        this.error(err + '');
                     }).finally(() => {
                         this.loading = false;
                     });
