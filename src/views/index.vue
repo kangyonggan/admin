@@ -18,7 +18,7 @@
         <a
           href="https://element.eleme.cn/2.0/#/zh-CN"
           target="_blank"
-        >- https://element.eleme.cn/2.0/#/zh-CN</a>
+        >https://element.eleme.cn/2.0/#/zh-CN</a>
       </li>
       <li>
         <a

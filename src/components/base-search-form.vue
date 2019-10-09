@@ -38,3 +38,9 @@
         }
     };
 </script>
+
+<style lang="scss">
+  .el-form--inline .el-form-item {
+    margin-right: 40px;
+  }
+</style>
