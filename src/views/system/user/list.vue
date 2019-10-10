@@ -24,41 +24,9 @@
     <!--表格-->
     <base-table
       url="/system/user"
+      :columns="columns"
       ref="table"
     >
-      <el-table-column
-        prop="id"
-        label="ID"
-        sortable
-      />
-      <el-table-column
-        prop="account"
-        label="账号"
-        sortable
-      />
-      <el-table-column
-        prop="name"
-        label="姓名"
-        sortable
-      />
-      <el-table-column
-        prop="isDeleted"
-        label="状态"
-        sortable
-      >
-        <template slot-scope="scope">
-          {{ util.formatStatus(scope.row.isDeleted) }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="createdTime"
-        label="创建日期"
-        sortable
-      >
-        <template slot-scope="scope">
-          {{ util.formatTimestamp(scope.row.createdTime) }}
-        </template>
-      </el-table-column>
       <el-table-column
         label="操作"
       >
@@ -84,7 +52,35 @@
     export default {
         data() {
             return {
-                params: {}
+                params: {},
+                columns: [
+                    {
+                        label: 'ID',
+                        prop: 'id'
+                    },
+                    {
+                        label: '账号',
+                        prop: 'account'
+                    },
+                    {
+                        label: '姓名',
+                        prop: 'name'
+                    },
+                    {
+                        label: '状态',
+                        prop: 'isDeleted',
+                        render: row => {
+                            return this.util.formatStatus(row.isDeleted);
+                        }
+                    },
+                    {
+                        label: '创建日期',
+                        prop: 'createdTime',
+                        render: row => {
+                            return this.util.formatTimestamp(row.createdTime);
+                        }
+                    }
+                ]
             };
         }
     };

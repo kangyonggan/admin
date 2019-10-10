@@ -7,6 +7,22 @@
       @sort-change="changeSort"
       :empty-text="emptyText"
     >
+      <el-table-column
+        v-for="(column, index) in columns"
+        :key="index"
+        :prop="column.prop"
+        :label="column.label"
+        :sortable="!column.render"
+      >
+        <template slot-scope="scope">
+          <span v-if="column.render">
+            {{ column.render(scope.row, scope) }}
+          </span>
+          <span v-else>
+            {{ scope.row[column.prop] }}
+          </span>
+        </template>
+      </el-table-column>
       <slot />
     </el-table>
 
@@ -37,6 +53,13 @@
                 required: false,
                 type: String,
                 default: ''
+            },
+            columns: {
+                required: false,
+                type: Array,
+                default: function () {
+                    return [];
+                }
             }
         },
         data() {
