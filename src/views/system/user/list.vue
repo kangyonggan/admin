@@ -12,7 +12,7 @@
         v-model="params.createdTime"
         prop="createdTime"
       />
-      <template slot="actions">
+      <template #actions>
         <el-button
           type="success"
         >
@@ -27,23 +27,19 @@
       :columns="columns"
       ref="table"
     >
-      <el-table-column
-        label="操作"
-      >
-        <template>
-          <el-dropdown
-            split-button
-            trigger="click"
-            size="small"
-          >
-            编辑
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>逻辑删除</el-dropdown-item>
-              <el-dropdown-item>修改密码</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </template>
-      </el-table-column>
+      <template #actions="{row}">
+        <el-dropdown
+          split-button
+          trigger="click"
+          size="small"
+        >
+          编辑
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>逻辑删除</el-dropdown-item>
+            <el-dropdown-item>修改密码</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </template>
     </base-table>
   </div>
 </template>

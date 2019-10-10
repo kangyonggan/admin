@@ -16,14 +16,27 @@
       >
         <template slot-scope="scope">
           <span v-if="column.render">
-            {{ column.render(scope.row, scope) }}
+            {{ column.render(scope.row) }}
           </span>
           <span v-else>
             {{ scope.row[column.prop] }}
           </span>
         </template>
       </el-table-column>
+
       <slot />
+      <el-table-column
+        label="操作"
+        v-if="actions"
+      >
+        <template slot-scope="scope">
+          <slot
+            name="actions"
+            :row="scope.row"
+          >
+          </slot>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-row
@@ -60,6 +73,11 @@
                 default: function () {
                     return [];
                 }
+            },
+            actions: {
+                required: false,
+                type: Boolean,
+                default: true
             }
         },
         data() {
