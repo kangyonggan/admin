@@ -42,7 +42,7 @@
                 } else if (command === '1') {
                     console.log('修改密码');
                 } else if (command === '2') {
-                    this.get('/logout').finally(() => {
+                    this.axios.get('/logout').finally(() => {
                         sessionStorage.removeItem('token');
                         this.$router.push({
                             name: 'login'

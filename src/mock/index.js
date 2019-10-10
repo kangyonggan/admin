@@ -7,8 +7,8 @@ Mock.setup({
 });
 
 const response = {
-    success: true,
-    msg: '操作成功'
+    respCo: '0000',
+    respMsg: '操作成功'
 };
 
 /**
@@ -27,8 +27,8 @@ Mock.mock('/login', 'post', req => {
     }
 
     return {
-        success: false,
-        msg: '账号或密码错误'
+        respCo: '9999',
+        respMsg: '账号或密码错误'
     };
 });
 
@@ -43,6 +43,14 @@ Mock.mock('/logout', 'get', () => {
  * 用户列表
  */
 Mock.mock(/\/system\/user\??.*/, 'get', req => {
+    // 模拟session失效，返回9998，概率10%
+    if (Mock.Random.boolean(1, 9, true)) {
+        return {
+            respCo: '9998',
+            respMsg: '您尚未登录或登录已失效！'
+        };
+    }
+
     const params = getRequestParameters(req.url);
     const pageSize = params['pageSize'] * 1;
 

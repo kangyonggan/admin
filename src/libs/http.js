@@ -1,55 +1,36 @@
 import Vue from 'vue';
 import axios from 'axios';
-import qs from 'qs';
 import VueAxios from 'vue-axios';
 
+// 根据环境设置基础请求地址
 if (process.env.NODE_ENV === 'production') {
     axios.defaults.baseURL = '/api/';
 } else if (process.env.NODE_ENV === 'development') {
     axios.defaults.baseURL = 'http://localhost:8080/api/';
 }
 
-Vue.use(VueAxios, axios);
+// 请求拦截器
+axios.interceptors.request.use(function (config) {
+    config.headers['token'] = sessionStorage.getItem('token');
 
-/**
- * 封装get请求
- *
- * @param url
- * @param params
- */
-Vue.prototype.get = function(url, params) {
-    if (params) {
-        url += '?' + qs.stringify(this.params);
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
+
+// 响应拦截器
+axios.interceptors.response.use(function (response) {
+    console.log(response);
+    if (response.data.respCo === '0000') {
+        return response.data;
+    } else {
+        return Promise.reject(response.data);
     }
-    return new Promise(function(resolve, reject) {
-        axios.get(url).then((res) => {
-            if (res.data.success) {
-                resolve(res.data);
-            } else {
-                reject(res.data.msg);
-            }
-        }).catch(err => {
-            reject(err + '');
-        });
+}, function (error) {
+    return Promise.reject({
+        respCo: '9999',
+        respMsg: error + ''
     });
-};
+});
 
-/**
- * 封装post请求
- *
- * @param url
- * @param params
- */
-Vue.prototype.post = function(url, params) {
-    return new Promise(function(resolve, reject) {
-        axios.post(url, params).then((res) => {
-            if (res.data.success) {
-                resolve(res.data);
-            } else {
-                reject(res.data.msg);
-            }
-        }).catch(err => {
-            reject(err + '');
-        });
-    });
-};
+Vue.use(VueAxios, axios);

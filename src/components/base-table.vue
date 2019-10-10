@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import qs from 'qs';
+
     export default {
         props: {
             url: {
@@ -51,14 +53,14 @@
             request: function () {
                 this.$store.commit('setLoading', true);
                 this.emptyText = '正在查询';
-                this.get(this.url, this.params).then(data => {
+                this.axios.get(this.url + '?' + qs.stringify(this.params)).then(data => {
                     this.pageInfo = data.pageInfo;
                     if (!this.pageInfo.total) {
                         this.emptyText = '暂无数据';
                     }
-                }).catch(msg => {
+                }).catch(data => {
                     this.pageInfo = {};
-                    this.emptyText = msg;
+                    this.emptyText = data.respMsg;
                 }).finally(() => {
                     this.$store.commit('setLoading', false);
                 });
