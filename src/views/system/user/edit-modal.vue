@@ -1,22 +1,23 @@
 <template>
   <base-modal
     ref="modal"
-    title="新增用户"
+    title="标记用户"
     :params="params"
     :rules="rules"
     url="/system/user"
+    method="put"
     @success="handleSuccess"
   >
+    <base-input
+      label="ID"
+      v-model="params.id"
+      prop="id"
+      readonly
+    />
     <base-input
       label="账号"
       v-model="params.account"
       prop="account"
-    />
-    <base-input
-      type="password"
-      label="密码"
-      v-model="params.password"
-      prop="password"
     />
     <base-input
       label="姓名"
@@ -31,15 +32,12 @@
         data() {
             return {
                 params: {},
+                oldAccount: '',
                 rules: {
                     account: [
                         {required: true, message: '账号为必填项'},
                         {pattern: /^[a-zA-Z][a-zA-Z0-9]{4,19}$/, message: '账号必须是5至20位字母和数字组成，且以字母开头'},
                         {validator: this.validateAccount}
-                    ],
-                    password: [
-                        {required: true, message: '密码为必填项'},
-                        {pattern: /^[a-zA-Z0-9]{5,20}$/, message: '密码必须是5至20位字母和数字组成'}
                     ],
                     name: [
                         {required: true, message: '姓名为必填项'},
@@ -50,7 +48,7 @@
         },
         methods: {
             validateAccount: function (rule, value, callback) {
-                if (!value) {
+                if (!value || value === this.oldAccount) {
                     callback();
                     return;
                 }
@@ -61,7 +59,9 @@
                     callback(new Error(data.respMsg));
                 });
             },
-            show: function () {
+            show: function (row) {
+                this.oldAccount = row.account;
+                this.params = Object.assign({}, row);
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

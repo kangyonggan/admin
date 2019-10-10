@@ -32,6 +32,18 @@
                 required: true,
                 type: String
             },
+            url: {
+                required: true,
+                type: String
+            },
+            method: {
+                required: false,
+                type: String,
+                default: 'POST',
+                validator(value) {
+                    return 'POST,PUT'.indexOf(value.toUpperCase()) !== -1;
+                }
+            },
             params: {
                 required: true,
                 type: Object
@@ -64,7 +76,11 @@
                     }
 
                     this.loading = true;
-                    this.axios.post('/system/user', this.params).then(data => {
+                    this.axios.request({
+                        url: this.url,
+                        method: this.method,
+                        data: this.params
+                    }).then(data => {
                         this.dialogVisible = false;
                         this.$emit('success', data);
                     }).catch(data => {

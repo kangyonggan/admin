@@ -9,6 +9,7 @@
       @input="$emit('input', $event)"
       :placeholder="placeholder ? placeholder : '请输入' + label"
       clearable
+      :readonly="readonly"
     />
   </el-form-item>
 </template>
@@ -38,6 +39,11 @@
                 required: false,
                 type: String,
                 default: undefined
+            },
+            readonly: {
+                required: false,
+                type: Boolean,
+                default: false
             }
         }
     };

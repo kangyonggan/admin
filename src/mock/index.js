@@ -87,6 +87,18 @@ Mock.mock('/system/user', 'post', () => {
 });
 
 /**
+ * 更新用户
+ */
+Mock.mock('/system/user', 'put', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    return response;
+});
+
+/**
  * 校验用户名是否存在
  */
 Mock.mock(/\/validate\/account\??.*/, 'get', req => {

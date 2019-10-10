@@ -33,6 +33,7 @@
           split-button
           trigger="click"
           size="small"
+          @click="$refs['edit-model'].show(row)"
         >
           编辑
           <el-dropdown-menu slot="dropdown">
@@ -48,14 +49,21 @@
       ref="create-model"
       @success="$refs.table.reload(params)"
     />
+
+    <!--编辑界面-->
+    <edit-model
+      ref="edit-model"
+      @success="$refs.table.reload(params)"
+    />
   </div>
 </template>
 
 <script>
     import CreateModel from './create-modal';
+    import EditModel from './edit-modal';
 
     export default {
-        components: {CreateModel},
+        components: {CreateModel, EditModel},
         data() {
             return {
                 params: {},
