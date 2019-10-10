@@ -38,7 +38,7 @@
     };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .el-loading-spinner .el-loading-text {
     color: #eaeaea;
   }

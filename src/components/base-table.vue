@@ -33,8 +33,7 @@
           <slot
             name="actions"
             :row="scope.row"
-          >
-          </slot>
+          />
         </template>
       </el-table-column>
     </el-table>
