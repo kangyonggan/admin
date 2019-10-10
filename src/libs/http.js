@@ -11,22 +11,34 @@ if (process.env.NODE_ENV === 'production') {
 
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
-    config.headers['token'] = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
+    if (!token && config.url !== '/login') {
+        return Promise.reject({
+            respCo: '9998',
+            respMsg: '您尚未登录或登录已失效！'
+        });
+    }
+    config.headers['token'] = token;
 
     return config;
 }, function (error) {
-    return Promise.reject(error);
+    return Promise.reject({
+        respCo: '9999',
+        respMsg: error + ''
+    });
 });
 
 // 响应拦截器
 axios.interceptors.response.use(function (response) {
-    console.log(response);
     if (response.data.respCo === '0000') {
         return response.data;
     } else {
         return Promise.reject(response.data);
     }
 }, function (error) {
+    if (!error.isAxiosError) {
+        return Promise.reject(error);
+    }
     return Promise.reject({
         respCo: '9999',
         respMsg: error + ''

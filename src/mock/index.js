@@ -43,8 +43,8 @@ Mock.mock('/logout', 'get', () => {
  * 用户列表
  */
 Mock.mock(/\/system\/user\??.*/, 'get', req => {
-    // 模拟session失效，返回9998，概率10%
-    if (Mock.Random.boolean(1, 9, true)) {
+    // 模拟session失效，返回9998，概率20%
+    if (Mock.Random.boolean(2, 8, true)) {
         return {
             respCo: '9998',
             respMsg: '您尚未登录或登录已失效！'
