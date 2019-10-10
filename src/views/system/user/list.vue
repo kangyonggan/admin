@@ -15,6 +15,7 @@
       <template #actions>
         <el-button
           type="success"
+          @click="$refs['create-model'].show()"
         >
           新增
         </el-button>
@@ -41,11 +42,20 @@
         </el-dropdown>
       </template>
     </base-table>
+
+    <!--新增界面-->
+    <create-model
+      ref="create-model"
+      @success="$refs.table.reload(params)"
+    />
   </div>
 </template>
 
 <script>
+    import CreateModel from './create-modal';
+
     export default {
+        components: {CreateModel},
         data() {
             return {
                 params: {},

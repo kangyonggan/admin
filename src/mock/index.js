@@ -74,6 +74,34 @@ Mock.mock(/\/system\/user\??.*/, 'get', req => {
     return getResponseWithPageInfo(list);
 });
 
+/**
+ * 新增用户
+ */
+Mock.mock('/system/user', 'post', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    return response;
+});
+
+/**
+ * 校验用户名是否存在
+ */
+Mock.mock(/\/validate\/account\??.*/, 'get', req => {
+    const params = getRequestParameters(req.url);
+    const account = params['account'];
+    if (account === 'admin') {
+        return {
+            respCo: '9999',
+            respMsg: '账号已被占用'
+        };
+    }
+
+    return response;
+});
+
 /**************************************** 下面是通用的工具方法 ***************************************/
 /**
  * 模拟session失效，返回9998，概率30%
