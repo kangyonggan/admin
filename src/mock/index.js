@@ -36,6 +36,10 @@ Mock.mock('/login', 'post', req => {
  * 退出
  */
 Mock.mock('/logout', 'get', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
     return response;
 });
 
@@ -43,12 +47,9 @@ Mock.mock('/logout', 'get', () => {
  * 用户列表
  */
 Mock.mock(/\/system\/user\??.*/, 'get', req => {
-    // 模拟session失效，返回9998，概率20%
-    if (Mock.Random.boolean(2, 8, true)) {
-        return {
-            respCo: '9998',
-            respMsg: '您尚未登录或登录已失效！'
-        };
+    const res = invalidLogin();
+    if (res) {
+        return res;
     }
 
     const params = getRequestParameters(req.url);
@@ -74,6 +75,21 @@ Mock.mock(/\/system\/user\??.*/, 'get', req => {
 });
 
 /**************************************** 下面是通用的工具方法 ***************************************/
+/**
+ * 模拟session失效，返回9998，概率30%
+ *
+ * @returns {*}
+ */
+const invalidLogin = function () {
+    if (Mock.Random.boolean(3, 7, true)) {
+        return {
+            respCo: '9998',
+            respMsg: '您尚未登录或登录已失效！'
+        };
+    }
+
+    return false;
+};
 
 /**
  * 获取一个随机时间戳
