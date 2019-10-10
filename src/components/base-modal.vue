@@ -54,6 +54,11 @@
             show: function () {
                 this.dialogVisible = true;
             },
+            reset: function () {
+                this.$nextTick(function () {
+                    this.$refs.form.resetFields();
+                });
+            },
             submit: function () {
                 this.$refs.form.validate((valid) => {
                     if (!valid) {

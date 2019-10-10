@@ -52,8 +52,8 @@
                 });
             },
             show: function () {
-                this.params = {};
                 this.$refs.modal.show();
+                this.$refs.modal.reset();
             },
             handleSuccess(data) {
                 this.$emit('success', data);
