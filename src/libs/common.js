@@ -1,44 +1,64 @@
 import Vue from 'vue';
+import {Message} from 'element-ui';
 
 Vue.prototype.error = error;
 Vue.prototype.success = success;
 Vue.prototype.warning = warning;
 
 /**
- * 成功
+ * 消息队列。用于过滤重复的message
+ *
+ * @type {Array}
+ */
+const messageQueue = [];
+
+/**
+ * 成功消息
  *
  * @param msg
  */
 function success(msg) {
-    this.$message({
-        showClose: true,
-        message: msg,
-        type: 'success'
-    });
+    message('success', msg);
 }
 
 /**
- * 警告
+ * 警告消息
  *
  * @param msg
  */
 function warning(msg) {
-    this.$message({
-        showClose: true,
-        message: msg,
-        type: 'warning'
-    });
+    message('warning', msg);
 }
 
 /**
- * 错误
+ * 错误消息
  *
  * @param msg
  */
 function error(msg) {
-    this.$message({
+    message('error', msg);
+}
+
+/**
+ * 消息
+ *
+ * @param type
+ * @param msg
+ */
+function message(type, msg) {
+    // 消息去重
+    if (messageQueue.indexOf(msg) !== -1) {
+        return;
+    }
+    // 消息放入队列
+    messageQueue.push(msg);
+    Message({
         showClose: true,
         message: msg,
-        type: 'error'
+        type: type,
+        onClose: function () {
+            // 从队列移除消息
+            messageQueue.splice(messageQueue.indexOf(msg), 1);
+        }
     });
 }
