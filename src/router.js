@@ -54,7 +54,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     util.title(to.meta.title);
-    // store.commit('setLoading', true);
+    store.commit('setLoading', true);
 
     if (to.name === 'login') {
         next();
