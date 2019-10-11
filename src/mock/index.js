@@ -158,6 +158,18 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'put', () => {
     return response;
 });
 
+/**
+ * 更新用户状态
+ */
+Mock.mock(/\/system\/user\/[0-9]+\/delete\/[01]/, 'put', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    return response;
+});
+
 /**************************************** 下面是通用的工具方法 ***************************************/
 /**
  * 模拟session失效，返回9998，概率20%

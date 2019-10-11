@@ -61,7 +61,7 @@
     <!--编辑界面-->
     <edit-model
       ref="edit-model"
-      @success="$refs.table.reload(params)"
+      @success="$refs.table.request()"
     />
 
     <!--设置角色界面-->
@@ -114,7 +114,18 @@
                 if (command === '0') {
                     this.$refs['role-model'].show(row.id);
                 } else if (command === '1') {
-                    console.log('逻辑删除');
+                    const title = row.isDeleted ? '恢复已删除的用户：' : '逻辑删除用户：';
+                    this.$confirm(title + row.account + '，是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.axios.put('/system/user/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                            this.$refs.table.request();
+                        }).catch(data => {
+                           this.error(data.respMsg);
+                        });
+                    });
                 } else if (command === '2') {
                     console.log('修改密码');
                 }
