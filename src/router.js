@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import util from '@/libs/util';
+import store from './store';
 
 Vue.use(VueRouter);
 
@@ -53,6 +54,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     util.title(to.meta.title);
+    // store.commit('setLoading', true);
 
     if (to.name === 'login') {
         next();
@@ -67,6 +69,10 @@ router.beforeEach((to, from, next) => {
             name: 'login'
         });
     }
+});
+
+router.afterEach(() => {
+    store.commit('setLoading', false);
 });
 
 export default router;

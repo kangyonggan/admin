@@ -91,7 +91,7 @@
     };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .el-menu {
     min-height: calc(100vh - 60px);
 
@@ -106,10 +106,6 @@
         color: #ccc;
         font-size: 12px;
       }
-    }
-
-    .el-loading-spinner .path {
-      stroke: #eaeaea;
     }
   }
 </style>

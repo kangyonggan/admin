@@ -81,10 +81,6 @@
         cursor: pointer;
       }
 
-      .el-loading-spinner .path {
-        stroke: #eaeaea;
-      }
-
       .el-loading-mask {
         background: none;
       }
