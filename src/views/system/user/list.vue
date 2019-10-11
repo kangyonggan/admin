@@ -38,9 +38,15 @@
         >
           编辑
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="0">设置角色</el-dropdown-item>
-            <el-dropdown-item command="1">逻辑删除</el-dropdown-item>
-            <el-dropdown-item command="2">修改密码</el-dropdown-item>
+            <el-dropdown-item command="0">
+              设置角色
+            </el-dropdown-item>
+            <el-dropdown-item command="1">
+              逻辑删除
+            </el-dropdown-item>
+            <el-dropdown-item command="2">
+              修改密码
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>
