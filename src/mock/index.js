@@ -1,5 +1,6 @@
 import Mock from 'mockjs';
 import qs from 'qs';
+import menus from './menus';
 
 // 默认响应时间：10-100ms
 Mock.setup({
@@ -30,6 +31,24 @@ Mock.mock('/login', 'post', req => {
         respCo: '9999',
         respMsg: '账号或密码错误'
     };
+});
+
+/**
+ * 获取当前登录用户的数据
+ */
+Mock.mock('/loginData', 'get', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    return Object.assign({
+        menus: menus,
+        user: {
+            id: Mock.Random.natural(),
+            name: Mock.Random.cname()
+        }
+    }, response);
 });
 
 /**

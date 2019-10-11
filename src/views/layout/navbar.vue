@@ -11,21 +11,15 @@
       trigger="click"
       @command="handleCommand"
     >
-      <span>
-        管理员
+      <span
+        v-loading="loading"
+        element-loading-background="linear-gradient(90deg, #1d1e23, #3f4045)"
+      >
+        {{ user.name }}
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="0">
-          个人资料
-        </el-dropdown-item>
-        <el-dropdown-item command="1">
-          修改密码
-        </el-dropdown-item>
-        <el-dropdown-item
-          divided
-          command="2"
-        >
           安全退出
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -35,13 +29,15 @@
 
 <script>
     export default {
+        data() {
+            return {
+                loading: false,
+                user: {}
+            };
+        },
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
-                    console.log('个人资料');
-                } else if (command === '1') {
-                    console.log('修改密码');
-                } else if (command === '2') {
                     this.axios.get('/logout').finally(() => {
                         sessionStorage.removeItem('token');
                         this.$router.push({
@@ -50,11 +46,21 @@
                     });
                 }
             }
+        },
+        mounted() {
+            this.loading = true;
+            this.$store.dispatch('getLoginData').then(() => {
+                this.user = this.$store.getters.getUser;
+            }).catch(data => {
+                this.error(data.respMsg);
+            }).finally(() => {
+                this.loading = false;
+            });
         }
     };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .el-header {
     border-bottom: 1px solid #101117;
     background: linear-gradient(90deg, #1d1e23, #3f4045);
@@ -73,6 +79,14 @@
       span {
         color: #e2e2e2;
         cursor: pointer;
+      }
+
+      .el-loading-spinner .path {
+        stroke: #eaeaea;
+      }
+
+      .el-loading-mask {
+        background: none;
       }
     }
   }

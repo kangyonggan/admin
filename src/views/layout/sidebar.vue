@@ -1,6 +1,8 @@
 <template>
   <el-collapse-transition>
     <el-menu
+      v-loading="loading"
+      element-loading-background="rgba(0, 0, 0, 0.5)"
       background-color="#1d1e23"
       text-color="#b5b5b5"
       active-text-color="#fff"
@@ -66,51 +68,20 @@
         components: {ElCollapseTransition},
         data() {
             return {
+                loading: false,
                 isCollapse: document.body.clientWidth < 910,
-                menus: [{
-                    name: '系统',
-                    icon: 'el-icon-setting',
-                    children: [{
-                        name: '用户管理',
-                        path: '/system/user'
-                    }, {
-                        name: '角色管理',
-                        path: '/system/role'
-                    }, {
-                        name: '菜单管理',
-                        path: '/system/menu'
-                    }, {
-                        name: '字典管理',
-                        path: '/system/dict'
-                    }]
-                }, {
-                    name: '网站',
-                    icon: 'el-icon-menu',
-                    children: [{
-                        name: '文章管理',
-                        path: '/sites/article'
-                    }, {
-                        name: '小说管理',
-                        path: '/sites/novel'
-                    }, {
-                        name: '相册管理',
-                        path: '/sites/album'
-                    }, {
-                        name: '视频管理',
-                        path: '/sites/video'
-                    }]
-                }, {
-                    name: '我的',
-                    icon: 'el-icon-user',
-                    children: [{
-                        name: '个人资料',
-                        path: '/user/profile'
-                    }, {
-                        name: '修改密码',
-                        path: '/user/password'
-                    }]
-                }]
+                menus: []
             };
+        },
+        mounted() {
+            this.loading = true;
+            this.$store.dispatch('getLoginData').then(() => {
+                this.menus = this.$store.getters.getMenus;
+            }).catch(data => {
+                this.error(data.respMsg);
+            }).finally(() => {
+                this.loading = false;
+            });
         },
         watch: {
             '$store.state.smallScreen': function () {
@@ -120,7 +91,7 @@
     };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   .el-menu {
     min-height: calc(100vh - 60px);
 
@@ -135,6 +106,10 @@
         color: #ccc;
         font-size: 12px;
       }
+    }
+
+    .el-loading-spinner .path {
+      stroke: #eaeaea;
     }
   }
 </style>

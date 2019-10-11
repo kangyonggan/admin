@@ -46,3 +46,5 @@ axios.interceptors.response.use(function (response) {
 });
 
 Vue.use(VueAxios, axios);
+
+export default axios;
