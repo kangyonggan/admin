@@ -51,7 +51,6 @@
         },
         watch: {
             '$route'(newRoute) {
-                console.log(newRoute);
                 this.loadBreadcrumbs(newRoute);
             },
             '$store.state.menus': function () {
