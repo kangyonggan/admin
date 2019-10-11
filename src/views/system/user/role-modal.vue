@@ -1,7 +1,7 @@
 <template>
   <base-modal
     ref="modal"
-    title="标记用户"
+    title="设置角色"
     :params="params"
     :url="'/system/user/' + params.id + '/role'"
     method="put"
