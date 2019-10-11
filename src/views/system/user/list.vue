@@ -66,6 +66,9 @@
 
     <!--设置角色界面-->
     <role-model ref="role-model" />
+
+    <!--修改密码界面-->
+    <password-model ref="password-model" />
   </div>
 </template>
 
@@ -73,9 +76,10 @@
     import CreateModel from './create-modal';
     import EditModel from './edit-modal';
     import RoleModel from './role-modal';
+    import PasswordModel from './password-modal';
 
     export default {
-        components: {CreateModel, EditModel, RoleModel},
+        components: {CreateModel, EditModel, RoleModel, PasswordModel},
         data() {
             return {
                 params: {},
@@ -127,7 +131,7 @@
                         });
                     });
                 } else if (command === '2') {
-                    console.log('修改密码');
+                    this.$refs['password-model'].show(row);
                 }
             }
         }
