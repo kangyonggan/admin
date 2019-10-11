@@ -203,16 +203,28 @@ Mock.mock(/\/system\/user\/[0-9]+\/password/, 'put', () => {
 
 /**************************************** 下面是通用的工具方法 ***************************************/
 /**
- * 模拟session失效，返回9998，概率20%
+ * 模拟返回异常，概率20%
  *
  * @returns {*}
  */
 const invalidLogin = function () {
     if (Mock.Random.boolean(2, 8, true)) {
-        return {
-            respCo: '9998',
-            respMsg: '您尚未登录或登录已失效！'
-        };
+        if (Mock.Random.boolean(2, 8)) {
+            return {
+                respCo: '9997',
+                respMsg: '权限不足，请联系管理员！'
+            };
+        } else if (Mock.Random.boolean(3, 7)) {
+            return {
+                respCo: '9998',
+                respMsg: '您尚未登录或登录已失效！'
+            };
+        } else {
+            return {
+                respCo: '9999',
+                respMsg: '网络异常，请稍后再试！'
+            };
+        }
     }
 
     return false;
