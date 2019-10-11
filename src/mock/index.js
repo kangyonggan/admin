@@ -46,7 +46,7 @@ Mock.mock('/logout', 'get', () => {
 /**
  * 用户列表
  */
-Mock.mock(/\/system\/user\??.*/, 'get', req => {
+Mock.mock(/\/system\/user\?.*/, 'get', req => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -101,7 +101,7 @@ Mock.mock('/system/user', 'put', () => {
 /**
  * 校验用户名是否存在
  */
-Mock.mock(/\/validate\/account\??.*/, 'get', req => {
+Mock.mock(/\/validate\/account\?.*/, 'get', req => {
     const params = getRequestParameters(req.url);
     const account = params['account'];
     if (account === 'admin') {
@@ -114,14 +114,58 @@ Mock.mock(/\/validate\/account\??.*/, 'get', req => {
     return response;
 });
 
+/**
+ * 用户角色查询
+ */
+Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    const allRoles = Mock.mock({
+        'list|10': [{
+            id: '@integer(1,10000)',
+            name: '@ctitle(2,8)'
+        }]
+    });
+    const roleIds = Mock.mock(function () {
+        const arr = [];
+        allRoles.list.forEach(function (item) {
+            if (Mock.Random.boolean()) {
+                arr.push(item.id);
+            }
+        });
+
+        return arr;
+    });
+
+    return Object.assign({
+        roleIds: roleIds,
+        allRoles: allRoles.list
+    }, response);
+});
+
+/**
+ * 更新用户角色
+ */
+Mock.mock(/\/system\/user\/[0-9]+\/role/, 'put', () => {
+    const res = invalidLogin();
+    if (res) {
+        return res;
+    }
+
+    return response;
+});
+
 /**************************************** 下面是通用的工具方法 ***************************************/
 /**
- * 模拟session失效，返回9998，概率30%
+ * 模拟session失效，返回9998，概率20%
  *
  * @returns {*}
  */
 const invalidLogin = function () {
-    if (Mock.Random.boolean(3, 7, true)) {
+    if (Mock.Random.boolean(2, 8, true)) {
         return {
             respCo: '9998',
             respMsg: '您尚未登录或登录已失效！'

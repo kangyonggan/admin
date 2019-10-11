@@ -1,7 +1,7 @@
 <template>
   <base-modal
     ref="modal"
-    title="标记用户"
+    title="编辑用户"
     :params="params"
     :rules="rules"
     url="/system/user"

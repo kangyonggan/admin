@@ -34,11 +34,13 @@
           trigger="click"
           size="small"
           @click="$refs['edit-model'].show(row)"
+          @command="handleCommand($event, row)"
         >
           编辑
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>逻辑删除</el-dropdown-item>
-            <el-dropdown-item>修改密码</el-dropdown-item>
+            <el-dropdown-item command="0">设置角色</el-dropdown-item>
+            <el-dropdown-item command="1">逻辑删除</el-dropdown-item>
+            <el-dropdown-item command="2">修改密码</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </template>
@@ -55,15 +57,19 @@
       ref="edit-model"
       @success="$refs.table.reload(params)"
     />
+
+    <!--设置角色界面-->
+    <role-model ref="role-model" />
   </div>
 </template>
 
 <script>
     import CreateModel from './create-modal';
     import EditModel from './edit-modal';
+    import RoleModel from './role-modal';
 
     export default {
-        components: {CreateModel, EditModel},
+        components: {CreateModel, EditModel, RoleModel},
         data() {
             return {
                 params: {},
@@ -96,6 +102,17 @@
                     }
                 ]
             };
+        },
+        methods: {
+            handleCommand: function (command, row) {
+                if (command === '0') {
+                    this.$refs['role-model'].show(row.id);
+                } else if (command === '1') {
+                    console.log('逻辑删除');
+                } else if (command === '2') {
+                    console.log('修改密码');
+                }
+            }
         }
     };
 </script>
