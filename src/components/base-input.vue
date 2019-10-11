@@ -6,6 +6,7 @@
     <el-input
       :value="value"
       :type="type"
+      @keyup.enter.native="$emit('on-enter')"
       @input="$emit('input', $event)"
       :placeholder="placeholder ? placeholder : '请输入' + label"
       clearable

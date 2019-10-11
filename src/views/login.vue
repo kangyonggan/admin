@@ -15,6 +15,7 @@
           label="账号"
           v-model="params.account"
           prop="account"
+          @on-enter="login"
         />
         <base-input
           style="margin-top: 30px;"
@@ -22,6 +23,7 @@
           label="密码"
           v-model="params.password"
           prop="password"
+          @on-enter="login"
         />
         <el-button
           v-loading="loading"
