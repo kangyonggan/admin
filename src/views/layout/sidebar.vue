@@ -13,7 +13,7 @@
       router
     >
       <el-submenu
-        v-for="(menu, index) in menus"
+        v-for="(menu, index) in $store.state.menus"
         :key="index"
         :index="'index-' + index"
       >
@@ -69,17 +69,12 @@
         data() {
             return {
                 loading: false,
-                isCollapse: document.body.clientWidth < 910,
-                menus: []
+                isCollapse: document.body.clientWidth < 910
             };
         },
         mounted() {
             this.loading = true;
-            this.$store.dispatch('getLoginData').then(() => {
-                this.menus = this.$store.getters.getMenus;
-            }).catch(data => {
-                this.error(data.respMsg);
-            }).finally(() => {
+            this.$store.dispatch('getLoginData').finally(() => {
                 this.loading = false;
             });
         },

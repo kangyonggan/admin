@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import util from '@/libs/util';
 import store from './store';
 
 Vue.use(VueRouter);
@@ -20,13 +19,7 @@ const routers = [
             },
             {
                 path: 'system/user',
-                meta: {
-                    breadcrumbs: [{
-                        icon: 'el-icon-setting',
-                        title: '系统'
-                    }],
-                    title: '用户管理'
-                },
+                name: 'SYSTEM_USER',
                 component: (resolve) => require(['./views/system/user/list.vue'], resolve)
             },
             {
@@ -53,7 +46,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    util.title(to.meta.title);
     store.commit('setLoading', true);
 
     if (to.name === 'login') {

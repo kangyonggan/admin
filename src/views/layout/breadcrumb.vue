@@ -21,17 +21,42 @@
         data() {
             return {
                 breadcrumbs: [],
-                title: ''
+                title: '',
+                menus: []
             };
         },
+        methods: {
+            loadBreadcrumbs: function (route) {
+                this.title = route.meta.title;
+                this.breadcrumbs = [];
+                for (let i in this.menus) {
+                    for (let j in this.menus[i].children) {
+                        let menu = this.menus[i].children[j];
+                        if (menu.code === route.name) {
+                            this.title = menu.name;
+                            this.util.title(this.title);
+                            this.breadcrumbs.push({
+                                icon: this.menus[i].icon,
+                                title: this.menus[i].name
+                            });
+                            return;
+                        }
+                    }
+                }
+                this.util.title(this.title);
+            }
+        },
         mounted() {
-            this.title = this.$route.meta.title;
-            this.breadcrumbs = this.$route.meta.breadcrumbs;
+            this.loadBreadcrumbs(this.$route);
         },
         watch: {
             '$route'(newRoute) {
-                this.title = newRoute.meta.title;
-                this.breadcrumbs = newRoute.meta.breadcrumbs;
+                console.log(newRoute);
+                this.loadBreadcrumbs(newRoute);
+            },
+            '$store.state.menus': function () {
+                this.menus = this.$store.getters.getMenus;
+                this.loadBreadcrumbs(this.$route);
             }
         }
     };

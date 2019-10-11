@@ -8,14 +8,12 @@
     </router-link>
 
     <el-dropdown
+      v-if="$store.state.user"
       trigger="click"
       @command="handleCommand"
     >
-      <span
-        v-loading="loading"
-        element-loading-background="linear-gradient(90deg, #1d1e23, #3f4045)"
-      >
-        {{ user.name }}
+      <span>
+        {{ $store.state.user.name }}
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -29,12 +27,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                loading: false,
-                user: {}
-            };
-        },
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
@@ -46,16 +38,6 @@
                     });
                 }
             }
-        },
-        mounted() {
-            this.loading = true;
-            this.$store.dispatch('getLoginData').then(() => {
-                this.user = this.$store.getters.getUser;
-            }).catch(data => {
-                this.error(data.respMsg);
-            }).finally(() => {
-                this.loading = false;
-            });
         }
     };
 </script>
