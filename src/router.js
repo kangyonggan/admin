@@ -13,7 +13,8 @@ const routers = [
             {
                 path: '/index',
                 meta: {
-                    title: '首页'
+                    icon: 'el-icon-s-home',
+                    name: '首页'
                 },
                 component: (resolve) => require(['./views/index.vue'], resolve)
             },
@@ -23,9 +24,15 @@ const routers = [
                 component: (resolve) => require(['./views/system/user/list.vue'], resolve)
             },
             {
+                path: 'dict/type',
+                name: 'DICT_TYPE',
+                component: (resolve) => require(['./views/system/user/list.vue'], resolve)
+            },
+            {
                 path: '/*',
                 meta: {
-                    title: '资源不存在'
+                    icon: 'el-icon-warning',
+                    name: '资源不存在'
                 },
                 component: (resolve) => require(['./views/404.vue'], resolve)
             }
@@ -35,7 +42,7 @@ const routers = [
         path: '/login',
         name: 'login',
         meta: {
-            title: '用户登录'
+            name: '用户登录'
         },
         component: (resolve) => require(['./views/login.vue'], resolve)
     }];

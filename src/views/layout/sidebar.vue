@@ -12,24 +12,7 @@
       :style="{width: isCollapse ? '' : '200px'}"
       router
     >
-      <el-submenu
-        v-for="(menu, index) in $store.state.menus"
-        :key="index"
-        :index="'index-' + index"
-      >
-        <template slot="title">
-          <i :class="menu.icon" />
-          <span slot="title">{{ menu.name }}</span>
-        </template>
-        <el-menu-item-group
-          v-for="(subMenu, idx) in menu.children"
-          :key="idx"
-        >
-          <el-menu-item :index="subMenu.path">
-            {{ subMenu.name }}
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
+      <menus :list="$store.state.menus || []" />
       <div
         class="collapse"
         @click="isCollapse = !isCollapse"
@@ -63,9 +46,10 @@
 
 <script>
     import ElCollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+    import Menus from './menus';
 
     export default {
-        components: {ElCollapseTransition},
+        components: {ElCollapseTransition, Menus},
         data() {
             return {
                 loading: false,

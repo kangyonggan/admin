@@ -79,6 +79,9 @@
                     });
                 });
             }
+        },
+        mounted() {
+            this.util.title('用户登录');
         }
     };
 </script>
