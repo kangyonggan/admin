@@ -1,5 +1,8 @@
 <template>
-  <el-submenu :index="parentMenu.name">
+  <el-submenu
+    :index="parentMenu.name"
+    :popper-append-to-body="false"
+  >
     <template slot="title">
       <i
         v-if="parentMenu.icon"
