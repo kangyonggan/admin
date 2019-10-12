@@ -22,7 +22,7 @@
       </el-menu-item>
 
       <menus
-        v-if="menu.children"
+        v-else
         :key="menu.name"
         :parent-menu="menu"
       />
