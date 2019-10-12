@@ -108,7 +108,7 @@ function checkPermission(route) {
     }
 
     // route没有name，或者name在menus中，视为有权限
-    return !route.name || menus.indexOf(route.name) !== -1;
+    return !route.name || menus.includes(route.name);
 }
 
 /**

@@ -47,7 +47,7 @@ function error(msg) {
  */
 function message(type, msg) {
     // 消息去重
-    if (messageQueue.indexOf(msg) !== -1) {
+    if (messageQueue.includes(msg)) {
         return;
     }
     // 消息放入队列
