@@ -10,7 +10,25 @@
       :style="{width: isCollapse ? '' : '200px'}"
       router
     >
-      <menus :list="menus" />
+      <template v-for="menu in menus">
+        <el-menu-item
+          v-if="!menu.children"
+          :index="menu.path"
+          :key="menu.name"
+        >
+          <i
+            v-if="menu.icon"
+            :class="menu.icon"
+          />
+          <span slot="title">{{ menu.title }}</span>
+        </el-menu-item>
+
+        <menus
+          v-if="menu.children"
+          :key="menu.name"
+          :parent-menu="menu"
+        />
+      </template>
       <div
         class="collapse"
         @click="isCollapse = !isCollapse"

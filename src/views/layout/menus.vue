@@ -1,12 +1,18 @@
 <template>
-  <span>
-    <span
-      v-for="menu in list"
-      :key="menu.name"
-    >
+  <el-submenu :index="parentMenu.name">
+    <template slot="title">
+      <i
+        v-if="parentMenu.icon"
+        :class="parentMenu.icon"
+      />
+      <span slot="title">{{ parentMenu.title }}</span>
+    </template>
+
+    <template v-for="menu in parentMenu.children">
       <el-menu-item
         v-if="!menu.children"
         :index="menu.path"
+        :key="menu.name"
       >
         <i
           v-if="menu.icon"
@@ -15,30 +21,22 @@
         <span slot="title">{{ menu.title }}</span>
       </el-menu-item>
 
-      <el-submenu
-        v-else
-        :index="menu.name"
-      >
-        <template slot="title">
-          <i
-            v-if="menu.icon"
-            :class="menu.icon"
-          />
-          <span slot="title">{{ menu.title }}</span>
-        </template>
-        <menus :list="menu.children" />
-      </el-submenu>
-    </span>
-  </span>
+      <menus
+        v-if="menu.children"
+        :key="menu.name"
+        :parent-menu="menu"
+      />
+    </template>
+  </el-submenu>
 </template>
 
 <script>
     export default {
         name: 'Menus',
         props: {
-            list: {
+            parentMenu: {
                 required: true,
-                type: Array
+                type: Object
             }
         }
     };
