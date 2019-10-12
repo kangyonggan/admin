@@ -1,8 +1,6 @@
 <template>
   <el-collapse-transition>
     <el-menu
-      v-loading="loading"
-      element-loading-background="rgba(0, 0, 0, 0.5)"
       background-color="#1d1e23"
       text-color="#b5b5b5"
       active-text-color="#fff"
@@ -12,7 +10,7 @@
       :style="{width: isCollapse ? '' : '200px'}"
       router
     >
-      <menus :list="$store.state.menus || []" />
+      <menus :list="menus" />
       <div
         class="collapse"
         @click="isCollapse = !isCollapse"
@@ -52,15 +50,9 @@
         components: {ElCollapseTransition, Menus},
         data() {
             return {
-                loading: false,
+                menus: JSON.parse(sessionStorage.getItem('menus')),
                 isCollapse: document.body.clientWidth < 910
             };
-        },
-        mounted() {
-            this.loading = true;
-            this.$store.dispatch('getLoginData').finally(() => {
-                this.loading = false;
-            });
         },
         watch: {
             '$store.state.smallScreen': function () {

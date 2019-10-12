@@ -5,7 +5,7 @@
       v-for="(breadcrumb, index) in breadcrumbs"
       :key="index"
     >
-      <i :class="breadcrumb.icon" />{{ breadcrumb.name }}
+      <i :class="breadcrumb.icon" />{{ breadcrumb.title }}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -15,7 +15,7 @@
         data() {
             return {
                 breadcrumbs: [],
-                menus: []
+                menus: JSON.parse(sessionStorage.getItem('menus'))
             };
         },
         methods: {
@@ -28,7 +28,7 @@
 
                 for (let i in menus) {
                     let menu = menus[i];
-                    if (menu.code === route.name) {
+                    if (menu.name === route.name) {
                         breadcrumbs.push(menu);
                         return breadcrumbs;
                     }
@@ -46,7 +46,7 @@
             },
             setTitle: function () {
                 if (this.breadcrumbs.length) {
-                    this.util.title(this.breadcrumbs[this.breadcrumbs.length - 1].name);
+                    this.util.title(this.breadcrumbs[this.breadcrumbs.length - 1].title);
                 }
             }
         },
@@ -57,11 +57,6 @@
         watch: {
             '$route'(newRoute) {
                 this.breadcrumbs = this.getBreadcrumbs(newRoute, this.menus);
-                this.setTitle();
-            },
-            '$store.state.menus': function () {
-                this.menus = this.$store.getters.getMenus;
-                this.breadcrumbs = this.getBreadcrumbs(this.$route, this.menus);
                 this.setTitle();
             }
         }

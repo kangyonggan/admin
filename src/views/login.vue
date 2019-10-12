@@ -69,6 +69,8 @@
                     this.loading = true;
                     this.axios.post('/login', this.params).then((data) => {
                         sessionStorage.setItem('token', data.token);
+                        sessionStorage.setItem('user', JSON.stringify(data.user));
+                        sessionStorage.setItem('menus', JSON.stringify(data.menus));
                         this.$router.push({
                             path: '/index'
                         });

@@ -2,29 +2,29 @@
   <span>
     <span
       v-for="menu in list"
-      :key="menu.code"
+      :key="menu.name"
     >
       <el-menu-item
         v-if="!menu.children"
-        :index="menu.url"
+        :index="menu.path"
       >
         <i
           v-if="menu.icon"
           :class="menu.icon"
         />
-        <span slot="title">{{ menu.name }}</span>
+        <span slot="title">{{ menu.title }}</span>
       </el-menu-item>
 
       <el-submenu
         v-else
-        :index="menu.code"
+        :index="menu.name"
       >
         <template slot="title">
           <i
             v-if="menu.icon"
             :class="menu.icon"
           />
-          <span slot="title">{{ menu.name }}</span>
+          <span slot="title">{{ menu.title }}</span>
         </template>
         <menus :list="menu.children" />
       </el-submenu>

@@ -1,73 +1,73 @@
 export default [
     {
-        name: '系统',
-        code: 'SYSTEM',
+        title: '系统',
+        name: 'SYSTEM',
         icon: 'el-icon-setting',
         children: [
             {
-                name: '用户管理',
-                code: 'SYSTEM_USER',
-                url: '/system/user'
+                title: '用户管理',
+                name: 'SYSTEM_USER',
+                path: '/system/user'
             },
             {
-                name: '角色管理',
-                code: 'SYSTEM_ROLE',
-                url: '/system/role'
+                title: '角色管理',
+                name: 'SYSTEM_ROLE',
+                path: '/system/role'
             },
             {
-                name: '菜单管理',
-                code: 'SYSTEM_MENU',
-                url: '/system/menu'
+                title: '菜单管理',
+                name: 'SYSTEM_MENU',
+                path: '/system/menu'
             },
             {
-                name: '字典管理',
-                code: 'DICT',
+                title: '字典管理',
+                name: 'DICT',
                 children: [
+                    // {
+                    //     title: '字典类型',
+                    //     name: 'DICT_TYPE',
+                    //     path: '/dict/type'
+                    // },
                     {
-                        name: '字典类型',
-                        code: 'DICT_TYPE',
-                        url: '/dict/type'
-                    },
-                    {
-                        name: '字典数据',
-                        code: 'DICT_DATA',
-                        url: '/dict/data'
+                        title: '字典数据',
+                        name: 'DICT_DATA',
+                        path: '/dict/data'
                     }
                 ]
             }
         ]
     },
     {
-        name: '网站',
-        code: 'SITES',
+        title: '网站',
+        name: 'SITES',
         icon: 'el-icon-menu',
         children: [
             {
-                name: '文章管理',
-                code: 'SITES_ARTICLE',
-                url: '/sites/article'
+                title: '文章管理',
+                name: 'SITES_ARTICLE',
+                path: '/sites/article'
             },
             {
-                name: '小说管理',
-                code: 'SITES_NOVEL',
-                url: '/sites/novel'
+                title: '小说管理',
+                name: 'SITES_NOVEL',
+                path: '/sites/novel'
             },
             {
-                name: '相册管理',
-                code: 'SITES_ALBUM',
-                url: '/sites/album'
+                title: '相册管理',
+                name: 'SITES_ALBUM',
+                path: '/sites/album'
             },
             {
-                name: '视频管理',
-                code: 'SITES_VIDEO',
-                url: '/sites/video'
+                title: '视频管理',
+                name: 'SITES_VIDEO',
+                path: '/sites/video'
             }
         ]
     },
     {
-        name: '修改密码',
-        code: 'PASSWORD',
+        title: '修改密码',
+        name: 'PASSWORD',
         icon: 'el-icon-lock',
-        url: '/password'
+        path: '/password'
     }
 ];

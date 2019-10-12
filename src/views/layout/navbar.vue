@@ -8,12 +8,11 @@
     </router-link>
 
     <el-dropdown
-      v-if="$store.state.user"
       trigger="click"
       @command="handleCommand"
     >
       <span>
-        {{ $store.state.user.name }}
+        {{ user.name }}
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -27,13 +26,18 @@
 
 <script>
     export default {
+        data() {
+            return {
+                user: JSON.parse(sessionStorage.getItem('user'))
+            };
+        },
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
                     this.axios.get('/logout').finally(() => {
                         sessionStorage.removeItem('token');
                         this.$router.push({
-                            name: 'login'
+                            path: '/login'
                         });
                     });
                 }

@@ -20,9 +20,10 @@ Mock.mock('/login', 'post', req => {
     if (params.account === 'admin' && params.password === 'admin') {
         return Object.assign({
             token: Mock.Random.string(),
+            menus: menus,
             user: {
-                account: params.account,
-                name: '管理员'
+                id: Mock.Random.natural(),
+                name: Mock.Random.cname()
             }
         }, response);
     }
@@ -31,24 +32,6 @@ Mock.mock('/login', 'post', req => {
         respCo: '9999',
         respMsg: '账号或密码错误'
     };
-});
-
-/**
- * 获取当前登录用户的数据
- */
-Mock.mock('/loginData', 'get', () => {
-    const res = invalidLogin();
-    if (res) {
-        return res;
-    }
-
-    return Object.assign({
-        menus: menus,
-        user: {
-            id: Mock.Random.natural(),
-            name: Mock.Random.cname()
-        }
-    }, response);
 });
 
 /**

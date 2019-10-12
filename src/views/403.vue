@@ -1,6 +1,6 @@
 <template>
   <div class="err-page">
-    <img src="../assets/images/404.png">
+    <img src="../assets/images/403.png">
   </div>
 </template>
 
