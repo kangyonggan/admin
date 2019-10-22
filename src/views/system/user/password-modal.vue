@@ -43,8 +43,8 @@
         },
         methods: {
             show: function (row) {
+                row.password = '';
                 this.params = Object.assign({}, row);
-                this.params.password = '';
                 this.$refs.modal.show();
             }
         }
