@@ -37,6 +37,11 @@ const routers = [
                 component: (resolve) => require(['./views/system/role/list.vue'], resolve)
             },
             {
+                path: 'system/menu',
+                name: 'SYSTEM_MENU',
+                component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

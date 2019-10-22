@@ -16,8 +16,8 @@
       :check-strictly="strictly"
       check-on-click-node
       @check-change="change"
-      :default-checked-keys="roleMenus">
-    </el-tree>
+      :default-checked-keys="roleMenus"
+    />
   </base-modal>
 </template>
 
