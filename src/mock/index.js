@@ -135,7 +135,7 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
             name: '@ctitle(2,8)'
         }]
     });
-    const roleIds = Mock.mock(function () {
+    const userRoleIds = Mock.mock(function () {
         const arr = [];
         allRoles.list.forEach(function (item) {
             if (Mock.Random.boolean()) {
@@ -148,7 +148,7 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
 
     return Object.assign({
         data: {
-            roleIds: roleIds,
+            userRoleIds: userRoleIds,
             allRoles: allRoles.list
         }
     }, response);

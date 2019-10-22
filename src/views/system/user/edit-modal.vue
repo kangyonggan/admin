@@ -61,7 +61,11 @@
             },
             show: function (row) {
                 this.oldAccount = row.account;
-                this.params = Object.assign({}, row);
+                this.params = {
+                    id: row.id,
+                    account: row.account,
+                    name: row.name
+                };
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

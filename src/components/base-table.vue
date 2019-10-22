@@ -12,7 +12,7 @@
         :key="index"
         :prop="column.prop"
         :label="column.label"
-        :sortable="!column.render"
+        :sortable="!column.sortable"
       >
         <template slot-scope="scope">
           <span v-if="column.render">

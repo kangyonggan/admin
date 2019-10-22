@@ -62,6 +62,7 @@
                 });
             },
             show: function () {
+                this.params = {};
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

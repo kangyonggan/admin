@@ -25,7 +25,10 @@ axios.interceptors.request.use(function (config) {
     config.headers['x-auth-token'] = token;
 
     if (config.data && config.type !== 'upload') {
-        config.data = qs.stringify(config.data);
+        config.data = qs.stringify(config.data, {
+            // 解决数组传递问题
+            indices: false
+        });
     }
 
     return config;

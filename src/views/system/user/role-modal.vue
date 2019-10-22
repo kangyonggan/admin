@@ -8,7 +8,7 @@
   >
     <el-transfer
       v-loading="loading"
-      v-model="params.roleIds"
+      v-model="params.userRoleIds"
       :titles="['未拥有角色', '已拥有角色']"
       :props="{
         key: 'id',
@@ -38,7 +38,7 @@
                 this.axios.get('/system/user/' + id + '/role').then(data => {
                     this.params = {
                         id: id,
-                        roleIds: data.roleIds
+                        userRoleIds: data.userRoleIds
                     };
                     this.allRoles = data.allRoles;
                 }).catch(res => {

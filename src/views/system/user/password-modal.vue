@@ -44,6 +44,7 @@
         methods: {
             show: function (row) {
                 this.params = Object.assign({}, row);
+                this.params.password = '';
                 this.$refs.modal.show();
             }
         }

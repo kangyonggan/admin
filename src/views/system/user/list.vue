@@ -42,7 +42,8 @@
               设置角色
             </el-dropdown-item>
             <el-dropdown-item command="1">
-              逻辑删除
+              <span v-if="!row.isDeleted">逻辑删除</span>
+              <span v-else>逻辑恢复</span>
             </el-dropdown-item>
             <el-dropdown-item command="2">
               修改密码
