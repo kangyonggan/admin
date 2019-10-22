@@ -3,12 +3,12 @@
     <!--搜索表单-->
     <base-search-form :model="params">
       <base-input
-        label="账号"
-        v-model="params.account"
-        prop="account"
+        label="角色代码"
+        v-model="params.code"
+        prop="code"
       />
       <base-input
-        label="姓名"
+        label="角色名称"
         v-model="params.name"
         prop="name"
       />
@@ -29,7 +29,7 @@
 
     <!--表格-->
     <base-table
-      url="/system/user"
+      url="/system/role"
       :columns="columns"
       ref="table"
     >
@@ -44,14 +44,11 @@
           编辑
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="0">
-              设置角色
+              设置菜单
             </el-dropdown-item>
             <el-dropdown-item command="1">
               <span v-if="!row.isDeleted">逻辑删除</span>
               <span v-else>逻辑恢复</span>
-            </el-dropdown-item>
-            <el-dropdown-item command="2">
-              修改密码
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -70,22 +67,18 @@
       @success="$refs.table.request()"
     />
 
-    <!--设置角色界面-->
-    <role-model ref="role-model" />
-
-    <!--修改密码界面-->
-    <password-model ref="password-model" />
+    <!--设置菜单界面-->
+    <menu-model ref="menu-model" />
   </div>
 </template>
 
 <script>
     import CreateModel from './create-modal';
     import EditModel from './edit-modal';
-    import RoleModel from './role-modal';
-    import PasswordModel from './password-modal';
+    import MenuModel from './menu-modal';
 
     export default {
-        components: {CreateModel, EditModel, RoleModel, PasswordModel},
+        components: {CreateModel, EditModel, MenuModel},
         data() {
             return {
                 params: {},
@@ -95,11 +88,11 @@
                         prop: 'id'
                     },
                     {
-                        label: '账号',
-                        prop: 'account'
+                        label: '角色代码',
+                        prop: 'code'
                     },
                     {
-                        label: '姓名',
+                        label: '角色名称',
                         prop: 'name'
                     },
                     {
@@ -122,22 +115,20 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    this.$refs['role-model'].show(row.id);
+                    this.$refs['menu-model'].show(row.id);
                 } else if (command === '1') {
-                    const title = row.isDeleted ? '恢复已删除的用户：' : '逻辑删除用户：';
-                    this.$confirm(title + row.account + '，是否继续?', '提示', {
+                    const title = row.isDeleted ? '恢复已删除的角色：' : '逻辑删除角色：';
+                    this.$confirm(title + row.name + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/system/user/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('/system/role/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
-                           this.error(res.respMsg);
+                            this.error(res.respMsg);
                         });
                     });
-                } else if (command === '2') {
-                    this.$refs['password-model'].show(row);
                 }
             }
         }

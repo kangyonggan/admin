@@ -32,9 +32,9 @@ const routers = [
                 component: (resolve) => require(['./views/system/user/list.vue'], resolve)
             },
             {
-                path: 'dict/type',
-                name: 'DICT_TYPE',
-                component: (resolve) => require(['./views/system/user/list.vue'], resolve)
+                path: 'system/role',
+                name: 'SYSTEM_ROLE',
+                component: (resolve) => require(['./views/system/role/list.vue'], resolve)
             },
             {
                 path: '403',
