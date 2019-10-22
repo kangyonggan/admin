@@ -38,7 +38,6 @@ axios.interceptors.request.use(function (config) {
 
 // 响应拦截器
 axios.interceptors.response.use(function (response) {
-    console.log(response);
     if (response.data.respCo === '0000') {
         const token = response.headers['x-auth-token'];
         if (token) {

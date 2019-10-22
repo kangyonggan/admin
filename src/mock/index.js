@@ -4,7 +4,7 @@ import menus from './menus';
 
 // 默认响应时间：10-100ms
 Mock.setup({
-    timeout: '1000-1500'
+    timeout: '10-1500'
 });
 
 const response = {
@@ -16,14 +16,18 @@ const response = {
  * 登录
  */
 Mock.mock('/login', 'post', req => {
-    console.log(req);
     const params = qs.parse(req.body);
     if (params.account === 'admin' && params.password === 'admin') {
+        // 模拟不了response headers，直接放session
+        sessionStorage.setItem('token', Mock.Random.string());
+
         return Object.assign({
-            menus: menus,
-            user: {
-                id: Mock.Random.natural(),
-                name: Mock.Random.cname()
+            data: {
+                menus: menus,
+                user: {
+                    id: Mock.Random.natural(),
+                    name: Mock.Random.cname()
+                }
             }
         }, response);
     }
@@ -143,8 +147,10 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
     });
 
     return Object.assign({
-        roleIds: roleIds,
-        allRoles: allRoles.list
+        data: {
+            roleIds: roleIds,
+            allRoles: allRoles.list
+        }
     }, response);
 });
 
@@ -235,7 +241,9 @@ const getResponseWithPageInfo = function (list) {
         list: list
     };
     return Object.assign({
-        pageInfo: pageInfo
+        data: {
+            pageInfo: pageInfo
+        }
     }, response);
 };
 
