@@ -121,7 +121,7 @@ function loadLeafMenus(list) {
         return;
     }
     list.forEach(function (menu) {
-        if (!menu.children) {
+        if (!menu.children || !menu.children.length) {
             menus.push(menu.name);
         } else {
             loadLeafMenus(menu.children);

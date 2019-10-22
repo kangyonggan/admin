@@ -41,8 +41,8 @@
                         roleIds: data.roleIds
                     };
                     this.allRoles = data.allRoles;
-                }).catch(data => {
-                   this.error(data.respMsg);
+                }).catch(res => {
+                   this.error(res.respMsg);
                 }).finally(() => {
                     this.loading = false;
                 });

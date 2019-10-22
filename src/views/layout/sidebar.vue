@@ -12,7 +12,7 @@
     >
       <template v-for="menu in menus">
         <el-menu-item
-          v-if="!menu.children"
+          v-if="!menu.children || !menu.children.length"
           :index="menu.path"
           :key="menu.name"
         >

@@ -57,8 +57,8 @@
 
                 this.axios.get('/validate/account?account=' + value).then(() => {
                     callback();
-                }).catch(data => {
-                    callback(new Error(data.respMsg));
+                }).catch(res => {
+                    callback(new Error(res.respMsg));
                 });
             },
             show: function () {

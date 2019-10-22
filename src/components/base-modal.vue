@@ -83,8 +83,8 @@
                     }).then(data => {
                         this.dialogVisible = false;
                         this.$emit('success', data);
-                    }).catch(data => {
-                        this.error(data.respMsg);
+                    }).catch(res => {
+                        this.error(res.respMsg);
                     }).finally(() => {
                         this.loading = false;
                     });

@@ -126,8 +126,8 @@
                     }).then(() => {
                         this.axios.put('/system/user/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
-                        }).catch(data => {
-                           this.error(data.respMsg);
+                        }).catch(res => {
+                           this.error(res.respMsg);
                         });
                     });
                 } else if (command === '2') {

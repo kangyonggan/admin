@@ -98,9 +98,9 @@
                     if (!this.pageInfo.total) {
                         this.emptyText = '暂无数据';
                     }
-                }).catch(data => {
+                }).catch(res => {
                     this.pageInfo = {};
-                    this.emptyText = data.respMsg;
+                    this.emptyText = res.respMsg;
                 }).finally(() => {
                     this.$store.commit('setLoading', false);
                 });

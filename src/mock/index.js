@@ -4,7 +4,7 @@ import menus from './menus';
 
 // 默认响应时间：10-100ms
 Mock.setup({
-    timeout: '10-1500'
+    timeout: '1000-1500'
 });
 
 const response = {
@@ -16,10 +16,10 @@ const response = {
  * 登录
  */
 Mock.mock('/login', 'post', req => {
-    const params = JSON.parse(req.body);
+    console.log(req);
+    const params = qs.parse(req.body);
     if (params.account === 'admin' && params.password === 'admin') {
         return Object.assign({
-            token: Mock.Random.string(),
             menus: menus,
             user: {
                 id: Mock.Random.natural(),

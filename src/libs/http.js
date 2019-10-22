@@ -1,13 +1,17 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import qs from 'qs';
 
 // 根据环境设置基础请求地址
 if (process.env.NODE_ENV === 'production') {
     axios.defaults.baseURL = '/api/';
 } else if (process.env.NODE_ENV === 'development') {
-    axios.defaults.baseURL = 'http://localhost:8080/api/';
+    axios.defaults.baseURL = 'http://localhost:8080/';
 }
+
+// 10s超时
+axios.defaults.timeout = 10000;
 
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -18,7 +22,11 @@ axios.interceptors.request.use(function (config) {
             respMsg: '您尚未登录或登录已失效！'
         });
     }
-    config.headers['token'] = token;
+    config.headers['x-auth-token'] = token;
+
+    if (config.data && config.type !== 'upload') {
+        config.data = qs.stringify(config.data);
+    }
 
     return config;
 }, function (error) {
@@ -30,8 +38,13 @@ axios.interceptors.request.use(function (config) {
 
 // 响应拦截器
 axios.interceptors.response.use(function (response) {
+    console.log(response);
     if (response.data.respCo === '0000') {
-        return response.data;
+        const token = response.headers['x-auth-token'];
+        if (token) {
+            sessionStorage.setItem('token', token);
+        }
+        return response.data.data;
     } else {
         return Promise.reject(response.data);
     }
