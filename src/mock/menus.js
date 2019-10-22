@@ -21,19 +21,8 @@ export default [
             },
             {
                 title: '字典管理',
-                name: 'DICT',
-                children: [
-                    // {
-                    //     title: '字典类型',
-                    //     name: 'DICT_TYPE',
-                    //     path: '/dict/type'
-                    // },
-                    {
-                        title: '字典数据',
-                        name: 'DICT_DATA',
-                        path: '/dict/data'
-                    }
-                ]
+                name: 'SYSTEM_DICT',
+                path: '/system/dict'
             }
         ]
     },
@@ -65,9 +54,15 @@ export default [
         ]
     },
     {
-        title: '修改密码',
-        name: 'PASSWORD',
-        icon: 'el-icon-lock',
-        path: '/password'
+        title: '我的',
+        name: 'USER',
+        icon: 'el-icon-user',
+        children: [
+            {
+                title: '修改密码',
+                name: 'USER_PASSWORD',
+                path: '/user/password'
+            }
+        ]
     }
 ];
