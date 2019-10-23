@@ -70,7 +70,6 @@
       ref="form-modal"
       @success="$refs.table.reload(params)"
     />
-
   </div>
 </template>
 
