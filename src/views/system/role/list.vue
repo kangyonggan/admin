@@ -20,7 +20,7 @@
       <template #actions>
         <el-button
           type="success"
-          @click="$refs['create-model'].show()"
+          @click="$refs['create-modal'].show()"
         >
           新增
         </el-button>
@@ -38,7 +38,7 @@
           split-button
           trigger="click"
           size="small"
-          @click="$refs['edit-model'].show(row)"
+          @click="$refs['edit-modal'].show(row)"
           @command="handleCommand($event, row)"
         >
           编辑
@@ -56,29 +56,29 @@
     </base-table>
 
     <!--新增界面-->
-    <create-model
-      ref="create-model"
+    <create-modal
+      ref="create-modal"
       @success="$refs.table.reload(params)"
     />
 
     <!--编辑界面-->
-    <edit-model
-      ref="edit-model"
+    <edit-modal
+      ref="edit-modal"
       @success="$refs.table.request()"
     />
 
     <!--设置菜单界面-->
-    <menu-model ref="menu-model" />
+    <menu-modal ref="menu-modal" />
   </div>
 </template>
 
 <script>
-    import CreateModel from './create-modal';
-    import EditModel from './edit-modal';
-    import MenuModel from './menu-modal';
+    import CreateModal from './create-modal';
+    import EditModal from './edit-modal';
+    import MenuModal from './menu-modal';
 
     export default {
-        components: {CreateModel, EditModel, MenuModel},
+        components: {CreateModal, EditModal, MenuModal},
         data() {
             return {
                 params: {},
@@ -115,7 +115,7 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    this.$refs['menu-model'].show(row.id);
+                    this.$refs['menu-modal'].show(row.id);
                 } else if (command === '1') {
                     const title = row.isDeleted ? '恢复已删除的角色：' : '逻辑删除角色：';
                     this.$confirm(title + row.name + '，是否继续?', '提示', {

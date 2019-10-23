@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    class="base-dialog"
     :title="title"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
@@ -93,3 +94,23 @@
         }
     };
 </script>
+
+<style lang="scss">
+  .base-dialog {
+    .el-dialog__header {
+      border-bottom: 1px solid #e8eaec;
+    }
+
+    .el-dialog__body {
+      padding: 16px 20px;
+    }
+
+    .el-form-item__label {
+      line-height: 32px;
+    }
+
+    .el-form-item {
+      margin-bottom: 16px;
+    }
+  }
+</style>

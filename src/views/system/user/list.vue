@@ -20,7 +20,7 @@
       <template #actions>
         <el-button
           type="success"
-          @click="$refs['create-model'].show()"
+          @click="$refs['create-modal'].show()"
         >
           新增
         </el-button>
@@ -38,7 +38,7 @@
           split-button
           trigger="click"
           size="small"
-          @click="$refs['edit-model'].show(row)"
+          @click="$refs['edit-modal'].show(row)"
           @command="handleCommand($event, row)"
         >
           编辑
@@ -59,33 +59,33 @@
     </base-table>
 
     <!--新增界面-->
-    <create-model
-      ref="create-model"
+    <create-modal
+      ref="create-modal"
       @success="$refs.table.reload(params)"
     />
 
     <!--编辑界面-->
-    <edit-model
-      ref="edit-model"
+    <edit-modal
+      ref="edit-modal"
       @success="$refs.table.request()"
     />
 
     <!--设置角色界面-->
-    <role-model ref="role-model" />
+    <role-modal ref="role-modal" />
 
     <!--修改密码界面-->
-    <password-model ref="password-model" />
+    <password-modal ref="password-modal" />
   </div>
 </template>
 
 <script>
-    import CreateModel from './create-modal';
-    import EditModel from './edit-modal';
-    import RoleModel from './role-modal';
-    import PasswordModel from './password-modal';
+    import CreateModal from './create-modal';
+    import EditModal from './edit-modal';
+    import RoleModal from './role-modal';
+    import PasswordModal from './password-modal';
 
     export default {
-        components: {CreateModel, EditModel, RoleModel, PasswordModel},
+        components: {CreateModal, EditModal, RoleModal, PasswordModal},
         data() {
             return {
                 params: {},
@@ -122,7 +122,7 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    this.$refs['role-model'].show(row.id);
+                    this.$refs['role-modal'].show(row.id);
                 } else if (command === '1') {
                     const title = row.isDeleted ? '恢复已删除的用户：' : '逻辑删除用户：';
                     this.$confirm(title + row.account + '，是否继续?', '提示', {
@@ -137,7 +137,7 @@
                         });
                     });
                 } else if (command === '2') {
-                    this.$refs['password-model'].show(row);
+                    this.$refs['password-modal'].show(row);
                 }
             }
         }
