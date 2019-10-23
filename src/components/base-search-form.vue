@@ -3,6 +3,7 @@
     :inline="true"
     :model="model"
     ref="form"
+    label-width="90px"
   >
     <slot />
     <el-row>

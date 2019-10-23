@@ -42,6 +42,11 @@ const routers = [
                 component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
             },
             {
+                path: 'system/dict',
+                name: 'SYSTEM_DICT',
+                component: (resolve) => require(['./views/system/dict/list.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

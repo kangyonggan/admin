@@ -51,6 +51,11 @@
         >http://mockjs.com/</a>
       </li>
     </ul>
+    <h1>快速开始</h1>
+    <ul>
+      <li>npm install</li>
+      <li>npm run mock</li>
+    </ul>
   </div>
 </template>
 

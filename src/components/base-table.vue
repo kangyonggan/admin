@@ -13,6 +13,8 @@
         :prop="column.prop"
         :label="column.label"
         :sortable="!column.sortable"
+        :fixed="column.fixed"
+        :width="column.width"
       >
         <template slot-scope="scope">
           <span v-if="column.render">
@@ -28,6 +30,8 @@
       <el-table-column
         label="操作"
         v-if="actions"
+        :fixed="fixedAction ? 'right' : false"
+        width="135"
       >
         <template slot-scope="scope">
           <slot
@@ -77,6 +81,11 @@
                 required: false,
                 type: Boolean,
                 default: true
+            },
+            fixedAction: {
+                required: false,
+                type: Boolean,
+                default: false
             }
         },
         data() {
