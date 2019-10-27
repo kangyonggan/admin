@@ -22,12 +22,12 @@
     <base-input
       label="字典的值"
       v-model="params.value"
-      prop="name"
+      prop="value"
     />
     <base-input
       label="备注"
       v-model="params.remark"
-      prop="name"
+      prop="remark"
     />
   </base-modal>
 </template>
