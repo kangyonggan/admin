@@ -2,9 +2,17 @@
   <base-form
     :params="params"
     :rules="rules"
+    method="PUT"
     url="/sites/article"
     @success="handleSuccess"
+    v-loading="loading"
   >
+    <base-input
+      label="ID"
+      v-model="params.id"
+      prop="id"
+      readonly
+    />
     <base-input
       label="标题"
       v-model="params.title"
@@ -27,6 +35,7 @@
     export default {
         data() {
             return {
+                loading: true,
                 params: {},
                 rules: {
                     title: [
@@ -49,6 +58,17 @@
                     path: '/sites/article'
                 });
             }
+        },
+        mounted() {
+          this.axios.get('/sites/article/' + this.$route.params.articleId).then(data => {
+              data.article.createdTime = undefined;
+              data.article.updatedTime = undefined;
+              this.params = data.article;
+          }).catch(res => {
+              this.error(res.respMsg);
+          }).finally(() => {
+              this.loading = false;
+          });
         }
     };
 </script>

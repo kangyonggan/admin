@@ -1,38 +1,50 @@
 <template>
-  <el-dialog
-    class="base-dialog"
-    :title="title"
-    :visible.sync="dialogVisible"
-    :close-on-click-modal="false"
-    :close-on-press-escape="false"
-    width="550px"
-  >
-    <el-form
-      ref="form"
-      :model="params"
-      :rules="rules"
+  <el-col>
+    <el-col
+      :xs="0"
+      :sm="2"
+      :md="4"
+      :lg="6"
+      :xl="6"
+      style="height: 1px;"
+    />
+    <el-col
+      :xs="24"
+      :sm="20"
+      :md="16"
+      :lg="12"
+      :xl="12"
     >
-      <slot />
-    </el-form>
-    <span slot="footer">
+      <el-form
+        ref="form"
+        :model="params"
+        :rules="rules"
+      >
+        <slot />
+      </el-form>
       <el-button
+        style="margin-top: 30px;"
         v-loading="loading"
         type="primary"
         @click="submit"
       >
         提 交
       </el-button>
-    </span>
-  </el-dialog>
+    </el-col>
+    <el-col
+      :xs="0"
+      :sm="2"
+      :md="4"
+      :lg="6"
+      :xl="6"
+      style="height: 1px;"
+    />
+  </el-col>
 </template>
 
 <script>
     export default {
         props: {
-            title: {
-                required: true,
-                type: String
-            },
             url: {
                 required: true,
                 type: String
@@ -59,17 +71,10 @@
         },
         data() {
             return {
-                dialogVisible: false,
                 loading: false
             };
         },
         methods: {
-            show: function () {
-                this.dialogVisible = true;
-                this.$nextTick(function () {
-                    this.$refs.form.clearValidate();
-                });
-            },
             submit: function () {
                 this.$refs.form.validate((valid) => {
                     if (!valid) {
@@ -82,7 +87,6 @@
                         method: this.method,
                         data: this.params
                     }).then(data => {
-                        this.dialogVisible = false;
                         this.$emit('success', data);
                     }).catch(res => {
                         this.error(res.respMsg);
@@ -91,26 +95,9 @@
                     });
                 });
             }
+        },
+        mounted() {
+            this.$refs.form.clearValidate();
         }
     };
 </script>
-
-<style lang="scss">
-  .base-dialog {
-    .el-dialog__header {
-      border-bottom: 1px solid #e8eaec;
-    }
-
-    .el-dialog__body {
-      padding: 16px 20px;
-    }
-
-    .el-form-item__label {
-      line-height: 32px;
-    }
-
-    .el-form-item {
-      margin-bottom: 16px;
-    }
-  }
-</style>

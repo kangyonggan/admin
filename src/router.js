@@ -70,6 +70,14 @@ const routers = [
                 component: (resolve) => require(['./views/sites/article/create-form.vue'], resolve)
             },
             {
+                path: 'sites/article/:articleId/edit',
+                meta: {
+                    name: 'SITES_ARTICLE',
+                    title: '编辑文章'
+                },
+                component: (resolve) => require(['./views/sites/article/edit-form.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

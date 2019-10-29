@@ -3,7 +3,7 @@
     <!--搜索表单-->
     <base-search-form :model="params">
       <base-input
-        label="文章标题"
+        label="标题"
         v-model="params.title"
         prop="title"
       />
@@ -33,6 +33,7 @@
           split-button
           trigger="click"
           size="small"
+          @click="$router.push({path: '/sites/article/' + row.id + '/edit/'})"
           @command="handleCommand($event, row)"
         >
           编辑
@@ -60,12 +61,9 @@
                         prop: 'id'
                     },
                     {
-                        label: '文章标题',
-                        prop: 'title'
-                    },
-                    {
-                        label: '摘要',
-                        prop: 'summary'
+                        label: '标题',
+                        prop: 'title',
+                        width: '700'
                     },
                     {
                         label: '点击量',
@@ -84,6 +82,14 @@
                         width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
+                        }
+                    },
+                    {
+                        label: '更新日期',
+                        prop: 'updatedTime',
+                        width: '180',
+                        render: row => {
+                            return this.util.formatTimestamp(row.updatedTime);
                         }
                     }
                 ]
