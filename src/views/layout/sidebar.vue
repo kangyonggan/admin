@@ -6,7 +6,7 @@
       active-text-color="#fff"
       :unique-opened="true"
       :collapse="isCollapse"
-      :default-active="$route.path"
+      :default-active="active"
       :style="{width: isCollapse ? '' : '200px'}"
       router
     >
@@ -63,18 +63,53 @@
 <script>
     import ElCollapseTransition from 'element-ui/lib/transitions/collapse-transition';
     import Menus from './menus';
+    import {routers} from '../../router';
 
     export default {
         components: {ElCollapseTransition, Menus},
         data() {
             return {
+                active: '',
                 menus: JSON.parse(sessionStorage.getItem('menus')),
                 isCollapse: document.body.clientWidth < 910
             };
         },
+        methods: {
+          setActivePathByName(route, from) {
+              for (let i = 0; i < from.length; i++) {
+                  let item = from[i];
+                  if (item.meta && !item.meta.title && item.meta.name === route.meta.name) {
+                      this.active = '/' + item.path;
+                      return true;
+                  }
+                  if (item.children && item.children.length) {
+                      let res = this.setActivePathByName(route, item.children);
+                      if (res) {
+                          return true;
+                      }
+                  }
+              }
+
+              this.active = route.path;
+          }
+        },
         watch: {
             '$store.state.smallScreen': function () {
                 this.isCollapse = this.$store.getters.getSmallScreen;
+            },
+            '$route'(newRoute) {
+                if (newRoute.meta.title) {
+                    this.setActivePathByName(newRoute, routers);
+                } else {
+                    this.active = newRoute.path;
+                }
+            }
+        },
+        mounted() {
+            if (this.$route.meta.title) {
+                this.setActivePathByName(this.$route, routers);
+            } else {
+                this.active = this.$route.path;
             }
         }
     };

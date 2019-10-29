@@ -28,23 +28,46 @@ const routers = [
             },
             {
                 path: 'system/user',
-                name: 'SYSTEM_USER',
+                meta: {
+                    name: 'SYSTEM_USER'
+                },
                 component: (resolve) => require(['./views/system/user/list.vue'], resolve)
             },
             {
                 path: 'system/role',
-                name: 'SYSTEM_ROLE',
+                meta: {
+                    name: 'SYSTEM_ROLE'
+                },
                 component: (resolve) => require(['./views/system/role/list.vue'], resolve)
             },
             {
                 path: 'system/menu',
-                name: 'SYSTEM_MENU',
+                meta: {
+                    name: 'SYSTEM_MENU'
+                },
                 component: (resolve) => require(['./views/system/menu/index.vue'], resolve)
             },
             {
                 path: 'system/dict',
-                name: 'SYSTEM_DICT',
+                meta: {
+                    name: 'SYSTEM_DICT'
+                },
                 component: (resolve) => require(['./views/system/dict/list.vue'], resolve)
+            },
+            {
+                path: 'sites/article',
+                meta: {
+                    name: 'SITES_ARTICLE'
+                },
+                component: (resolve) => require(['./views/sites/article/list.vue'], resolve)
+            },
+            {
+                path: 'sites/article/create',
+                meta: {
+                    name: 'SITES_ARTICLE',
+                    title: '发布文章'
+                },
+                component: (resolve) => require(['./views/sites/article/create-form.vue'], resolve)
             },
             {
                 path: '403',
@@ -118,7 +141,7 @@ function checkPermission(route) {
     }
 
     // route没有name，或者name在menus中，视为有权限
-    return !route.name || menus.includes(route.name);
+    return !route.meta.name || menus.includes(route.meta.name);
 }
 
 /**
@@ -140,3 +163,4 @@ function loadLeafMenus(list) {
 }
 
 export default router;
+export {routers};

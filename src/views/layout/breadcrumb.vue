@@ -7,6 +7,9 @@
     >
       <i :class="breadcrumb.icon" />{{ breadcrumb.title }}
     </el-breadcrumb-item>
+    <el-breadcrumb-item v-if="title">
+      {{ title }}
+    </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
@@ -15,20 +18,20 @@
         data() {
             return {
                 breadcrumbs: [],
+                title: '',
                 menus: JSON.parse(sessionStorage.getItem('menus'))
             };
         },
         methods: {
             getBreadcrumbs: function (route, menus) {
                 let breadcrumbs = [];
-                if (!route.name) {
-                    breadcrumbs.push(route.meta);
+                if (!route.meta.name) {
                     return breadcrumbs;
                 }
 
                 for (let i in menus) {
                     let menu = menus[i];
-                    if (menu.name === route.name) {
+                    if (menu.name === route.meta.name) {
                         breadcrumbs.push(menu);
                         return breadcrumbs;
                     }
@@ -44,20 +47,26 @@
 
                 return breadcrumbs;
             },
-            setTitle: function () {
-                if (this.breadcrumbs.length) {
+            setTitle: function (route) {
+                if (route.meta.title) {
+                    this.title = route.meta.title;
+                    this.util.title(route.meta.title);
+                } else if (this.breadcrumbs.length) {
                     this.util.title(this.breadcrumbs[this.breadcrumbs.length - 1].title);
+                    this.title = '';
+                } else {
+                    this.title = '';
                 }
             }
         },
         mounted() {
             this.breadcrumbs = this.getBreadcrumbs(this.$route, this.menus);
-            this.setTitle();
+            this.setTitle(this.$route);
         },
         watch: {
             '$route'(newRoute) {
                 this.breadcrumbs = this.getBreadcrumbs(newRoute, this.menus);
-                this.setTitle();
+                this.setTitle(newRoute);
             }
         }
     };
