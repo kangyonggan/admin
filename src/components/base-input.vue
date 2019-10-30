@@ -6,6 +6,7 @@
     <el-input
       :value="value"
       :type="type"
+      :rows="rows"
       @keyup.enter.native="$emit('on-enter')"
       @input="$emit('input', $event)"
       :placeholder="placeholder ? placeholder : '请输入' + label"
@@ -45,6 +46,11 @@
                 required: false,
                 type: Boolean,
                 default: false
+            },
+            rows: {
+                required: false,
+                type: Number,
+                default: 3
             }
         }
     };

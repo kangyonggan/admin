@@ -12,11 +12,14 @@
     />
     <base-input
       label="摘要"
+      type="textarea"
       v-model="params.summary"
       prop="summary"
     />
     <base-input
       label="内容"
+      type="textarea"
+      :rows="16"
       v-model="params.content"
       prop="content"
     />
