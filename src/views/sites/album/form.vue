@@ -140,7 +140,12 @@
             },
             handlePreview(file) {
                 this.dialogImageUrl = file.url;
-                this.dialogName = file.url + '  (' + file.name + ')';
+                if (file.response) {
+                    // 新上传的
+                    this.dialogName = this.axios.defaults.baseURL + file.response.data.url + '  (' + file.name + ')';
+                } else {
+                    this.dialogName = file.url + '  (' + file.name + ')';
+                }
                 this.dialogVisible = true;
             }
         },
