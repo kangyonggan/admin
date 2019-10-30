@@ -35,10 +35,21 @@
         :before-upload="beforeUpload"
         :on-success="uploadSuccess"
         :before-remove="beforeRemove"
-        :on-remove="handleRemove"
+        :on-preview="handlePreview"
       >
         <i class="el-icon-plus" />
       </el-upload>
+      <el-dialog
+        :visible.sync="dialogVisible"
+        size="tiny"
+        :title="dialogName"
+      >
+        <img
+          width="100%"
+          :src="dialogImageUrl"
+          alt=""
+        >
+      </el-dialog>
     </el-form-item>
   </base-form>
 </template>
@@ -70,7 +81,10 @@
                     'image/bmp',
                     'image/png',
                     'image/webp'
-                ]
+                ],
+                dialogImageUrl: '',
+                dialogVisible: false,
+                dialogName: ''
             };
         },
         methods: {
@@ -104,21 +118,30 @@
 
                 this.params.content = JSON.stringify(this.content);
             },
-            beforeRemove(file) {
+            beforeRemove(file, fileList) {
                 return this.$confirm('删除照片' + file.name + '，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
+                }).then(() => {
+                    let url = file.url;
+                    if (file.response) {
+                        // 新上传的
+                        url = file.response.data.url;
+                    }
+                    for (let i = 0; i < this.content.length; i++) {
+                        if (url.indexOf(this.content[i].url) > -1) {
+                            this.content.splice(i, 1);
+                            this.params.content = JSON.stringify(this.content);
+                            return;
+                        }
+                    }
                 });
             },
-            handleRemove(file) {
-                for (let i = 0; i < this.content.length; i++) {
-                    if (file.url.indexOf(this.content[i].url) > -1) {
-                        this.content.splice(i, 1);
-                        this.params.content = JSON.stringify(this.content);
-                        return;
-                    }
-                }
+            handlePreview(file) {
+                this.dialogImageUrl = file.url;
+                this.dialogName = file.url + '  (' + file.name + ')';
+                this.dialogVisible = true;
             }
         },
         mounted() {
