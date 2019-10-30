@@ -118,7 +118,7 @@
 
                 this.params.content = JSON.stringify(this.content);
             },
-            beforeRemove(file, fileList) {
+            beforeRemove(file) {
                 return this.$confirm('删除照片' + file.name + '，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
