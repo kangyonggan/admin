@@ -24,10 +24,8 @@
       v-model="params.summary"
       prop="summary"
     />
-    <base-input
+    <base-markdown
       label="内容"
-      type="textarea"
-      :rows="16"
       v-model="params.content"
       prop="content"
     />

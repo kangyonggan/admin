@@ -8,12 +8,15 @@ import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui';
 import './components/index';
 import store from './store';
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
 
 if (process.env.NODE_ENV === 'mock') {
     require('./mock/index');
 }
 
 Vue.use(ElementUI);
+Vue.use(mavonEditor);
 
 new Vue({
     router: router,

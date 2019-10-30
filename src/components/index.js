@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import BaseSearchForm from './base-search-form';
 import BaseInput from './base-input';
+import BaseMarkdown from './base-markdown';
 import BaseSelect from './base-select';
 import BaseDaterange from './base-daterange';
 import BaseTable from './base-table';
@@ -9,6 +10,7 @@ import BaseForm from './base-form';
 
 Vue.component('BaseSearchForm', BaseSearchForm);
 Vue.component('BaseInput', BaseInput);
+Vue.component('BaseMarkdown', BaseMarkdown);
 Vue.component('BaseSelect', BaseSelect);
 Vue.component('BaseDaterange', BaseDaterange);
 Vue.component('BaseTable', BaseTable);
