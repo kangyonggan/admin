@@ -77,7 +77,7 @@
                         }
                     },
                     {
-                        label: '创建日期',
+                        label: '创建时间',
                         prop: 'createdTime',
                         width: '180',
                         render: row => {
@@ -85,7 +85,7 @@
                         }
                     },
                     {
-                        label: '更新日期',
+                        label: '更新时间',
                         prop: 'updatedTime',
                         width: '180',
                         render: row => {

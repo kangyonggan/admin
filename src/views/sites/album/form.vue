@@ -1,0 +1,145 @@
+<template>
+  <base-form
+    :params="params"
+    :rules="rules"
+    :method="params.id ? 'PUT' : 'POST'"
+    url="/sites/album"
+    @success="handleSuccess"
+    v-loading="loading"
+  >
+    <base-input
+      v-if="params.id"
+      label="ID"
+      v-model="params.id"
+      prop="id"
+      readonly
+    />
+    <base-input
+      label="名称"
+      v-model="params.name"
+      prop="name"
+    />
+    <base-input
+      label="封面"
+      v-model="params.cover"
+      prop="cover"
+    />
+    <el-form-item
+      prop="content"
+      style="margin-top: 35px;"
+    >
+      <el-upload
+        :action="axios.defaults.baseURL + 'fileUpload'"
+        list-type="picture-card"
+        :file-list="fileList"
+        :before-upload="beforeUpload"
+        :on-success="uploadSuccess"
+        :before-remove="beforeRemove"
+        :on-remove="handleRemove"
+      >
+        <i class="el-icon-plus" />
+      </el-upload>
+    </el-form-item>
+  </base-form>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                loading: false,
+                params: {},
+                fileList: [],
+                content: [],
+                rules: {
+                    name: [
+                        {required: true, message: '名称为必填项'},
+                        {max: 64, message: '名称最多为64位'}
+                    ],
+                    cover: [
+                        {required: true, message: '封面为必填项'},
+                        {max: 256, message: '封面最多为256位'}
+                    ],
+                    content: [
+                        {required: true, message: '必须选择照片'}
+                    ]
+                },
+                imgTypes: [
+                    'image/gif',
+                    'image/jpeg',
+                    'image/bmp',
+                    'image/png',
+                    'image/webp'
+                ]
+            };
+        },
+        methods: {
+            handleSuccess() {
+                this.$router.push({
+                    path: '/sites/album'
+                });
+            },
+            beforeUpload(file) {
+                const isImg = this.imgTypes.includes(file.type);
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isImg) {
+                    this.$message.error('图片只能是 gif/jpg/jpeg/bmp/png/webp 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('图片大小不能超过 2MB!');
+                }
+                return isImg && isLt2M;
+            },
+            uploadSuccess(res, file) {
+                if (res.respCo !== '0000') {
+                    this.error(res.respMsg);
+                    return;
+                }
+
+                this.content.push({
+                    name: file.raw.name,
+                    url: res.data.url
+                });
+
+                this.params.content = JSON.stringify(this.content);
+            },
+            beforeRemove(file) {
+                return this.$confirm('删除照片' + file.name + '，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                });
+            },
+            handleRemove(file) {
+                for (let i = 0; i < this.content.length; i++) {
+                    if (file.url.indexOf(this.content[i].url) > -1) {
+                        this.content.splice(i, 1);
+                        this.params.content = JSON.stringify(this.content);
+                        return;
+                    }
+                }
+            }
+        },
+        mounted() {
+            let albumId = this.$route.params.albumId;
+            if (albumId) {
+                this.loading = true;
+                this.axios.get('/sites/album/' + albumId).then(data => {
+                    data.album.createdTime = undefined;
+                    data.album.updatedTime = undefined;
+                    this.params = data.album;
+                    this.content = JSON.parse(this.params.content);
+                    this.fileList = JSON.parse(this.params.content);
+                    this.fileList.forEach(file => {
+                       file.url = this.axios.defaults.baseURL + file.url;
+                    });
+                }).catch(res => {
+                    this.error(res.respMsg);
+                }).finally(() => {
+                    this.loading = false;
+                });
+            }
+        }
+    };
+</script>

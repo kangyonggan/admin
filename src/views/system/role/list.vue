@@ -103,7 +103,7 @@
                         }
                     },
                     {
-                        label: '创建日期',
+                        label: '创建时间',
                         prop: 'createdTime',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);

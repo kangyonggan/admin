@@ -67,7 +67,7 @@ const routers = [
                     name: 'SITES_ARTICLE',
                     title: '发布文章'
                 },
-                component: (resolve) => require(['./views/sites/article/create-form.vue'], resolve)
+                component: (resolve) => require(['./views/sites/article/form.vue'], resolve)
             },
             {
                 path: 'sites/article/:articleId/edit',
@@ -75,7 +75,30 @@ const routers = [
                     name: 'SITES_ARTICLE',
                     title: '编辑文章'
                 },
-                component: (resolve) => require(['./views/sites/article/edit-form.vue'], resolve)
+                component: (resolve) => require(['./views/sites/article/form.vue'], resolve)
+            },
+            {
+                path: 'sites/album',
+                meta: {
+                    name: 'SITES_ALBUM'
+                },
+                component: (resolve) => require(['./views/sites/album/list.vue'], resolve)
+            },
+            {
+                path: 'sites/album/create',
+                meta: {
+                    name: 'SITES_ALBUM',
+                    title: '新增相册'
+                },
+                component: (resolve) => require(['./views/sites/album/form.vue'], resolve)
+            },
+            {
+                path: 'sites/album/:albumId/edit',
+                meta: {
+                    name: 'SITES_ALBUM',
+                    title: '编辑相册'
+                },
+                component: (resolve) => require(['./views/sites/album/form.vue'], resolve)
             },
             {
                 path: '403',

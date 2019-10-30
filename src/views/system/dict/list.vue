@@ -114,7 +114,7 @@
                         }
                     },
                     {
-                        label: '创建日期',
+                        label: '创建时间',
                         prop: 'createdTime',
                         width: '180',
                         render: row => {
