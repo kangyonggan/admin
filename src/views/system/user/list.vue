@@ -135,6 +135,7 @@
                         }).catch(res => {
                            this.error(res.respMsg);
                         });
+                    }).catch(() => {
                     });
                 } else if (command === '2') {
                     this.$refs['password-modal'].show(row);

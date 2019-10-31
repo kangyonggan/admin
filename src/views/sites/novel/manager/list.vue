@@ -37,6 +37,12 @@
         >
           新增
         </el-button>
+        <el-button
+          @click="stopPull"
+          type="danger"
+        >
+          停更
+        </el-button>
       </template>
     </base-search-form>
 
@@ -58,8 +64,14 @@
           编辑
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="0">
+              <span>更新章节</span>
+            </el-dropdown-item>
+            <el-dropdown-item command="1">
               <span v-if="!row.isDeleted">逻辑删除</span>
               <span v-else>逻辑恢复</span>
+            </el-dropdown-item>
+            <el-dropdown-item command="2">
+              <span>清空章节</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -144,6 +156,17 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
+                    this.$confirm('拉取' + row.name + '的最新章节，是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.axios.put('/sites/novel/manager/' + row.id + '/pull').catch(res => {
+                            this.warning(res.respMsg);
+                        });
+                    }).catch(() => {
+                    });
+                } else if (command === '1') {
                     const title = row.isDeleted ? '恢复已删除的小说：' : '逻辑删除小说：';
                     this.$confirm(title + row.name + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
@@ -155,8 +178,32 @@
                         }).catch(res => {
                             this.error(res.respMsg);
                         });
+                    }).catch(() => {
+                    });
+                } else if (command === '2') {
+                    this.$confirm('清空' + row.name + '的全部章节，是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.axios.delete('/sites/novel/manager/' + row.id + '/section').catch(res => {
+                            this.error(res.respMsg);
+                        });
+                    }).catch(() => {
                     });
                 }
+            },
+            stopPull: function () {
+                this.$confirm('停止小说全部更新，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.axios.put('/sites/novel/manager/stopPull').catch(res => {
+                        this.error(res.respMsg);
+                    });
+                }).catch(() => {
+                });
             },
             getSource(sourceId) {
                 for (let i = 0; i < this.novelSources.length; i++) {

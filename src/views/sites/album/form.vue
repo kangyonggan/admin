@@ -142,6 +142,7 @@
                             return;
                         }
                     }
+                }).catch(() => {
                 });
             },
             handlePreview(file) {
