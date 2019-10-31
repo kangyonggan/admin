@@ -12,9 +12,9 @@
     >
       <el-option
         v-for="item in items"
-        :key="item.code"
-        :label="item.name"
-        :value="item.code"
+        :key="item[code]"
+        :label="item[name]"
+        :value="item[code]"
       />
       <el-option
         v-for="item in enums"
@@ -49,6 +49,16 @@
                 default: function () {
                     return [];
                 }
+            },
+            code: {
+              required: false,
+              type: String,
+              default: 'code'
+            },
+            name: {
+              required: false,
+              type: String,
+              default: 'name'
             },
             enum: {
                 required: false,

@@ -2,10 +2,28 @@
   <div>
     <!--搜索表单-->
     <base-search-form :model="params">
+      <base-select
+        label="来源"
+        v-model="params.sourceId"
+        prop="sourceId"
+        :items="novelSources"
+        code="id"
+        name="baseUrl"
+      />
       <base-input
-        label="标题"
-        v-model="params.title"
-        prop="title"
+        label="代码"
+        v-model="params.code"
+        prop="code"
+      />
+      <base-input
+        label="书名"
+        v-model="params.name"
+        prop="name"
+      />
+      <base-input
+        label="作者"
+        v-model="params.author"
+        prop="author"
       />
       <base-daterange
         label="创建日期"
@@ -14,7 +32,7 @@
       />
       <template #actions>
         <el-button
-          @click="$refs['form-modal'].show()"
+          @click="$refs['form-modal'].show(novelSources)"
           type="success"
         >
           新增
@@ -24,8 +42,9 @@
 
     <!--表格-->
     <base-table
-      url="/sites/video"
+      url="/sites/novel/manager"
       :columns="columns"
+      fixed-action
       ref="table"
     >
       <template #actions="{row}">
@@ -33,7 +52,7 @@
           split-button
           trigger="click"
           size="small"
-          @click="$refs['form-modal'].show(row)"
+          @click="$refs['form-modal'].show(novelSources, row)"
           @command="handleCommand($event, row)"
         >
           编辑
@@ -63,18 +82,42 @@
         data() {
             return {
                 params: {},
+                novelSources: [],
                 columns: [
                     {
                         label: 'ID',
-                        prop: 'id'
+                        prop: 'id',
+                        fixed: true,
+                        width: '100'
                     },
                     {
-                        label: '标题',
-                        prop: 'title'
+                        label: '书名',
+                        prop: 'name',
+                        fixed: true,
+                        width: '150'
+                    },
+                    {
+                        label: '代码',
+                        prop: 'code',
+                        width: '100'
+                    },
+                    {
+                        label: '作者',
+                        prop: 'author',
+                        width: '120'
+                    },
+                    {
+                        label: '来源',
+                        prop: 'sourceId',
+                        width: '300',
+                        render: row => {
+                            return this.getSource(row.sourceId);
+                        }
                     },
                     {
                         label: '状态',
                         prop: 'isDeleted',
+                        width: '120',
                         render: row => {
                             return this.util.formatStatus(row.isDeleted);
                         }
@@ -101,20 +144,36 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    const title = row.isDeleted ? '恢复已删除的视频：' : '逻辑删除视频：';
-                    this.$confirm(title + row.title + '，是否继续?', '提示', {
+                    const title = row.isDeleted ? '恢复已删除的小说：' : '逻辑删除小说：';
+                    this.$confirm(title + row.name + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/video/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('/sites/novel/manager/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);
                         });
                     });
                 }
+            },
+            getSource(sourceId) {
+                for (let i = 0; i < this.novelSources.length; i++) {
+                    if (this.novelSources[i].id === sourceId) {
+                        return this.novelSources[i].baseUrl;
+                    }
+                }
+
+                return sourceId;
             }
+        },
+        mounted() {
+            this.axios.get('sites/novel/source/all').then(data => {
+                this.novelSources = data.novelSources;
+            }).catch(res => {
+                this.error(res.respMsg);
+            });
         }
     };
 </script>

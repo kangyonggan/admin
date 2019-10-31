@@ -115,6 +115,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/novel/source/list.vue'], resolve)
             },
             {
+                path: 'sites/novel/manager',
+                meta: {
+                    name: 'SITES_NOVEL_MANAGER'
+                },
+                component: (resolve) => require(['./views/sites/novel/manager/list.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

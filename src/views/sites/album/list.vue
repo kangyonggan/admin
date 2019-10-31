@@ -54,7 +54,6 @@
         data() {
             return {
                 params: {},
-                dictTypes: [],
                 columns: [
                     {
                         label: 'ID',
