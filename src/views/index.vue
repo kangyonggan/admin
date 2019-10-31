@@ -50,6 +50,12 @@
           target="_blank"
         >http://mockjs.com/</a>
       </li>
+      <li>
+        <a
+          href="https://www.npmjs.com/package/mavon-editor"
+          target="_blank"
+        >https://www.npmjs.com/package/mavon-editor</a>
+      </li>
     </ul>
     <h1>快速开始</h1>
     <ul>
