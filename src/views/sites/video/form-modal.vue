@@ -9,6 +9,13 @@
     @success="handleSuccess"
   >
     <base-input
+      v-if="params.id"
+      label="ID"
+      v-model="params.id"
+      prop="id"
+      readonly
+    />
+    <base-input
       label="标题"
       v-model="params.title"
       prop="title"

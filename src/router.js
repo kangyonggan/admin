@@ -108,6 +108,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/video/list.vue'], resolve)
             },
             {
+                path: 'sites/novel/source',
+                meta: {
+                    name: 'SITES_NOVEL_SOURCE'
+                },
+                component: (resolve) => require(['./views/sites/novel/source/list.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',
