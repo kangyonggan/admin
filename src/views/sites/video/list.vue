@@ -14,7 +14,7 @@
       />
       <template #actions>
         <el-button
-          @click="$router.push({path: '/sites/article/create'})"
+          @click="$refs['form-modal'].show()"
           type="success"
         >
           新增
@@ -24,7 +24,7 @@
 
     <!--表格-->
     <base-table
-      url="/sites/article"
+      url="/sites/video"
       :columns="columns"
       ref="table"
     >
@@ -33,7 +33,7 @@
           split-button
           trigger="click"
           size="small"
-          @click="$router.push({path: '/sites/article/' + row.id + '/edit/'})"
+          @click="$refs['form-modal'].show(row)"
           @command="handleCommand($event, row)"
         >
           编辑
@@ -46,11 +46,20 @@
         </el-dropdown>
       </template>
     </base-table>
+
+    <!--新增界面-->
+    <form-modal
+      ref="form-modal"
+      @success="$refs.table.reload(params)"
+    />
   </div>
 </template>
 
 <script>
+    import FormModal from './form-modal';
+
     export default {
+        components: {FormModal},
         data() {
             return {
                 params: {},
@@ -62,8 +71,7 @@
                     },
                     {
                         label: '标题',
-                        prop: 'title',
-                        width: '700'
+                        prop: 'title'
                     },
                     {
                         label: '状态',
@@ -94,13 +102,13 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    const title = row.isDeleted ? '恢复已删除的文章：' : '逻辑删除文章：';
+                    const title = row.isDeleted ? '恢复已删除的视频：' : '逻辑删除视频：';
                     this.$confirm(title + row.title + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/article/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('/sites/video/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

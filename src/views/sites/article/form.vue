@@ -62,10 +62,10 @@
             }
         },
         mounted() {
-            let articleId = this.$route.params.articleId;
-            if (articleId) {
+            let id = this.$route.params.id;
+            if (id) {
                 this.loading = true;
-                this.axios.get('/sites/article/' + articleId).then(data => {
+                this.axios.get('/sites/article/' + id).then(data => {
                     data.article.createdTime = undefined;
                     data.article.updatedTime = undefined;
                     this.params = data.article;

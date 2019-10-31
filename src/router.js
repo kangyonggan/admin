@@ -70,7 +70,7 @@ const routers = [
                 component: (resolve) => require(['./views/sites/article/form.vue'], resolve)
             },
             {
-                path: 'sites/article/:articleId/edit',
+                path: 'sites/article/:id/edit',
                 meta: {
                     name: 'SITES_ARTICLE',
                     title: '编辑文章'
@@ -93,12 +93,19 @@ const routers = [
                 component: (resolve) => require(['./views/sites/album/form.vue'], resolve)
             },
             {
-                path: 'sites/album/:albumId/edit',
+                path: 'sites/album/:id/edit',
                 meta: {
                     name: 'SITES_ALBUM',
                     title: '编辑相册'
                 },
                 component: (resolve) => require(['./views/sites/album/form.vue'], resolve)
+            },
+            {
+                path: 'sites/video',
+                meta: {
+                    name: 'SITES_VIDEO'
+                },
+                component: (resolve) => require(['./views/sites/video/list.vue'], resolve)
             },
             {
                 path: '403',
