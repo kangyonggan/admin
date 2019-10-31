@@ -63,7 +63,7 @@
                     {
                         label: '名称',
                         prop: 'name',
-                        width: '450'
+                        width: '350'
                     },
                     {
                         label: '照片数量',

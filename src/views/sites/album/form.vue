@@ -29,10 +29,10 @@
       style="margin-top: 35px;"
     >
       <el-upload
-        :action="axios.defaults.baseURL + 'fileUpload'"
+        :action="axios.defaults.baseURL + 'fileUpload/album'"
         list-type="picture-card"
         :file-list="fileList"
-        :before-upload="isValid"
+        :before-upload="beforeUpload"
         :on-success="uploadSuccess"
         :before-remove="beforeRemove"
         :on-preview="handlePreview"
@@ -92,7 +92,7 @@
                     path: '/sites/album'
                 });
             },
-            isValid(file) {
+            beforeUpload(file) {
                 if (!this.imgTypes.includes(file.type)) {
                     this.error('只能选择 gif/jpg/jpeg/bmp/png/webp 格式的图片!');
                     return false;
@@ -112,27 +112,31 @@
 
                 this.content.push({
                     name: file.raw.name,
-                    url: res.data.url
+                    originUrl: res.data.originUrl,
+                    thumbUrl: res.data.thumbUrl
                 });
 
                 this.params.content = JSON.stringify(this.content);
             },
             beforeRemove(file) {
-                if (!this.isValid(file)) {
+                if (file.raw && !file.response) {
                     return true;
                 }
+                console.log(11);
                 return this.$confirm('删除图片' + file.name + '，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    let url = file.url;
+                    let url;
                     if (file.response) {
                         // 新上传的
-                        url = file.response.data.url;
+                        url = file.response.data.originUrl;
+                    } else {
+                        url = file.originUrl;
                     }
                     for (let i = 0; i < this.content.length; i++) {
-                        if (url.indexOf(this.content[i].url) > -1) {
+                        if (url.indexOf(this.content[i].originUrl) > -1) {
                             this.content.splice(i, 1);
                             this.params.content = JSON.stringify(this.content);
                             return;
@@ -141,12 +145,13 @@
                 });
             },
             handlePreview(file) {
-                this.dialogImageUrl = file.url;
                 if (file.response) {
                     // 新上传的
-                    this.dialogName = this.axios.defaults.baseURL + file.response.data.url + '  (' + file.name + ')';
+                    this.dialogName = this.axios.defaults.baseURL + file.response.data.originUrl + '  (' + file.name + ')';
+                    this.dialogImageUrl = this.axios.defaults.baseURL + file.response.data.originUrl;
                 } else {
-                    this.dialogName = file.url + '  (' + file.name + ')';
+                    this.dialogName = file.originUrl + '  (' + file.name + ')';
+                    this.dialogImageUrl = file.originUrl;
                 }
                 this.dialogVisible = true;
             }
@@ -162,7 +167,8 @@
                     this.content = JSON.parse(this.params.content);
                     this.fileList = JSON.parse(this.params.content);
                     this.fileList.forEach(file => {
-                       file.url = this.axios.defaults.baseURL + file.url;
+                        file.url = this.axios.defaults.baseURL + file.thumbUrl;
+                        file.originUrl = this.axios.defaults.baseURL + file.originUrl;
                     });
                 }).catch(res => {
                     this.error(res.respMsg);
