@@ -7,17 +7,12 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
 ```
 
 ### Lints and fixes files
@@ -36,3 +31,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - https://router.vuejs.org/zh/
 - http://www.axios-js.com/
 - http://mockjs.com/
+- https://www.npmjs.com/package/mavon-editor
