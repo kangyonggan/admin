@@ -32,7 +32,7 @@
         :action="axios.defaults.baseURL + 'fileUpload'"
         list-type="picture-card"
         :file-list="fileList"
-        :before-upload="beforeUpload"
+        :before-upload="isValid"
         :on-success="uploadSuccess"
         :before-remove="beforeRemove"
         :on-preview="handlePreview"
@@ -47,7 +47,6 @@
         <img
           width="100%"
           :src="dialogImageUrl"
-          alt=""
         >
       </el-dialog>
     </el-form-item>
@@ -72,7 +71,7 @@
                         {max: 256, message: '封面最多为256位'}
                     ],
                     content: [
-                        {required: true, message: '必须选择照片'}
+                        {required: true, message: '必须选择图片'}
                     ]
                 },
                 imgTypes: [
@@ -93,17 +92,17 @@
                     path: '/sites/album'
                 });
             },
-            beforeUpload(file) {
-                const isImg = this.imgTypes.includes(file.type);
-                const isLt2M = file.size / 1024 / 1024 < 2;
+            isValid(file) {
+                if (!this.imgTypes.includes(file.type)) {
+                    this.error('只能选择 gif/jpg/jpeg/bmp/png/webp 格式的图片!');
+                    return false;
+                }
+                if (file.size / 1024 / 1024 > 2) {
+                    this.error('图片大小不能超过 2MB!');
+                    return false;
+                }
 
-                if (!isImg) {
-                    this.$message.error('图片只能是 gif/jpg/jpeg/bmp/png/webp 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('图片大小不能超过 2MB!');
-                }
-                return isImg && isLt2M;
+                return true;
             },
             uploadSuccess(res, file) {
                 if (res.respCo !== '0000') {
@@ -119,7 +118,10 @@
                 this.params.content = JSON.stringify(this.content);
             },
             beforeRemove(file) {
-                return this.$confirm('删除照片' + file.name + '，是否继续?', '提示', {
+                if (!this.isValid(file)) {
+                    return true;
+                }
+                return this.$confirm('删除图片' + file.name + '，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
