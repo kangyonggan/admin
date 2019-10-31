@@ -120,9 +120,9 @@
             },
             beforeRemove(file) {
                 if (file.raw && !file.response) {
+                    console.log('1111');
                     return true;
                 }
-                console.log(11);
                 return this.$confirm('删除图片' + file.name + '，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
@@ -142,7 +142,6 @@
                             return;
                         }
                     }
-                }).catch(() => {
                 });
             },
             handlePreview(file) {
