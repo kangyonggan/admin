@@ -1,45 +1,21 @@
 <template>
-  <el-col>
-    <el-col
-      :xs="0"
-      :sm="2"
-      :md="4"
-      :lg="6"
-      :xl="6"
-      style="height: 1px;"
-    />
-    <el-col
-      :xs="24"
-      :sm="20"
-      :md="16"
-      :lg="12"
-      :xl="12"
+  <div class="form-panel">
+    <el-form
+      ref="form"
+      :model="params"
+      :rules="rules"
     >
-      <el-form
-        ref="form"
-        :model="params"
-        :rules="rules"
-      >
-        <slot />
-      </el-form>
-      <el-button
-        style="margin-top: 30px;"
-        v-loading="loading"
-        type="primary"
-        @click="submit"
-      >
-        提 交
-      </el-button>
-    </el-col>
-    <el-col
-      :xs="0"
-      :sm="2"
-      :md="4"
-      :lg="6"
-      :xl="6"
-      style="height: 1px;"
-    />
-  </el-col>
+      <slot />
+    </el-form>
+    <el-button
+      style="margin-top: 30px;"
+      v-loading="loading"
+      type="primary"
+      @click="submit"
+    >
+      提 交
+    </el-button>
+  </div>
 </template>
 
 <script>
@@ -101,3 +77,10 @@
         }
     };
 </script>
+
+<style scoped lang="scss">
+  .form-panel {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>
