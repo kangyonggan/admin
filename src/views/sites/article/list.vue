@@ -57,16 +57,22 @@
                 columns: [
                     {
                         label: 'ID',
-                        prop: 'id'
+                        prop: 'id',
+                        width: '60'
                     },
                     {
                         label: '标题',
                         prop: 'title',
-                        width: '700'
+                    },
+                    {
+                        label: '访问量',
+                        prop: 'viewNum',
+                        width: '90'
                     },
                     {
                         label: '状态',
                         prop: 'isDeleted',
+                        width: '90',
                         render: row => {
                             return this.util.formatStatus(row.isDeleted);
                         }
