@@ -48,7 +48,7 @@
 
     <!--表格-->
     <base-table
-      url="/sites/novel/manager"
+      url="sites/novel/manager"
       :columns="columns"
       fixed-action
       ref="table"
@@ -161,7 +161,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/novel/manager/' + row.id + '/pull').catch(res => {
+                        this.axios.put('sites/novel/manager/' + row.id + '/pull').catch(res => {
                             this.warning(res.respMsg);
                         });
                     }).catch(() => {
@@ -173,7 +173,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/novel/manager/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('sites/novel/manager/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);
@@ -186,7 +186,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.delete('/sites/novel/manager/' + row.id + '/section').catch(res => {
+                        this.axios.delete('sites/novel/manager/' + row.id + '/section').catch(res => {
                             this.error(res.respMsg);
                         });
                     }).catch(() => {
@@ -199,7 +199,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.axios.put('/sites/novel/manager/stopPull').catch(res => {
+                    this.axios.put('sites/novel/manager/stopPull').catch(res => {
                         this.error(res.respMsg);
                     });
                 }).catch(() => {

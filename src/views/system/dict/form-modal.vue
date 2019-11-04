@@ -68,7 +68,7 @@
                     return;
                 }
 
-                this.axios.get('/validate/dict?type=' + this.params.type + '&code=' + value).then(() => {
+                this.axios.get('validate/dict?type=' + this.params.type + '&code=' + value).then(() => {
                     callback();
                 }).catch(res => {
                     callback(new Error(res.respMsg));

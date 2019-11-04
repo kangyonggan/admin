@@ -53,7 +53,7 @@
                     return;
                 }
 
-                this.axios.get('/validate/role?code=' + value).then(() => {
+                this.axios.get('validate/role?code=' + value).then(() => {
                     callback();
                 }).catch(res => {
                     callback(new Error(res.respMsg));

@@ -34,7 +34,7 @@
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
-                    this.axios.get('/logout').finally(() => {
+                    this.axios.get('logout').finally(() => {
                         sessionStorage.removeItem('token');
                         this.$router.push({
                             path: '/login'

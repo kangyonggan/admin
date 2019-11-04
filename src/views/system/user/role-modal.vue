@@ -35,7 +35,7 @@
                 this.$refs.modal.show();
 
                 this.loading = true;
-                this.axios.get('/system/user/' + id + '/role').then(data => {
+                this.axios.get('system/user/' + id + '/role').then(data => {
                     this.params = {
                         id: id,
                         userRoleIds: data.userRoleIds

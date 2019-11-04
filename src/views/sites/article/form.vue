@@ -55,7 +55,7 @@
             let id = this.$route.params.id;
             if (id) {
                 this.loading = true;
-                this.axios.get('/sites/article/' + id).then(data => {
+                this.axios.get('sites/article/' + id).then(data => {
                     data.article.createdTime = undefined;
                     data.article.updatedTime = undefined;
                     data.article.viewNum = undefined;

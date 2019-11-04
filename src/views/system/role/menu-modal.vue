@@ -40,7 +40,7 @@
                 this.$refs.modal.show();
 
                 this.loading = true;
-                this.axios.get('/system/role/' + id + '/menu').then(data => {
+                this.axios.get('system/role/' + id + '/menu').then(data => {
                     this.params = {
                         id: id
                     };

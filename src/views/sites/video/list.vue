@@ -24,7 +24,7 @@
 
     <!--表格-->
     <base-table
-      url="/sites/video"
+      url="sites/video"
       :columns="columns"
       ref="table"
     >
@@ -107,7 +107,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/video/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('sites/video/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

@@ -24,7 +24,7 @@
 
     <!--表格-->
     <base-table
-      url="/sites/novel/source"
+      url="sites/novel/source"
       :columns="columns"
       fixed-action
       ref="table"
@@ -148,7 +148,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/novel/source/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('sites/novel/source/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

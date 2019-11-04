@@ -29,7 +29,7 @@
 
     <!--表格-->
     <base-table
-      url="/system/role"
+      url="system/role"
       :columns="columns"
       ref="table"
     >
@@ -123,7 +123,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/system/role/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('system/role/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

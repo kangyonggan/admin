@@ -55,7 +55,7 @@
                     return;
                 }
 
-                this.axios.get('/validate/account?account=' + value).then(() => {
+                this.axios.get('validate/account?account=' + value).then(() => {
                     callback();
                 }).catch(res => {
                     callback(new Error(res.respMsg));

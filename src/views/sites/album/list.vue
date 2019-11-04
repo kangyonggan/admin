@@ -24,7 +24,7 @@
 
     <!--表格-->
     <base-table
-      url="/sites/album"
+      url="sites/album"
       :columns="columns"
       ref="table"
     >
@@ -102,7 +102,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/sites/album/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('sites/album/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

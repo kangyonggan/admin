@@ -79,7 +79,7 @@
                     return;
                 }
 
-                this.axios.get('/validate/menu?name=' + value).then(() => {
+                this.axios.get('validate/menu?name=' + value).then(() => {
                     callback();
                 }).catch(res => {
                     callback(new Error(res.respMsg));

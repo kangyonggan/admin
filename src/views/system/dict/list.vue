@@ -42,7 +42,7 @@
 
     <!--表格-->
     <base-table
-      url="/system/dict"
+      url="system/dict"
       :columns="columns"
       ref="table"
     >
@@ -133,7 +133,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/system/dict/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('system/dict/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                             this.error(res.respMsg);

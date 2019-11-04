@@ -29,7 +29,7 @@
 
     <!--表格-->
     <base-table
-      url="/system/user"
+      url="system/user"
       :columns="columns"
       ref="table"
     >
@@ -130,7 +130,7 @@
                         cancelButtonText: '取消',
                         type: 'warning'
                     }).then(() => {
-                        this.axios.put('/system/user/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
+                        this.axios.put('system/user/' + row.id + '/delete/' + !row.isDeleted * 1).then(() => {
                             this.$refs.table.request();
                         }).catch(res => {
                            this.error(res.respMsg);

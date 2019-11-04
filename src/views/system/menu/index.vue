@@ -140,7 +140,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    this.axios.delete('/system/menu/' + menu.id).then(() => {
+                    this.axios.delete('system/menu/' + menu.id).then(() => {
                         this.reload();
                     }).catch(res => {
                         this.error(res.respMsg);
@@ -149,7 +149,7 @@
                 });
             },
             reload() {
-                this.axios.get('/system/menu').then(data => {
+                this.axios.get('system/menu').then(data => {
                     this.menus = [{
                         title: '根菜单',
                         children: data.menus,

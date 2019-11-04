@@ -160,7 +160,7 @@
             let id = this.$route.params.id;
             if (id) {
                 this.loading = true;
-                this.axios.get('/sites/album/' + id).then(data => {
+                this.axios.get('sites/album/' + id).then(data => {
                     data.album.createdTime = undefined;
                     data.album.updatedTime = undefined;
                     this.params = data.album;
