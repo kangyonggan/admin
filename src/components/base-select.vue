@@ -22,6 +22,12 @@
         :label="item.name"
         :value="item.code"
       />
+      <el-option
+        v-for="item in dicts"
+        :key="item.code"
+        :label="item.value"
+        :value="item.code"
+      />
       <slot />
     </el-select>
   </el-form-item>
@@ -65,6 +71,11 @@
                 type: String,
                 default: ''
             },
+            dict: {
+                required: false,
+                type: String,
+                default: ''
+            },
             placeholder: {
                 required: false,
                 type: String,
@@ -78,14 +89,21 @@
         },
         data() {
             return {
-                temp: '',
-                enums: []
+                enums: [],
+                dicts: []
             };
         },
         mounted() {
             if (this.enum) {
                 this.axios.get('enum?enumKey=' + this.enum).then(data => {
                     this.enums = data.enums;
+                }).catch(res => {
+                    this.error(res.respMsg);
+                });
+            }
+            if (this.dict) {
+                this.axios.get('dict?type=' + this.dict).then(data => {
+                    this.dicts = data.dicts;
                 }).catch(res => {
                     this.error(res.respMsg);
                 });

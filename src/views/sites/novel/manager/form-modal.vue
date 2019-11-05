@@ -23,6 +23,12 @@
       code="id"
       name="baseUrl"
     />
+    <base-select
+      label="分类"
+      v-model="params.category"
+      prop="category"
+      dict="NOVEL_CATEGORY"
+    />
     <base-input
       label="书名"
       v-model="params.name"
@@ -61,6 +67,9 @@
                 rules: {
                     sourceId: [
                         {required: true, message: '来源为必选项'}
+                    ],
+                    category: [
+                        {required: true, message: '分类为必选项'}
                     ],
                     name: [
                         {required: true, message: '书名为必填项'},

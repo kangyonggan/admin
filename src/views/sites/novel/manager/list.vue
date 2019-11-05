@@ -10,6 +10,13 @@
         code="id"
         name="baseUrl"
       />
+      <base-select
+        label="分类"
+        v-model="params.category"
+        prop="category"
+        :items="categories"
+        name="value"
+      />
       <base-input
         label="代码"
         v-model="params.code"
@@ -95,6 +102,7 @@
             return {
                 params: {},
                 novelSources: [],
+                categories: [],
                 columns: [
                     {
                         label: 'ID',
@@ -107,6 +115,14 @@
                         prop: 'name',
                         fixed: true,
                         width: '150'
+                    },
+                    {
+                        label: '分类',
+                        prop: 'category',
+                        width: '150',
+                        render: row => {
+                            return this.getCategory(row.category);
+                        }
                     },
                     {
                         label: '代码',
@@ -213,11 +229,25 @@
                 }
 
                 return sourceId;
+            },
+            getCategory(category) {
+                for (let i = 0; i < this.categories.length; i++) {
+                    if (this.categories[i].code === category) {
+                        return this.categories[i].value;
+                    }
+                }
+
+                return category;
             }
         },
         mounted() {
             this.axios.get('sites/novel/source/all').then(data => {
                 this.novelSources = data.novelSources;
+            }).catch(res => {
+                this.error(res.respMsg);
+            });
+            this.axios.get('dict?type=NOVEL_CATEGORY').then(data => {
+                this.categories = data.dicts;
             }).catch(res => {
                 this.error(res.respMsg);
             });
