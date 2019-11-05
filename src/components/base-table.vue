@@ -137,13 +137,8 @@
             },
             changeSort: function (column) {
                 this.params.pageNum = 1;
-                if (column.order) {
-                    this.params.sortColumn = column.prop;
-                    this.params.sortOrder = column.order === 'ascending' ? 0 : 1;
-                } else {
-                    this.params.sortColumn = undefined;
-                    this.params.sortOrder = undefined;
-                }
+                this.params.prop = column.prop;
+                this.params.order = column.order;
                 this.request();
             }
         },

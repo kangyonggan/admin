@@ -16,7 +16,7 @@ axios.defaults.timeout = 10000;
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
     const token = sessionStorage.getItem('token');
-    if (!token && config.url !== '/login') {
+    if (!token && config.url !== 'login') {
         return Promise.reject({
             respCo: '9998',
             respMsg: '您尚未登录或登录已失效！'
