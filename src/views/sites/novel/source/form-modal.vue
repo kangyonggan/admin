@@ -103,9 +103,9 @@
                 if (!novelSource) {
                     novelSource = {};
                 }
-                novelSource.createdTime = undefined;
-                novelSource.updatedTime = undefined;
                 this.params = Object.assign({}, novelSource);
+                this.params.createdTime = undefined;
+                this.params.updatedTime = undefined;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

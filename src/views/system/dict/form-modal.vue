@@ -80,9 +80,9 @@
                 }
                 this.oldType = dict.type;
                 this.oldCode = dict.code;
-                dict.createdTime = undefined;
-                dict.updatedTime = undefined;
                 this.params = Object.assign({}, dict);
+                this.params.createdTime = undefined;
+                this.params.updatedTime = undefined;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

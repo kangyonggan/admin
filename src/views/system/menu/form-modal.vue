@@ -90,9 +90,9 @@
                 this.params = menu ? Object.assign({}, menu) : {
                     parentName: parentMenu.name
                 };
+                this.oldName = this.params.name;
                 this.params.createdTime = undefined;
                 this.params.updatedTime = undefined;
-                this.oldName = this.params.name;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

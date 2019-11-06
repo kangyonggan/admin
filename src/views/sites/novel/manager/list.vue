@@ -112,7 +112,7 @@
                         prop: 'author'
                     },
                     {
-                        label: '推荐',
+                        label: '推荐指数',
                         prop: 'hold'
                     },
                     {

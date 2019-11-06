@@ -58,9 +58,9 @@
                 if (!video) {
                     video = {};
                 }
-                video.createdTime = undefined;
-                video.updatedTime = undefined;
                 this.params = Object.assign({}, video);
+                this.params.createdTime = undefined;
+                this.params.updatedTime = undefined;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

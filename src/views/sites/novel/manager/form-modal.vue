@@ -39,7 +39,7 @@
       prop="author"
     />
     <base-input
-      label="推荐"
+      label="推荐指数"
       v-model="params.hold"
       prop="hold"
     />
@@ -80,7 +80,8 @@
                         {max: 32, message: '作者最多为32位'}
                     ],
                     hold: [
-                        {pattern: /^[0-9]*$/, message: '推荐是自然数'},
+                        {required: true, message: '推荐指数为必填项'},
+                        {pattern: /^[0-5]$/, message: '推荐指数是0~5'},
                     ],
                     cover: [
                         {required: true, message: '封面为必填项'},
@@ -98,10 +99,10 @@
                 if (!novel) {
                     novel = {};
                 }
-                novel.createdTime = undefined;
-                novel.updatedTime = undefined;
                 this.novelSources = novelSources;
                 this.params = Object.assign({}, novel);
+                this.params.createdTime = undefined;
+                this.params.updatedTime = undefined;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {
