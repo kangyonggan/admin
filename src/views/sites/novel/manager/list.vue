@@ -10,13 +10,6 @@
         code="id"
         name="baseUrl"
       />
-      <base-select
-        label="分类"
-        v-model="params.category"
-        prop="category"
-        :items="categories"
-        name="value"
-      />
       <base-input
         label="代码"
         v-model="params.code"
@@ -57,7 +50,6 @@
     <base-table
       url="sites/novel/manager"
       :columns="columns"
-      fixed-action
       ref="table"
     >
       <template #actions="{row}">
@@ -102,47 +94,30 @@
             return {
                 params: {},
                 novelSources: [],
-                categories: [],
                 columns: [
                     {
                         label: 'ID',
-                        prop: 'id',
-                        fixed: true,
-                        width: '100'
+                        prop: 'id'
                     },
                     {
                         label: '书名',
-                        prop: 'name',
-                        fixed: true,
-                        width: '150'
-                    },
-                    {
-                        label: '分类',
-                        prop: 'category',
-                        width: '150',
-                        render: row => {
-                            return this.getCategory(row.category);
-                        }
+                        prop: 'name'
                     },
                     {
                         label: '代码',
-                        prop: 'code',
-                        width: '100'
+                        prop: 'code'
                     },
                     {
                         label: '作者',
-                        prop: 'author',
-                        width: '120'
+                        prop: 'author'
                     },
                     {
                         label: '推荐',
-                        prop: 'hold',
-                        width: '100'
+                        prop: 'hold'
                     },
                     {
                         label: '来源',
                         prop: 'sourceId',
-                        width: '300',
                         render: row => {
                             return this.getSource(row.sourceId);
                         }
@@ -150,7 +125,6 @@
                     {
                         label: '状态',
                         prop: 'isDeleted',
-                        width: '120',
                         render: row => {
                             return this.util.formatStatus(row.isDeleted);
                         }
@@ -158,7 +132,6 @@
                     {
                         label: '创建时间',
                         prop: 'createdTime',
-                        width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }
@@ -166,7 +139,6 @@
                     {
                         label: '更新时间',
                         prop: 'updatedTime',
-                        width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.updatedTime);
                         }
@@ -234,25 +206,11 @@
                 }
 
                 return sourceId;
-            },
-            getCategory(category) {
-                for (let i = 0; i < this.categories.length; i++) {
-                    if (this.categories[i].code === category) {
-                        return this.categories[i].value;
-                    }
-                }
-
-                return category;
             }
         },
         mounted() {
             this.axios.get('sites/novel/source/all').then(data => {
                 this.novelSources = data.novelSources;
-            }).catch(res => {
-                this.error(res.respMsg);
-            });
-            this.axios.get('dict?type=NOVEL_CATEGORY').then(data => {
-                this.categories = data.dicts;
             }).catch(res => {
                 this.error(res.respMsg);
             });
