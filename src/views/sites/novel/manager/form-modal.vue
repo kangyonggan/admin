@@ -45,6 +45,11 @@
       prop="author"
     />
     <base-input
+      label="推荐"
+      v-model="params.hold"
+      prop="hold"
+    />
+    <base-input
       label="封面"
       v-model="params.cover"
       prop="cover"
@@ -82,6 +87,9 @@
                     author: [
                         {required: true, message: '作者为必填项'},
                         {max: 32, message: '作者最多为32位'}
+                    ],
+                    hold: [
+                        {pattern: /^[0-9]*$/, message: '推荐是自然数'},
                     ],
                     cover: [
                         {required: true, message: '封面为必填项'},

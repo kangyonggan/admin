@@ -58,7 +58,7 @@
                     {
                         label: 'ID',
                         prop: 'id',
-                        width: '60'
+                        width: '70'
                     },
                     {
                         label: '标题',

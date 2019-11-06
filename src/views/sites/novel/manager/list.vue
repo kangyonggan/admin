@@ -135,6 +135,11 @@
                         width: '120'
                     },
                     {
+                        label: '推荐',
+                        prop: 'hold',
+                        width: '100'
+                    },
+                    {
                         label: '来源',
                         prop: 'sourceId',
                         width: '300',
