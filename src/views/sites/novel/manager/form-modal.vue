@@ -1,7 +1,7 @@
 <template>
   <base-modal
     ref="modal"
-    :title="params.id ? '编辑小说' : '新增小说'"
+    :title="params.id ? '编辑书籍' : '新增书籍'"
     :params="params"
     :rules="rules"
     :method="params.id ? 'PUT' : 'POST'"

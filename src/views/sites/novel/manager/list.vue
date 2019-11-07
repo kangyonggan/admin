@@ -160,7 +160,7 @@
                     }).catch(() => {
                     });
                 } else if (command === '1') {
-                    const title = row.isDeleted ? '恢复已删除的小说：' : '逻辑删除小说：';
+                    const title = row.isDeleted ? '恢复已删除的书籍：' : '逻辑删除书籍：';
                     this.$confirm(title + row.name + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
@@ -187,7 +187,7 @@
                 }
             },
             stopPull: function () {
-                this.$confirm('停止小说全部更新，是否继续?', '提示', {
+                this.$confirm('停止书籍全部更新，是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'

@@ -83,7 +83,7 @@
                         width: '120'
                     },
                     {
-                        label: '小说地址',
+                        label: '书籍地址',
                         prop: 'novelUrl',
                         width: '120'
                     },

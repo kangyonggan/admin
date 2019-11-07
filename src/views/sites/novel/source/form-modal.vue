@@ -27,7 +27,7 @@
       prop="startIndex"
     />
     <base-input
-      label="小说地址"
+      label="书籍地址"
       v-model="params.novelUrl"
       prop="novelUrl"
     />

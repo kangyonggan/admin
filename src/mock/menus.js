@@ -37,7 +37,7 @@ export default [
                 path: '/sites/article'
             },
             {
-                title: '小说管理',
+                title: '书籍管理',
                 name: 'SITES_NOVEL',
                 path: '/sites/novel'
             },
