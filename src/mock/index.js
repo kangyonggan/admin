@@ -15,7 +15,7 @@ const response = {
 /**
  * 登录
  */
-Mock.mock('/login', 'post', req => {
+Mock.mock('login', 'post', req => {
     const params = qs.parse(req.body);
     if (params.account === 'admin' && params.password === 'admin') {
         // 模拟不了response headers，直接放session
@@ -41,7 +41,7 @@ Mock.mock('/login', 'post', req => {
 /**
  * 退出
  */
-Mock.mock('/logout', 'get', () => {
+Mock.mock('logout', 'get', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -52,7 +52,7 @@ Mock.mock('/logout', 'get', () => {
 /**
  * 用户列表
  */
-Mock.mock(/\/system\/user\?.*/, 'get', req => {
+Mock.mock(/system\/user\?.*/, 'get', req => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -83,7 +83,7 @@ Mock.mock(/\/system\/user\?.*/, 'get', req => {
 /**
  * 新增用户
  */
-Mock.mock('/system/user', 'post', () => {
+Mock.mock('system/user', 'post', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -95,7 +95,7 @@ Mock.mock('/system/user', 'post', () => {
 /**
  * 更新用户
  */
-Mock.mock('/system/user', 'put', () => {
+Mock.mock('system/user', 'put', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -107,7 +107,7 @@ Mock.mock('/system/user', 'put', () => {
 /**
  * 校验用户名是否存在
  */
-Mock.mock(/\/validate\/account\?.*/, 'get', req => {
+Mock.mock(/validate\/account\?.*/, 'get', req => {
     const params = getRequestParameters(req.url);
     const account = params['account'];
     if (account === 'admin') {
@@ -123,7 +123,7 @@ Mock.mock(/\/validate\/account\?.*/, 'get', req => {
 /**
  * 用户角色查询
  */
-Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
+Mock.mock(/system\/user\/[0-9]+\/role/, 'get', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -157,7 +157,7 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'get', () => {
 /**
  * 更新用户角色
  */
-Mock.mock(/\/system\/user\/[0-9]+\/role/, 'put', () => {
+Mock.mock(/system\/user\/[0-9]+\/role/, 'put', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -169,7 +169,7 @@ Mock.mock(/\/system\/user\/[0-9]+\/role/, 'put', () => {
 /**
  * 更新用户状态
  */
-Mock.mock(/\/system\/user\/[0-9]+\/delete\/[01]/, 'put', () => {
+Mock.mock(/system\/user\/[0-9]+\/delete\/[01]/, 'put', () => {
     const res = invalidLogin();
     if (res) {
         return res;
@@ -181,7 +181,7 @@ Mock.mock(/\/system\/user\/[0-9]+\/delete\/[01]/, 'put', () => {
 /**
  * 修改用户密码
  */
-Mock.mock(/\/system\/user\/[0-9]+\/password/, 'put', () => {
+Mock.mock(/system\/user\/[0-9]+\/password/, 'put', () => {
     const res = invalidLogin();
     if (res) {
         return res;

@@ -4,7 +4,7 @@
     title="新增用户"
     :params="params"
     :rules="rules"
-    url="/system/user"
+    url="system/user"
     @success="handleSuccess"
   >
     <base-input

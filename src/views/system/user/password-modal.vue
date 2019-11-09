@@ -4,7 +4,7 @@
     title="修改密码"
     :params="params"
     :rules="rules"
-    :url="'/system/user/' + params.id + '/password'"
+    :url="'system/user/' + params.id + '/password'"
     method="put"
   >
     <base-input

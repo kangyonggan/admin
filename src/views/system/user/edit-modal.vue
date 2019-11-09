@@ -4,7 +4,7 @@
     title="编辑用户"
     :params="params"
     :rules="rules"
-    url="/system/user"
+    url="system/user"
     method="put"
     @success="handleSuccess"
   >

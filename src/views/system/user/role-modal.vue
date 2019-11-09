@@ -3,7 +3,7 @@
     ref="modal"
     title="设置角色"
     :params="params"
-    :url="'/system/user/' + params.id + '/role'"
+    :url="'system/user/' + params.id + '/role'"
     method="put"
   >
     <el-transfer
