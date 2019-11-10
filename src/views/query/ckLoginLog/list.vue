@@ -116,7 +116,7 @@
         },
         methods: {
             validateQuery(rule, value, callback) {
-                if (!this.params.name && !this.params.mobileNo) {
+                if (!this.params.name && !this.params.mobileNo && !this.params.ipAddr) {
                     callback(new Error('角色名/手机号/登录IP至少填一个'));
                     return;
                 }
