@@ -43,10 +43,7 @@
         data() {
             return {
                 loading: false,
-                params: {
-                    account: 'admin',
-                    password: 'admin'
-                },
+                params: {},
                 rules: {
                     account: [
                         {required: true, message: '账号为必填项'},
