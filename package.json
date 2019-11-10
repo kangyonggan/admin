@@ -7,6 +7,7 @@
     "dev": "vue-cli-service serve",
     "mock": "vue-cli-service serve --mode mock",
     "build": "vue-cli-service build",
+    "deploy": "ssh ubuntu@kangyonggan.com 'rm -rf /home/ubuntu/apps/admin/*';scp -r dist/* ubuntu@kangyonggan.com:/home/ubuntu/apps/admin/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
