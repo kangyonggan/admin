@@ -70,6 +70,9 @@
                     ],
                     mobileNo: [
                         {validator: this.validateQuery}
+                    ],
+                    ipAddr: [
+                        {validator: this.validateQuery}
                     ]
                 },
                 columns: [
@@ -114,7 +117,7 @@
         methods: {
             validateQuery(rule, value, callback) {
                 if (!this.params.name && !this.params.mobileNo) {
-                    callback(new Error('角色名或手机号至少填一个'));
+                    callback(new Error('角色名/手机号/登录IP至少填一个'));
                     return;
                 }
                 callback();
