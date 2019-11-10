@@ -86,6 +86,11 @@
                 required: false,
                 type: Boolean,
                 default: false
+            },
+            lazy: {
+                required: false,
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -94,7 +99,7 @@
                     pageNum: 1,
                     pageSize: 10
                 },
-                emptyText: '正在查询',
+                emptyText: '暂无数据',
                 pageInfo: {}
             };
         },
@@ -143,7 +148,9 @@
             }
         },
         mounted() {
-            this.request();
+            if (!this.lazy) {
+                this.request();
+            }
         }
     };
 </script>

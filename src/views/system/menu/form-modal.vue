@@ -93,6 +93,7 @@
                 this.oldName = this.params.name;
                 this.params.createdTime = undefined;
                 this.params.updatedTime = undefined;
+                this.params.children = undefined;
                 this.$refs.modal.show();
             },
             handleSuccess(data) {

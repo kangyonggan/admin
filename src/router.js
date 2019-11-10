@@ -122,6 +122,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/novel/manager/list.vue'], resolve)
             },
             {
+                path: 'query/ckLoginLog',
+                meta: {
+                    name: 'QUERY_CK_LOGIN_LOG'
+                },
+                component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

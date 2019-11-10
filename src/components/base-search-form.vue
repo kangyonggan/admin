@@ -4,12 +4,13 @@
     :model="model"
     ref="form"
     label-width="90px"
+    :rules="rules"
   >
     <slot />
     <el-row>
       <el-button
         type="primary"
-        @click="$parent.$refs[table].reload(model)"
+        @click="query"
       >
         查询
       </el-button>
@@ -35,6 +36,23 @@
                 required: false,
                 type: String,
                 default: 'table'
+            },
+            rules: {
+                required: false,
+                type: Object,
+                default: function () {
+                    return {};
+                }
+            }
+        },
+        methods: {
+            query() {
+                let that = this;
+                this.$refs.form.validate(function (res) {
+                    if (res) {
+                        that.$parent.$refs[that.table].reload(that.model);
+                    }
+                });
             }
         }
     };
