@@ -88,8 +88,8 @@
   .login-container {
     width: 100%;
     height: 100%;
-    background: url('../assets/images/login_bg.jpg') no-repeat;
-    background-size: auto;
+    background: url('../assets/images/login_bg.jpg') center no-repeat;
+    background-size: cover;
   }
 
   .el-card {
