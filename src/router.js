@@ -122,6 +122,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/novel/manager/list.vue'], resolve)
             },
             {
+                path: 'query/accessLog',
+                meta: {
+                    name: 'QUERY_ACCESS_LOG'
+                },
+                component: (resolve) => require(['./views/query/accessLog/list.vue'], resolve)
+            },
+            {
                 path: 'query/ckLoginLog',
                 meta: {
                     name: 'QUERY_CK_LOGIN_LOG'
