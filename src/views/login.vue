@@ -33,6 +33,14 @@
         >
           登录
         </el-button>
+        <div class="third-links">
+          <label>其他账号登录：</label>
+          <img
+            id="qqLoginBtn"
+            src="../assets/images/qq.png"
+            @click="qqLogin"
+          >
+        </div>
       </el-form>
     </el-card>
   </div>
@@ -76,6 +84,14 @@
                         this.loading = false;
                     });
                 });
+            },
+            qqLogin() {
+                this.warning('QQ登录正在开通中...');
+                // eslint-disable-next-line
+                // QC.Login.showPopup({
+                //     appId: '101828246',
+                //     redirectURI: 'https://kangyonggan.com/'
+                // });
             }
         },
         mounted() {
@@ -105,6 +121,24 @@
     .el-button {
       width: 100%;
       margin: 10px 0;
+    }
+
+    .third-links {
+      margin-top: 10px;
+      position: relative;
+      padding-left: 100px;
+
+      label {
+        position: absolute;
+        left: 0;
+        top: -1px;
+        font-size: 13px;
+        color: #595959;
+      }
+
+      img {
+        cursor: pointer;
+      }
     }
   }
 </style>
