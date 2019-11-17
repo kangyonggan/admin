@@ -1,52 +1,71 @@
 <template>
   <div class="login-container">
-    <el-card>
-      <div slot="header">
-        用户登录
-      </div>
-      <el-form
-        ref="form"
-        :model="params"
-        :rules="rules"
-        label-position="left"
-        label-width="53px"
-      >
-        <base-input
-          label="账号"
-          v-model="params.account"
-          prop="account"
-          @on-enter="login"
-        />
-        <base-input
-          style="margin-top: 30px;"
-          type="password"
-          label="密码"
-          v-model="params.password"
-          prop="password"
-          @on-enter="login"
-        />
-        <el-button
-          v-loading="loading"
-          type="primary"
-          size="medium"
-          @click="login"
-        >
-          登录
-        </el-button>
-        <div class="third-links">
-          <label>其他账号登录：</label>
-          <img
-            id="qqLoginBtn"
-            src="../assets/images/qq.png"
-            @click="qqLogin"
-          >
+    <el-col
+      :xl="15"
+      :lg="15"
+      :md="12"
+      :sm="9"
+      :xs="1"
+    >
+      &nbsp;
+    </el-col>
+    <el-col
+      :xl="6"
+      :lg="6"
+      :md="6"
+      :sm="9"
+      :xs="22"
+    >
+      <el-card>
+        <div slot="header">
+          用户登录
         </div>
-      </el-form>
-    </el-card>
+        <el-form
+          ref="form"
+          :model="params"
+          :rules="rules"
+          label-position="left"
+          label-width="53px"
+        >
+          <base-input
+            label="账号"
+            v-model="params.account"
+            prop="account"
+            @on-enter="login"
+          />
+          <base-input
+            style="margin-top: 30px;"
+            type="password"
+            label="密码"
+            v-model="params.password"
+            prop="password"
+            @on-enter="login"
+          />
+          <el-button
+            v-loading="loading"
+            type="primary"
+            size="medium"
+            @click="login"
+          >
+            登录
+          </el-button>
+          <div class="third-links">
+            <label>其他账号登录：</label>
+            <img
+              id="qqLoginBtn"
+              src="../assets/images/qq.png"
+              @click="qqLogin"
+            >
+          </div>
+        </el-form>
+      </el-card>
+    </el-col>
   </div>
 </template>
 
 <script>
+    import 'element-ui/lib/theme-chalk/display.css';
+
     export default {
         data() {
             return {
@@ -110,9 +129,7 @@
 
   .el-card {
     width: 370px;
-    float: right;
-    margin-right: 15%;
-    margin-top: 15%;
+    margin-top: 35%;
 
     .el-card__header {
       font-weight: bold;
