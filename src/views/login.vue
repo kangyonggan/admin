@@ -128,7 +128,8 @@
   }
 
   .el-card {
-    width: 370px;
+    max-width: 370px;
+    min-width: 320px;
     margin-top: 35%;
 
     .el-card__header {
