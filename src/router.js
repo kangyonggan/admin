@@ -55,6 +55,13 @@ const routers = [
                 component: (resolve) => require(['./views/system/dict/list.vue'], resolve)
             },
             {
+                path: 'system/upload',
+                meta: {
+                    name: 'SYSTEM_UPLOAD'
+                },
+                component: (resolve) => require(['./views/system/upload/index.vue'], resolve)
+            },
+            {
                 path: 'sites/article',
                 meta: {
                     name: 'SITES_ARTICLE'
