@@ -21,6 +21,11 @@
       prop="title"
     />
     <base-input
+      label="标签"
+      v-model="params.tags"
+      prop="tags"
+    />
+    <base-input
       label="封面"
       v-model="params.cover"
       prop="cover"
@@ -42,6 +47,10 @@
                     title: [
                         {required: true, message: '标题为必填项'},
                         {max: 64, message: '标题最多为64位'}
+                    ],
+                    tags: [
+                        {required: true, message: '标签为必填项'},
+                        {max: 32, message: '标签最多为32位'}
                     ],
                     cover: [
                         {required: true, message: '封面为必填项'},

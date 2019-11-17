@@ -73,6 +73,10 @@
                         prop: 'title'
                     },
                     {
+                        label: '标签',
+                        prop: 'tags'
+                    },
+                    {
                         label: '状态',
                         prop: 'isDeleted',
                         render: row => {
@@ -85,14 +89,6 @@
                         width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
-                        }
-                    },
-                    {
-                        label: '更新时间',
-                        prop: 'updatedTime',
-                        width: '180',
-                        render: row => {
-                            return this.util.formatTimestamp(row.updatedTime);
                         }
                     }
                 ]
