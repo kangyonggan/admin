@@ -8,6 +8,11 @@
         prop="account"
       />
       <base-input
+        label="openId"
+        v-model="params.openId"
+        prop="openId"
+      />
+      <base-input
         label="姓名"
         v-model="params.name"
         prop="name"
@@ -97,6 +102,10 @@
                     {
                         label: '账号',
                         prop: 'account'
+                    },
+                    {
+                        label: 'openId',
+                        prop: 'openId'
                     },
                     {
                         label: '姓名',

@@ -20,6 +20,12 @@
       prop="account"
     />
     <base-input
+      label="openId"
+      v-model="params.openId"
+      prop="openId"
+      readonly
+    />
+    <base-input
       label="姓名"
       v-model="params.name"
       prop="name"
@@ -35,7 +41,6 @@
                 oldAccount: '',
                 rules: {
                     account: [
-                        {required: true, message: '账号为必填项'},
                         {pattern: /^[a-zA-Z][a-zA-Z0-9]{4,19}$/, message: '账号必须是5至20位字母和数字组成，且以字母开头'},
                         {validator: this.validateAccount}
                     ],
