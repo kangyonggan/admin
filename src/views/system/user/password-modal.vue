@@ -14,15 +14,9 @@
       readonly
     />
     <base-input
-      label="账号"
-      v-model="params.account"
-      prop="account"
-      readonly
-    />
-    <base-input
-      label="openId"
-      v-model="params.openId"
-      prop="openId"
+      label="姓名"
+      v-model="params.name"
+      prop="name"
       readonly
     />
     <base-input
