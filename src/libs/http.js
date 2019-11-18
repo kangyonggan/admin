@@ -17,7 +17,7 @@ axios.defaults.timeout = 10000;
 
 // 请求拦截器
 axios.interceptors.request.use(function (config) {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token && (config.url !== 'login' && config.url !== 'qqLogin')) {
         return Promise.reject({
             respCo: '9998',
@@ -46,7 +46,7 @@ axios.interceptors.response.use(function (response) {
     if (response.data.respCo === '0000') {
         const token = response.headers['x-auth-token'];
         if (token) {
-            sessionStorage.setItem('token', token);
+            localStorage.setItem('token', token);
         }
         return response.data.data;
     } else {

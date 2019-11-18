@@ -19,7 +19,7 @@ Mock.mock('login', 'post', req => {
     const params = qs.parse(req.body);
     if (params.account === 'admin' && params.password === 'admin') {
         // 模拟不了response headers，直接放session
-        sessionStorage.setItem('token', Mock.Random.string());
+        localStorage.setItem('token', Mock.Random.string());
 
         return Object.assign({
             data: {

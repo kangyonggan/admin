@@ -177,7 +177,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     // 如果没有token，重定向到登录界面
-    let token = sessionStorage.getItem('token');
+    let token = localStorage.getItem('token');
     if (!token) {
         next({
             path: '/login'
@@ -210,7 +210,7 @@ router.afterEach(() => {
  */
 function checkPermission(route) {
     if (!menus.length) {
-        loadLeafMenus(JSON.parse(sessionStorage.getItem('menus')));
+        loadLeafMenus(JSON.parse(localStorage.getItem('menus')));
     }
 
     // route没有name，或者name在menus中，视为有权限

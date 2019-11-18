@@ -19,7 +19,7 @@
             return {
                 breadcrumbs: [],
                 title: '',
-                menus: JSON.parse(sessionStorage.getItem('menus'))
+                menus: JSON.parse(localStorage.getItem('menus'))
             };
         },
         methods: {

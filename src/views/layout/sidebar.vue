@@ -70,7 +70,7 @@
         data() {
             return {
                 active: '',
-                menus: JSON.parse(sessionStorage.getItem('menus')),
+                menus: JSON.parse(localStorage.getItem('menus')),
                 isCollapse: document.body.clientWidth < 910
             };
         },

@@ -93,8 +93,8 @@
 
                     this.loading = true;
                     this.axios.post('login', this.params).then((data) => {
-                        sessionStorage.setItem('user', JSON.stringify(data.user));
-                        sessionStorage.setItem('menus', JSON.stringify(data.menus));
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        localStorage.setItem('menus', JSON.stringify(data.menus));
                         this.$router.push({
                             path: '/index'
                         });
@@ -115,8 +115,8 @@
             qqCallbackLogin(params) {
                 this.loading = true;
                 this.axios.post('qqLogin', params).then((data) => {
-                    sessionStorage.setItem('user', JSON.stringify(data.user));
-                    sessionStorage.setItem('menus', JSON.stringify(data.menus));
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    localStorage.setItem('menus', JSON.stringify(data.menus));
                     this.$router.push({
                         path: '/index'
                     });

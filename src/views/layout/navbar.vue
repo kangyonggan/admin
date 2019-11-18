@@ -28,14 +28,14 @@
     export default {
         data() {
             return {
-                user: JSON.parse(sessionStorage.getItem('user'))
+                user: JSON.parse(localStorage.getItem('user'))
             };
         },
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
                     this.axios.get('logout').finally(() => {
-                        sessionStorage.removeItem('token');
+                        localStorage.removeItem('token');
                         this.$router.push({
                             path: '/login'
                         });
