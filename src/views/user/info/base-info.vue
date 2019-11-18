@@ -1,14 +1,13 @@
 <template>
-  <base-modal
-    ref="modal"
-    title="编辑用户"
+  <base-form
     :params="params"
     :rules="rules"
-    url="system/user"
-    method="put"
-    @success="handleSuccess"
+    method="PUT"
+    url="/user/info"
+    v-loading="loading"
   >
     <base-input
+      v-if="params.id"
       label="ID"
       v-model="params.id"
       prop="id"
@@ -20,23 +19,18 @@
       prop="account"
     />
     <base-input
-      label="openId"
-      v-model="params.openId"
-      prop="openId"
-      readonly
-    />
-    <base-input
       label="姓名"
       v-model="params.name"
       prop="name"
     />
-  </base-modal>
+  </base-form>
 </template>
 
 <script>
     export default {
         data() {
             return {
+                loading: false,
                 params: {},
                 oldAccount: '',
                 rules: {
@@ -64,20 +58,15 @@
                 }).catch(res => {
                     callback(new Error(res.respMsg));
                 });
-            },
-            show: function (row) {
-                this.oldAccount = row.account;
-                this.params = {
-                    id: row.id,
-                    account: row.account,
-                    name: row.name,
-                    openId: row.openId
-                };
-                this.$refs.modal.show();
-            },
-            handleSuccess(data) {
-                this.$emit('success', data);
             }
+        },
+        mounted() {
+            let user = JSON.parse(localStorage.getItem('user'));
+            this.oldAccount = user.account;
+            this.params.id = user.id;
+            this.params.name = user.name;
+            this.params.account = user.account;
+            console.log(this.params);
         }
     };
 </script>

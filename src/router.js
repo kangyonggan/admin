@@ -143,6 +143,13 @@ const routers = [
                 component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
             },
             {
+                path: 'user/info',
+                meta: {
+                    name: 'USER_INFO'
+                },
+                component: (resolve) => require(['./views/user/info/index.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',

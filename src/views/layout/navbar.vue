@@ -42,6 +42,20 @@
                     });
                 }
             }
+        },
+        mounted() {
+            if (!this.user.isFinished) {
+                this.$confirm('你尚未补全基础信息，是否现在去补全?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$router.push({
+                        path: '/user/info'
+                    });
+                }).catch(() => {
+                });
+            }
         }
     };
 </script>
