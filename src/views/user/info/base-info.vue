@@ -4,15 +4,9 @@
     :rules="rules"
     method="PUT"
     url="/user/info"
+    @success="handleSuccess"
     v-loading="loading"
   >
-    <base-input
-      v-if="params.id"
-      label="ID"
-      v-model="params.id"
-      prop="id"
-      readonly
-    />
     <base-input
       label="账号"
       v-model="params.account"
@@ -58,15 +52,15 @@
                 }).catch(res => {
                     callback(new Error(res.respMsg));
                 });
+            },
+            handleSuccess() {
+                this.success('基础信息更新成功');
             }
         },
         mounted() {
             let user = JSON.parse(localStorage.getItem('user'));
             this.oldAccount = user.account;
-            this.params.id = user.id;
-            this.params.name = user.name;
-            this.params.account = user.account;
-            console.log(this.params);
+            this.params = Object.assign({}, user);
         }
     };
 </script>
