@@ -31,7 +31,7 @@
             label="账号"
             v-model="params.account"
             prop="account"
-            @on-enter="login"
+            @on-enter="submit"
           />
           <base-input
             style="margin-top: 30px;"
@@ -39,13 +39,13 @@
             label="密码"
             v-model="params.password"
             prop="password"
-            @on-enter="login"
+            @on-enter="submit"
           />
           <el-button
             v-loading="loading"
             type="primary"
             size="medium"
-            @click="login"
+            @click="submit"
           >
             登录
           </el-button>
@@ -65,6 +65,7 @@
 
 <script>
     import 'element-ui/lib/theme-chalk/display.css';
+    import qs from 'qs';
 
     export default {
         data() {
@@ -84,7 +85,7 @@
             };
         },
         methods: {
-            login: function () {
+            submit: function () {
                 this.$refs.form.validate((valid) => {
                     if (!valid) {
                         return;
@@ -105,16 +106,35 @@
                 });
             },
             qqLogin() {
-                this.warning('QQ登录正在开通中...');
                 // eslint-disable-next-line
-                // QC.Login.showPopup({
-                //     appId: '101828246',
-                //     redirectURI: 'https://kangyonggan.com/'
-                // });
+                QC.Login.showPopup({
+                    appId: '101828246',
+                    redirectURI: 'http://kangyonggan.com:8888/login'
+                });
+            },
+            qqCallbackLogin(params) {
+                this.loading = true;
+                this.axios.post('qqLogin', params).then((data) => {
+                    sessionStorage.setItem('user', JSON.stringify(data.user));
+                    sessionStorage.setItem('menus', JSON.stringify(data.menus));
+                    this.$router.push({
+                        path: '/index'
+                    });
+                }).catch(res => {
+                    this.error(res.respMsg);
+                }).finally(() => {
+                    this.loading = false;
+                });
             }
         },
         mounted() {
             this.util.title('用户登录');
+            let hash = this.$route.hash;
+            if (hash) {
+                hash = hash.replace('#', '');
+                let params = qs.parse(hash);
+                this.qqCallbackLogin({'accessToken': params.access_token, 'expiresIn': params.expires_in});
+            }
         }
     };
 </script>
