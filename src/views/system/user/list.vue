@@ -113,6 +113,13 @@
                         prop: 'name'
                     },
                     {
+                        label: '补全信息',
+                        prop: 'isFinished',
+                        render: row => {
+                            return row.isFinished ? '已补全' : '未补全';
+                        }
+                    },
+                    {
                         label: '状态',
                         prop: 'isDeleted',
                         render: row => {
