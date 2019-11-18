@@ -69,7 +69,8 @@
                 this.params = {
                     id: row.id,
                     account: row.account,
-                    name: row.name
+                    name: row.name,
+                    openId: row.openId
                 };
                 this.$refs.modal.show();
             },

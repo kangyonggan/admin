@@ -105,7 +105,8 @@
                     },
                     {
                         label: 'openId',
-                        prop: 'openId'
+                        prop: 'openId',
+                        width: '300'
                     },
                     {
                         label: '姓名',
@@ -121,6 +122,7 @@
                     {
                         label: '创建时间',
                         prop: 'createdTime',
+                        width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }

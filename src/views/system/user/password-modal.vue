@@ -20,6 +20,12 @@
       readonly
     />
     <base-input
+      label="openId"
+      v-model="params.openId"
+      prop="openId"
+      readonly
+    />
+    <base-input
       type="password"
       label="密码"
       v-model="params.password"
