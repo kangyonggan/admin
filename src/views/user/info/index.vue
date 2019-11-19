@@ -13,16 +13,17 @@
       label="修改密码"
       name="1"
     >
-      修改密码
+      <edit-password />
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
     import BaseInfo from './base-info';
+    import EditPassword from './edit-password';
 
     export default {
-        components: {BaseInfo},
+        components: {BaseInfo, EditPassword},
         data() {
             return {
                 activeTab: '0'
