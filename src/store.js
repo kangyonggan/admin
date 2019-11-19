@@ -9,7 +9,9 @@ export default new Vuex.Store({
         // 是否是小屏幕
         smallScreen: false,
         // <el-main>是否处于加载中
-        loading: false
+        loading: false,
+        user: JSON.parse(localStorage.getItem('user')),
+        menus: JSON.parse(localStorage.getItem('menus'))
     },
     // get变量
     getters: {
@@ -18,6 +20,12 @@ export default new Vuex.Store({
         },
         getLoading(state) {
             return state.loading;
+        },
+        getUser(state) {
+            return state.user;
+        },
+        getMenus(state) {
+            return state.menus;
         }
     },
     // set变量
@@ -27,6 +35,14 @@ export default new Vuex.Store({
         },
         setLoading(state, loading) {
             state.loading = loading;
+        },
+        setUser(state, user) {
+            state.user = user;
+            localStorage.setItem('user', JSON.stringify(user));
+        },
+        setMenus(state, menus) {
+            state.menus = menus;
+            localStorage.setItem('menus', JSON.stringify(menus));
         }
     },
     // 异步操作

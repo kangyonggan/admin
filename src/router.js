@@ -217,7 +217,7 @@ router.afterEach(() => {
  */
 function checkPermission(route) {
     if (!menus.length) {
-        loadLeafMenus(JSON.parse(localStorage.getItem('menus')));
+        loadLeafMenus(store.getters.getMenus);
     }
 
     // route没有name，或者name在menus中，视为有权限

@@ -19,7 +19,7 @@
             return {
                 breadcrumbs: [],
                 title: '',
-                menus: JSON.parse(localStorage.getItem('menus'))
+                menus: this.$store.getters.getMenus
             };
         },
         methods: {

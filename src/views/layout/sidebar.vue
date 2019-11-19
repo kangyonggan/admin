@@ -70,7 +70,7 @@
         data() {
             return {
                 active: '',
-                menus: JSON.parse(localStorage.getItem('menus')),
+                menus: this.$store.getters.getMenus,
                 isCollapse: document.body.clientWidth < 910
             };
         },

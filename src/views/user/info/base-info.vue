@@ -55,10 +55,11 @@
             },
             handleSuccess() {
                 this.success('基础信息更新成功');
+                this.$store.commit('setUser', this.params);
             }
         },
         mounted() {
-            let user = JSON.parse(localStorage.getItem('user'));
+            let user = this.$store.getters.getUser;
             this.oldAccount = user.account;
             this.params = Object.assign({}, user);
         }

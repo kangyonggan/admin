@@ -12,7 +12,7 @@
       @command="handleCommand"
     >
       <span>
-        {{ user.name }}
+        {{ $store.getters.getUser.name }}
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -26,11 +26,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                user: JSON.parse(localStorage.getItem('user'))
-            };
-        },
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
@@ -44,7 +39,7 @@
             }
         },
         mounted() {
-            if (!this.user.isFinished) {
+            if (!this.$store.getters.getUser.isFinished) {
                 this.$confirm('你尚未补全基础信息/设置密码，是否现在去补全?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
