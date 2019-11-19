@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 20px;">
     <el-table
-      :data="pageInfo.list"
+      :data="list"
       stripe
       border
       @sort-change="changeSort"
@@ -43,14 +43,14 @@
     </el-table>
 
     <el-row
+      v-if="pagination"
       style="margin-top: 20px;"
-      v-show="pageInfo.total"
     >
       <el-pagination
         :current-page="params.pageNum"
         :page-size="params.pageSize"
         :layout="$store.getters.getSmallScreen ? 'total, sizes, prev, next, jumper' : 'total, sizes, prev, pager, next, jumper'"
-        :total="pageInfo.total"
+        :total="total"
         @next-click="jump"
         @prev-click="jump"
         @current-change="jump"
@@ -91,6 +91,11 @@
                 required: false,
                 type: Boolean,
                 default: false
+            },
+            pagination: {
+                required: false,
+                type: Boolean,
+                default: true
             }
         },
         data() {
@@ -100,7 +105,8 @@
                     pageSize: 10
                 },
                 emptyText: '暂无数据',
-                pageInfo: {}
+                total: 0,
+                list: []
             };
         },
         methods: {
@@ -108,12 +114,21 @@
                 this.$store.commit('setLoading', true);
                 this.emptyText = '正在查询';
                 this.axios.get(this.url + '?' + qs.stringify(this.params)).then(data => {
-                    this.pageInfo = data.pageInfo;
-                    if (!this.pageInfo.total) {
-                        this.emptyText = '暂无数据';
+                    if (this.pagination) {
+                        this.list = data.pageInfo.list;
+                        this.total = data.pageInfo.total;
+                        if (!this.total) {
+                            this.emptyText = '暂无数据';
+                        }
+                    } else {
+                        this.list = data.list;
+                        if (!this.list || !this.list.length) {
+                            this.emptyText = '暂无数据';
+                        }
                     }
                 }).catch(res => {
-                    this.pageInfo = {};
+                    this.total = 0;
+                    this.list = [];
                     this.emptyText = res.respMsg;
                 }).finally(() => {
                     this.$store.commit('setLoading', false);
@@ -144,7 +159,9 @@
                 this.params.pageNum = 1;
                 this.params.prop = column.prop;
                 this.params.order = column.order;
-                this.request();
+                if (this.pagination) {
+                    this.request();
+                }
             }
         },
         mounted() {

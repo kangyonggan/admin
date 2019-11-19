@@ -8,7 +8,7 @@
         prop="account"
       />
       <base-input
-        label="openId"
+        label="OpenId"
         v-model="params.openId"
         prop="openId"
       />
@@ -104,7 +104,7 @@
                         prop: 'account'
                     },
                     {
-                        label: 'openId',
+                        label: 'OpenId',
                         prop: 'openId',
                         width: '300'
                     },

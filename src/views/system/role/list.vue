@@ -44,9 +44,12 @@
           编辑
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="0">
-              设置菜单
+              查询授权用户
             </el-dropdown-item>
             <el-dropdown-item command="1">
+              设置菜单
+            </el-dropdown-item>
+            <el-dropdown-item command="2">
               <span v-if="!row.isDeleted">逻辑删除</span>
               <span v-else>逻辑恢复</span>
             </el-dropdown-item>
@@ -69,6 +72,9 @@
 
     <!--设置菜单界面-->
     <menu-modal ref="menu-modal" />
+
+    <!--授权用户界面-->
+    <user-modal ref="user-modal" />
   </div>
 </template>
 
@@ -76,9 +82,10 @@
     import CreateModal from './create-modal';
     import EditModal from './edit-modal';
     import MenuModal from './menu-modal';
+    import UserModal from './user-modal';
 
     export default {
-        components: {CreateModal, EditModal, MenuModal},
+        components: {CreateModal, EditModal, MenuModal, UserModal},
         data() {
             return {
                 params: {},
@@ -115,8 +122,10 @@
         methods: {
             handleCommand: function (command, row) {
                 if (command === '0') {
-                    this.$refs['menu-modal'].show(row.id);
+                    this.$refs['user-modal'].show(row.id);
                 } else if (command === '1') {
+                    this.$refs['menu-modal'].show(row.id);
+                } else if (command === '2') {
                     const title = row.isDeleted ? '恢复已删除的角色：' : '逻辑删除角色：';
                     this.$confirm(title + row.name + '，是否继续?', '提示', {
                         confirmButtonText: '确定',
