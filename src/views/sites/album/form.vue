@@ -97,8 +97,8 @@
                     this.error('只能选择 gif/jpg/jpeg/bmp/png/webp 格式的图片!');
                     return false;
                 }
-                if (file.size / 1024 / 1024 > 2) {
-                    this.error('图片大小不能超过 2MB!');
+                if (file.size / 1024 / 1024 > 100) {
+                    this.error('图片大小不能超过 100MB!');
                     return false;
                 }
 
