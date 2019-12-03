@@ -107,7 +107,7 @@
                         this.$store.commit('setUser', data.user);
                         this.$store.commit('setMenus', data.menus);
                         this.$router.push({
-                            path: '/index'
+                            path: '/'
                         });
                     }).catch(res => {
                         this.error(res.respMsg);
@@ -132,7 +132,7 @@
                     this.$store.commit('setUser', data.user);
                     this.$store.commit('setMenus', data.menus);
                     this.$router.push({
-                        path: '/index'
+                        path: '/'
                     });
                 }).catch(res => {
                     this.error(res.respMsg);

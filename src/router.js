@@ -15,11 +15,10 @@ const routers = [
     },
     {
         path: '/',
-        redirect: '/index',
         component: (resolve) => require(['./views/layout.vue'], resolve),
         children: [
             {
-                path: '/index',
+                path: '/',
                 meta: {
                     icon: 'el-icon-s-home',
                     title: '首页'

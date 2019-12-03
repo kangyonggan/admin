@@ -1,7 +1,7 @@
 <template>
   <el-header>
     <router-link
-      to="/index"
+      to="/"
       class="logo"
     >
       后台管理系统
