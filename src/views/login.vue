@@ -124,7 +124,7 @@
                 });
             },
             githubLogin() {
-              window.open('https://github.com/login/oauth/authorize?client_id=0c9e693180e5376a2ae7&redirect_uri=http://kangyonggan.com:8888/login');
+                window.open('https://github.com/login/oauth/authorize?client_id=0c9e693180e5376a2ae7&redirect_uri=http://kangyonggan.com:8888/login');
             },
             callbackLogin(url, params) {
                 this.loading = true;
@@ -147,13 +147,14 @@
             if (hash) {
                 hash = hash.replace('#', '');
                 let params = qs.parse(hash);
-                if (params.access_token) {
-                    // QQ回调
-                    this.callbackLogin('qqLogin', {'accessToken': params.access_token, 'expiresIn': params.expires_in});
-                } else if (params.code) {
-                    // Github回调
-                    this.callbackLogin('githubLogin', {'code': params.code});
-                }
+                // QQ回调
+                this.callbackLogin('qqLogin', {'accessToken': params.access_token, 'expiresIn': params.expires_in});
+                return;
+            }
+
+            let code = this.$route.query.code;
+            if (code) {
+                this.callbackLogin('githubLogin', {'code': code});
             }
         }
     };
