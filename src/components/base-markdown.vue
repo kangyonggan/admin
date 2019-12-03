@@ -4,8 +4,10 @@
     :prop="prop"
   >
     <mavon-editor
+      ref="md"
       :value="value"
       :subfield="false"
+      @imgAdd="imgAdd"
       @input="$emit('input', $event)"
     />
   </el-form-item>
@@ -26,6 +28,20 @@
                 required: false,
                 type: String,
                 default: ''
+            }
+        },
+        methods: {
+            imgAdd(pos, $file) {
+                // 第一步.将图片上传到服务器.
+                let formData = new FormData();
+                formData.append('file', $file);
+
+                this.axios.post('fileUpload/github', formData).then(data => {
+                    // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+                    this.$refs.md.$img2Url(pos, data.url);
+                }).catch(res => {
+                    this.error(res.respMsg);
+                });
             }
         }
     };
