@@ -9,7 +9,6 @@
       :url="'system/role/' + id + '/user'"
       :columns="columns"
       :actions="false"
-      :pagination="false"
       ref="table"
       lazy
     />
