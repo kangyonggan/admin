@@ -179,6 +179,10 @@ router.beforeEach(async (to, from, next) => {
 
     // 如果是去登录界面，直接放行
     if (to.path === '/login') {
+        if (to.query.logout) {
+            // 登出的时候清除menus
+            menus = [];
+        }
         next();
         return;
     }

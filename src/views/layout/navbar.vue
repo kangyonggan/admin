@@ -32,7 +32,8 @@
                     this.axios.get('logout').finally(() => {
                         localStorage.removeItem('token');
                         this.$router.push({
-                            path: '/login'
+                            path: '/login',
+                            query: {logout: 1}
                         });
                     });
                 }
