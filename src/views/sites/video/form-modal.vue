@@ -31,6 +31,11 @@
       prop="cover"
     />
     <base-input
+      label="推荐指数"
+      v-model="params.hold"
+      prop="hold"
+    />
+    <base-input
       label="视频代码"
       v-model="params.content"
       prop="content"
@@ -55,6 +60,10 @@
                     cover: [
                         {required: true, message: '封面为必填项'},
                         {max: 128, message: '封面最多为128位'}
+                    ],
+                    hold: [
+                        {required: true, message: '推荐指数为必填项'},
+                        {pattern: /^[0-5]$/, message: '推荐指数是0~5'},
                     ],
                     content: [
                         {required: true, message: '视频代码为必填项'}

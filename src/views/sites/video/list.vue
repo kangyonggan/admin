@@ -77,6 +77,10 @@
                         prop: 'tags'
                     },
                     {
+                        label: '推荐指数',
+                        prop: 'hold'
+                    },
+                    {
                         label: '状态',
                         prop: 'isDeleted',
                         render: row => {
