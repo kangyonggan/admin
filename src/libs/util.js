@@ -8,7 +8,7 @@ let util = {};
  * @param title
  */
 util.title = function (title) {
-    title = title ? title + ' - 后管系统' : '后管系统';
+    title = title ? title + ' · 后管系统' : '后管系统';
     window.document.title = title;
 };
 
