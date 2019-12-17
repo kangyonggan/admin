@@ -25,7 +25,7 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="0">
-          安全退出
+          注销
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
