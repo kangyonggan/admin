@@ -39,6 +39,7 @@
                 if (command === '0') {
                     this.axios.get('logout').finally(() => {
                         localStorage.removeItem('token');
+                        this.$store.commit('setUser', {});
                         this.$router.push({
                             path: '/login',
                             query: {logout: 1}

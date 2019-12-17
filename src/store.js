@@ -10,8 +10,8 @@ export default new Vuex.Store({
         smallScreen: false,
         // <el-main>是否处于加载中
         loading: false,
-        user: JSON.parse(localStorage.getItem('user')),
-        menus: JSON.parse(localStorage.getItem('menus'))
+        user: JSON.parse(localStorage.getItem('user')) || {},
+        menus: JSON.parse(localStorage.getItem('menus')) || []
     },
     // get变量
     getters: {
