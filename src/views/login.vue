@@ -120,11 +120,11 @@
                 // eslint-disable-next-line
                 QC.Login.showPopup({
                     appId: '101828246',
-                    redirectURI: 'http://kangyonggan.com:8888/login'
+                    redirectURI: 'https://kangyonggan.com/admin/login'
                 });
             },
             githubLogin() {
-                window.open('https://github.com/login/oauth/authorize?client_id=0c9e693180e5376a2ae7&redirect_uri=http://kangyonggan.com:8888/login');
+                window.open('https://github.com/login/oauth/authorize?client_id=0c9e693180e5376a2ae7&redirect_uri=https://kangyonggan.com/admin/login');
             },
             callbackLogin(url, params) {
                 this.loading = true;
