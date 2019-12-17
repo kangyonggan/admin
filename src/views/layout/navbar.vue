@@ -7,6 +7,14 @@
       后台管理系统
     </router-link>
 
+    <a
+      href="/"
+      style="margin-left: 65px;color: #fff;text-decoration: none;"
+    >
+      <i class="el-icon-star-on" />
+      网站
+    </a>
+
     <el-dropdown
       trigger="click"
       @command="handleCommand"
