@@ -106,8 +106,9 @@
                     this.axios.post('login', this.params).then((data) => {
                         this.$store.commit('setUser', data.user);
                         this.$store.commit('setMenus', data.menus);
+                        let redirectUrl = this.$route.query.redirectUrl || '/';
                         this.$router.push({
-                            path: '/'
+                            path: redirectUrl
                         });
                     }).catch(res => {
                         this.error(res.respMsg);
