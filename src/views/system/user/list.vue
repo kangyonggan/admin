@@ -8,19 +8,19 @@
         prop="account"
       />
       <base-input
-        label="OpenId"
-        v-model="params.openId"
-        prop="openId"
-      />
-      <base-input
-        label="姓名"
-        v-model="params.name"
-        prop="name"
+        label="电子邮箱"
+        v-model="params.email"
+        prop="email"
       />
       <base-daterange
         label="创建日期"
         v-model="params.createdTime"
         prop="createdTime"
+      />
+      <base-input
+        label="姓名"
+        v-model="params.name"
+        prop="name"
       />
       <template #actions>
         <el-button
@@ -104,20 +104,12 @@
                         prop: 'account'
                     },
                     {
-                        label: 'OpenId',
-                        prop: 'openId',
-                        width: '300'
-                    },
-                    {
                         label: '姓名',
                         prop: 'name'
                     },
                     {
-                        label: '补全信息',
-                        prop: 'isFinished',
-                        render: row => {
-                            return row.isFinished ? '已补全' : '未补全';
-                        }
+                        label: '电子邮箱',
+                        prop: 'email'
                     },
                     {
                         label: '状态',
@@ -129,7 +121,7 @@
                     {
                         label: '创建时间',
                         prop: 'createdTime',
-                        width: '180',
+                        width: 180,
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }

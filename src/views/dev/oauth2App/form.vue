@@ -39,30 +39,11 @@
       v-model="params.callbackUrl"
       prop="callbackUrl"
     />
-
-    <el-form-item
+    <base-avatar
       label="应用图标"
+      v-model="params.icon"
       prop="icon"
-      class="icon-item"
-    >
-      <el-upload
-        :action="axios.defaults.baseURL + 'fileUpload'"
-        :before-upload="beforeUpload"
-        :on-success="uploadSuccess"
-        class="avatar-uploader"
-        :show-file-list="false"
-      >
-        <img
-          v-if="params.icon"
-          :src="axios.defaults.baseURL + params.icon"
-          class="avatar"
-        >
-        <i
-          v-else
-          class="el-icon-plus avatar-uploader-icon"
-        />
-      </el-upload>
-    </el-form-item>
+    />
   </base-form>
 </template>
 
@@ -89,14 +70,7 @@
                     icon: [
                         {required: true, message: '应用图标为必填项'}
                     ]
-                },
-                imgTypes: [
-                    'image/gif',
-                    'image/jpeg',
-                    'image/bmp',
-                    'image/png',
-                    'image/webp'
-                ]
+                }
             };
         },
         methods: {
@@ -104,26 +78,6 @@
                 this.$router.push({
                     path: '/dev/oauth2App'
                 });
-            },
-            beforeUpload(file) {
-                if (!this.imgTypes.includes(file.type)) {
-                    this.error('只能选择 gif/jpg/jpeg/bmp/png/webp 格式的图片!');
-                    return false;
-                }
-                if (file.size / 1024 / 1024 > 1) {
-                    this.error('图片大小不能超过 1MB!');
-                    return false;
-                }
-
-                return true;
-            },
-            uploadSuccess(res) {
-                if (res.respCo !== '0000') {
-                    this.error(res.respMsg);
-                    return;
-                }
-
-                this.params.icon = res.data.url;
             },
             refreshSecret() {
                 this.$confirm('之前的APP Secret将无法使用，是否继续?', '提示', {
@@ -159,36 +113,3 @@
     };
 </script>
 
-<style scoped lang="scss">
-  /deep/ .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /deep/ .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 180px;
-    height: 180px;
-    display: block;
-  }
-
-  /deep/ .icon-item label {
-    width: 100%;
-    text-align: left;
-  }
-</style>

@@ -20,15 +20,21 @@
       prop="account"
     />
     <base-input
-      label="openId"
-      v-model="params.openId"
-      prop="openId"
-      readonly
-    />
-    <base-input
       label="姓名"
       v-model="params.name"
       prop="name"
+    />
+    <base-input
+      label="电子邮箱"
+      v-model="params.email"
+      prop="email"
+      readonly
+    />
+    <base-input
+      label="头像"
+      v-model="params.avatar"
+      prop="avatar"
+      readonly
     />
   </base-modal>
 </template>
@@ -71,7 +77,8 @@
                     id: row.id,
                     account: row.account,
                     name: row.name,
-                    openId: row.openId
+                    email: row.email,
+                    avatar: row.avatar
                 };
                 this.$refs.modal.show();
             },

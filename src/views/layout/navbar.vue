@@ -29,6 +29,11 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+    <img
+      v-if="$store.getters.getUser.avatar"
+      class="avatar"
+      :src="axios.defaults.baseURL + $store.getters.getUser.avatar"
+    >
   </el-header>
 </template>
 
@@ -47,19 +52,6 @@
                     });
                 }
             }
-        },
-        mounted() {
-            if (!this.$store.getters.getUser.isFinished) {
-                this.$confirm('你尚未补全基础信息/设置密码，是否现在去补全?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$router.push({
-                        path: '/user/info'
-                    });
-                });
-            }
         }
     };
 </script>
@@ -75,6 +67,15 @@
       color: #e2e2e2;
       font-size: 22px;
       text-decoration: none;
+    }
+
+    .avatar {
+      float: right;
+      width: 36px;
+      height: 36px;
+      margin: 12px 10px 0 0;
+      border-radius: 50%;
+      box-shadow: 0 1px 5px rgba(27, 31, 35, .15);
     }
 
     .el-dropdown {

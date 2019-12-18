@@ -17,6 +17,11 @@
       v-model="params.name"
       prop="name"
     />
+    <base-avatar
+      label="头像"
+      v-model="params.avatar"
+      prop="avatar"
+    />
   </base-form>
 </template>
 
