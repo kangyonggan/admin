@@ -15,15 +15,22 @@
     >
       <edit-password />
     </el-tab-pane>
+    <el-tab-pane
+      label="邮箱认证"
+      name="2"
+    >
+      <verify-email />
+    </el-tab-pane>
   </el-tabs>
 </template>
 
 <script>
     import BaseInfo from './base-info';
     import EditPassword from './edit-password';
+    import VerifyEmail from './verify-email';
 
     export default {
-        components: {BaseInfo, EditPassword},
+        components: {BaseInfo, EditPassword, VerifyEmail},
         data() {
             return {
                 activeTab: '0'

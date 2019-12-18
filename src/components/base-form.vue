@@ -30,7 +30,7 @@
                 type: String,
                 default: 'POST',
                 validator(value) {
-                    return 'POST,PUT'.indexOf(value.toUpperCase()) !== -1;
+                    return 'POST,PUT'.includes(value.toUpperCase());
                 }
             },
             params: {
@@ -51,6 +51,9 @@
             };
         },
         methods: {
+            validateField(prop, callback) {
+                this.$refs.form.validateField(prop, callback);
+            },
             submit: function () {
                 this.$refs.form.validate((valid) => {
                     if (!valid) {

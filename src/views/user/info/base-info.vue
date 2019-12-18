@@ -35,7 +35,7 @@
                 rules: {
                     name: [
                         {required: true, message: '姓名为必填项'},
-                        {max: 20, message: '姓名最多为20位'},
+                        {max: 20, message: '姓名最多为20位'}
                     ]
                 }
             };
