@@ -53,7 +53,7 @@
                 rules: {
                     name: [
                         {required: true, message: '菜单名称为必填项'},
-                        {pattern: /^[A-Z_]{1,32}$/, message: '纯大写,可带下划线,不超过32位'},
+                        {pattern: /^[A-Z_0-9]{1,32}$/, message: '纯大写,可带下划线和数字,不超过32位'},
                         {validator: this.validateMenuName}
                     ],
                     title: [

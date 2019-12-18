@@ -43,6 +43,7 @@
         data() {
             return {
                 params: {},
+                statusList: [],
                 columns: [
                     {
                         label: 'APP_ID',
@@ -58,14 +59,13 @@
                         label: '审核状态',
                         prop: 'status',
                         render: row => {
-                            return row.status === 'Y' ? '审核通过' : row.status === 'F' ? '审核失败' : '审核中';
+                            return this.getStatus(row.status);
                         },
                         sortable: false
                     },
                     {
                         label: '创建时间',
                         prop: 'createdTime',
-                        width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         },
@@ -75,6 +75,13 @@
             };
         },
         methods: {
+            getStatus(status) {
+                for (let i = 0; i < this.statusList.length; i++) {
+                    if (status === this.statusList[i].code) {
+                        return this.statusList[i].name;
+                    }
+                }
+            },
             handleCommand: function (command, row) {
                 if (command === '0') {
                     const title = '删除《' + row.name + '》';
@@ -91,6 +98,13 @@
                     });
                 }
             }
+        },
+        mounted() {
+            this.axios.get('enum?enumKey=Status').then(data => {
+                this.statusList = data.enums;
+            }).catch(res => {
+                this.error(res.respMsg);
+            });
         }
     };
 </script>

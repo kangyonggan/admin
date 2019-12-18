@@ -165,6 +165,21 @@ const routers = [
                 component: (resolve) => require(['./views/dev/oauth2App/form.vue'], resolve)
             },
             {
+                path: 'dev/oauth2AppCheck',
+                meta: {
+                    name: 'DEV_OAUTH2_APP_CHECK'
+                },
+                component: (resolve) => require(['./views/dev/oauth2AppCheck/list.vue'], resolve)
+            },
+            {
+                path: 'dev/oauth2AppCheck/:id',
+                meta: {
+                    name: 'DEV_OAUTH2_APP_CHECK',
+                    title: '详情'
+                },
+                component: (resolve) => require(['./views/dev/oauth2AppCheck/detail.vue'], resolve)
+            },
+            {
                 path: 'dev/oauth2Token',
                 meta: {
                     name: 'DEV_OAUTH2_TOKEN'

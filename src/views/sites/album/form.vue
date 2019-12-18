@@ -120,7 +120,6 @@
             },
             beforeRemove(file) {
                 if (file.raw && !file.response) {
-                    console.log('1111');
                     return true;
                 }
                 return this.$confirm('删除图片' + file.name + '，是否继续?', '提示', {
