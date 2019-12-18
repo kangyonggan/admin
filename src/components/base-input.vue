@@ -57,3 +57,9 @@
         }
     };
 </script>
+
+<style scoped lang="scss">
+  /deep/ input[readonly] {
+    background: #f5f5f5;
+  }
+</style>

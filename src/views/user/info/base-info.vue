@@ -11,6 +11,7 @@
       label="账号"
       v-model="params.account"
       prop="account"
+      readonly
     />
     <base-input
       label="姓名"
@@ -31,13 +32,7 @@
             return {
                 loading: false,
                 params: {},
-                oldAccount: '',
                 rules: {
-                    account: [
-                        {required: true, message: '账号为必填项'},
-                        {pattern: /^[a-zA-Z][a-zA-Z0-9]{4,19}$/, message: '账号必须是5至20位字母和数字组成，且以字母开头'},
-                        {validator: this.validateAccount}
-                    ],
                     name: [
                         {required: true, message: '姓名为必填项'},
                         {max: 20, message: '姓名最多为20位'},
@@ -46,18 +41,6 @@
             };
         },
         methods: {
-            validateAccount: function (rule, value, callback) {
-                if (!value || value === this.oldAccount) {
-                    callback();
-                    return;
-                }
-
-                this.axios.get('validate/account?account=' + value).then(() => {
-                    callback();
-                }).catch(res => {
-                    callback(new Error(res.respMsg));
-                });
-            },
             handleSuccess() {
                 this.success('基础信息更新成功');
                 this.$store.commit('setUser', this.params);
@@ -65,7 +48,6 @@
         },
         mounted() {
             let user = this.$store.getters.getUser;
-            this.oldAccount = user.account;
             this.params = Object.assign({}, user);
         }
     };

@@ -11,7 +11,7 @@
       href="/"
       style="margin-left: 65px;color: #fff;text-decoration: none;"
     >
-      <i class="el-icon-star-on" />
+      <i class="el-icon-star-on"/>
       网站
     </a>
 
@@ -21,10 +21,13 @@
     >
       <span>
         {{ $store.getters.getUser.name }}
-        <i class="el-icon-arrow-down el-icon--right" />
+        <i class="el-icon-arrow-down el-icon--right"/>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="0">
+          个人资料
+        </el-dropdown-item>
+        <el-dropdown-item command="1">
           注销
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -42,6 +45,10 @@
         methods: {
             handleCommand: function (command) {
                 if (command === '0') {
+                    this.$router.push({
+                        path: '/user/info'
+                    });
+                } else if (command === '1') {
                     this.axios.get('logout').finally(() => {
                         localStorage.removeItem('token');
                         this.$store.commit('setUser', {});
