@@ -13,6 +13,8 @@
       clearable
       :readonly="readonly"
     />
+
+    <slot />
   </el-form-item>
 </template>
 

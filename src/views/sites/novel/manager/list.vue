@@ -157,7 +157,6 @@
                         this.axios.put('sites/novel/manager/' + row.id + '/pull').catch(res => {
                             this.warning(res.respMsg);
                         });
-                    }).catch(() => {
                     });
                 } else if (command === '1') {
                     const title = row.isDeleted ? '恢复已删除的书籍：' : '逻辑删除书籍：';
@@ -171,7 +170,6 @@
                         }).catch(res => {
                             this.error(res.respMsg);
                         });
-                    }).catch(() => {
                     });
                 } else if (command === '2') {
                     this.$confirm('清空' + row.name + '的全部章节，是否继续?', '提示', {
@@ -182,7 +180,6 @@
                         this.axios.delete('sites/novel/manager/' + row.id + '/section').catch(res => {
                             this.error(res.respMsg);
                         });
-                    }).catch(() => {
                     });
                 }
             },
@@ -195,7 +192,6 @@
                     this.axios.put('sites/novel/manager/stopPull').catch(res => {
                         this.error(res.respMsg);
                     });
-                }).catch(() => {
                 });
             },
             getSource(sourceId) {

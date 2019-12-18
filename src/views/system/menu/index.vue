@@ -145,7 +145,6 @@
                     }).catch(res => {
                         this.error(res.respMsg);
                     });
-                }).catch(() => {
                 });
             },
             reload() {

@@ -45,7 +45,7 @@
                 params: {},
                 columns: [
                     {
-                        label: '应用ID',
+                        label: 'APP_ID',
                         prop: 'clientId',
                         sortable: false
                     },

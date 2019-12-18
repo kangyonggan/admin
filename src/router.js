@@ -149,6 +149,22 @@ const routers = [
                 component: (resolve) => require(['./views/dev/oauth2App/list.vue'], resolve)
             },
             {
+                path: 'dev/oauth2App/create',
+                meta: {
+                    name: 'DEV_OAUTH2_APP',
+                    title: '创建应用'
+                },
+                component: (resolve) => require(['./views/dev/oauth2App/form.vue'], resolve)
+            },
+            {
+                path: 'dev/oauth2App/:id/edit',
+                meta: {
+                    name: 'DEV_OAUTH2_APP',
+                    title: '编辑应用'
+                },
+                component: (resolve) => require(['./views/dev/oauth2App/form.vue'], resolve)
+            },
+            {
                 path: 'dev/oauth2Token',
                 meta: {
                     name: 'DEV_OAUTH2_TOKEN'
