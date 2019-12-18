@@ -28,13 +28,11 @@
       label="电子邮箱"
       v-model="params.email"
       prop="email"
-      readonly
     />
     <base-input
       label="头像"
       v-model="params.avatar"
       prop="avatar"
-      readonly
     />
   </base-modal>
 </template>

@@ -11,7 +11,7 @@
       href="/"
       style="margin-left: 65px;color: #fff;text-decoration: none;"
     >
-      <i class="el-icon-star-on"/>
+      <i class="el-icon-star-on" />
       网站
     </a>
 
@@ -21,7 +21,7 @@
     >
       <span>
         {{ $store.getters.getUser.name }}
-        <i class="el-icon-arrow-down el-icon--right"/>
+        <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="0">
