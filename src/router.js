@@ -142,6 +142,20 @@ const routers = [
                 component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
             },
             {
+                path: 'dev/oauth2App',
+                meta: {
+                    name: 'DEV_OAUTH2_APP'
+                },
+                component: (resolve) => require(['./views/dev/oauth2App/list.vue'], resolve)
+            },
+            {
+                path: 'dev/oauth2Token',
+                meta: {
+                    name: 'DEV_OAUTH2_TOKEN'
+                },
+                component: (resolve) => require(['./views/dev/oauth2Token/list.vue'], resolve)
+            },
+            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'

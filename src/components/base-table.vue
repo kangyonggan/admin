@@ -12,7 +12,7 @@
         :key="index"
         :prop="column.prop"
         :label="column.label"
-        :sortable="!column.sortable"
+        :sortable="column.sortable === udf || column.sortable"
         :fixed="column.fixed"
         :width="column.width"
       >
@@ -100,6 +100,7 @@
         },
         data() {
             return {
+                udf: undefined,
                 params: {
                     pageNum: 1,
                     pageSize: 10
