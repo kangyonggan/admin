@@ -72,34 +72,26 @@
       </el-card>
     </el-col>
 
-    <el-dialog
-      title="纯前端验证"
-      :visible.sync="dialogVisible"
-      width="360px"
-      destroy-on-close
-    >
-      <div id="jigsaw">
-        <div id="captcha" />
-      </div>
-    </el-dialog>
+    <base-auth-code
+      ref="authCode"
+      @success="login"
+    />
   </div>
 </template>
 
 <script>
-    import '../libs/jigsaw.min';
     import 'element-ui/lib/theme-chalk/display.css';
     import qs from 'qs';
 
     export default {
         data() {
             return {
-                dialogVisible: false,
                 loading: false,
                 params: {},
                 rules: {
                     account: [
                         {required: true, message: '账号为必填项'},
-                        {pattern: /^[a-zA-Z][a-zA-Z0-9]{4,19}$/, message: '账号必须是5至20位字母和数字组成，且以字母开头'}
+                        {pattern: /^[a-zA-Z][a-zA-Z0-9]{4,19}$/, message: '账号必须是以字母开头的5至20位字母和数字组成'}
                     ],
                     password: [
                         {required: true, message: '密码为必填项'},
@@ -114,30 +106,22 @@
                     if (!valid) {
                         return;
                     }
-
-                    this.dialogVisible = true;
-                    this.$nextTick(function () {
-                        let that = this;
-                        window.jigsaw.init({
-                            el: document.getElementById('jigsaw'),
-                            onSuccess: function () {
-                                that.dialogVisible = false;
-                                that.loading = true;
-                                that.axios.post('login', that.params).then((data) => {
-                                    that.$store.commit('setUser', data.user);
-                                    that.$store.commit('setMenus', data.menus);
-                                    let redirectUrl = that.$route.query.redirectUrl || '/';
-                                    that.$router.push({
-                                        path: redirectUrl
-                                    });
-                                }).catch(res => {
-                                    that.error(res.respMsg);
-                                }).finally(() => {
-                                    that.loading = false;
-                                });
-                            }
-                        });
+                    this.$refs.authCode.show();
+                });
+            },
+            login() {
+                this.loading = true;
+                this.axios.post('login', this.params).then((data) => {
+                    this.$store.commit('setUser', data.user);
+                    this.$store.commit('setMenus', data.menus);
+                    let redirectUrl = this.$route.query.redirectUrl || '/';
+                    this.$router.push({
+                        path: redirectUrl
                     });
+                }).catch(res => {
+                    this.error(res.respMsg);
+                }).finally(() => {
+                    this.loading = false;
                 });
             },
             qqLogin() {
