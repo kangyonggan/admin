@@ -43,7 +43,7 @@
             this.activeTab = '' + (this.$route.query.tab | '0');
         },
         beforeRouteUpdate(to, from, next) {
-            this.activeTab = to.query.tab;
+            this.activeTab = to.query.tab || '0';
             next();
         }
     };
