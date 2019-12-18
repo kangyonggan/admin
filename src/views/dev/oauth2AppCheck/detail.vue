@@ -80,7 +80,7 @@
         methods: {
             check(status) {
                 this.loading = true;
-                this.axios.put('dev/oauth2AppCheck/' + this.params.id + '/check/' + status).then(data => {
+                this.axios.put('dev/oauth2AppCheck/' + this.params.id + '/check/' + status).then(() => {
                     this.$router.push({
                         path: '/dev/oauth2AppCheck'
                     });
