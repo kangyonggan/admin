@@ -8,7 +8,7 @@ let util = {};
  * @param title
  */
 util.title = function (title) {
-    title = title ? title + ' · 康永敢开放平台' : '康永敢开放平台';
+    title = title ? title + ' · 康永敢控制台' : '康永敢控制台';
     window.document.title = title;
 };
 
