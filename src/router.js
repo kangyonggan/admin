@@ -142,44 +142,6 @@ const routers = [
                 component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
             },
             {
-                path: 'dev/oauth2App',
-                meta: {
-                    name: 'DEV_OAUTH2_APP'
-                },
-                component: (resolve) => require(['./views/dev/oauth2App/list.vue'], resolve)
-            },
-            {
-                path: 'dev/oauth2App/create',
-                meta: {
-                    name: 'DEV_OAUTH2_APP',
-                    title: '创建应用'
-                },
-                component: (resolve) => require(['./views/dev/oauth2App/form.vue'], resolve)
-            },
-            {
-                path: 'dev/oauth2App/:id/edit',
-                meta: {
-                    name: 'DEV_OAUTH2_APP',
-                    title: '编辑应用'
-                },
-                component: (resolve) => require(['./views/dev/oauth2App/form.vue'], resolve)
-            },
-            {
-                path: 'dev/oauth2AppCheck',
-                meta: {
-                    name: 'DEV_OAUTH2_APP_CHECK'
-                },
-                component: (resolve) => require(['./views/dev/oauth2AppCheck/list.vue'], resolve)
-            },
-            {
-                path: 'dev/oauth2AppCheck/:id',
-                meta: {
-                    name: 'DEV_OAUTH2_APP_CHECK',
-                    title: '详情'
-                },
-                component: (resolve) => require(['./views/dev/oauth2AppCheck/detail.vue'], resolve)
-            },
-            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'
