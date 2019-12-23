@@ -4,7 +4,7 @@
       to="/"
       class="logo"
     >
-      康永敢开放平台
+      康永敢控制台
     </router-link>
 
     <a
