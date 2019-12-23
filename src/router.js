@@ -180,13 +180,6 @@ const routers = [
                 component: (resolve) => require(['./views/dev/oauth2AppCheck/detail.vue'], resolve)
             },
             {
-                path: 'dev/oauth2Token',
-                meta: {
-                    name: 'DEV_OAUTH2_TOKEN'
-                },
-                component: (resolve) => require(['./views/dev/oauth2Token/list.vue'], resolve)
-            },
-            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'

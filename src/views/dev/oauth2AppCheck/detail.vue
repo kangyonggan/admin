@@ -22,9 +22,9 @@
         readonly
       />
       <base-input
-        label="回调地址"
-        v-model="params.callbackUrl"
-        prop="callbackUrl"
+        label="重定向地址"
+        v-model="params.redirectUrl"
+        prop="redirectUrl"
         readonly
       />
       <img

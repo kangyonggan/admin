@@ -35,8 +35,8 @@
       prop="name"
     />
     <base-input
-      label="回调地址"
-      v-model="params.callbackUrl"
+      label="重定向地址"
+      v-model="params.redirectUrl"
       prop="callbackUrl"
     />
     <base-avatar
@@ -63,9 +63,9 @@
                         {required: true, message: '应用名称为必填项'},
                         {max: 20, message: '应用名称最多为64位'}
                     ],
-                    callbackUrl: [
-                        {required: true, message: '回调地址为必填项'},
-                        {max: 1024, message: '回调地址最多为1024位'}
+                    redirectUrl: [
+                        {required: true, message: '重定向地址为必填项'},
+                        {max: 1024, message: '重定向最多为1024位'}
                     ],
                     icon: [
                         {required: true, message: '应用图标为必填项'}
