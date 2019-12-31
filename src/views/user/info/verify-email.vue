@@ -86,7 +86,6 @@
                 let that = this;
                 this.$refs.form.validateField('email', function (errMsg) {
                     if (errMsg) {
-                        that.warning(errMsg);
                         return;
                     }
                     that.$refs.authCode.show();
