@@ -149,6 +149,13 @@ const routers = [
                 component: (resolve) => require(['./views/user/info/index.vue'], resolve)
             },
             {
+                path: 'user/order',
+                meta: {
+                    name: 'USER_ORDER'
+                },
+                component: (resolve) => require(['./views/user/order/list.vue'], resolve)
+            },
+            {
                 path: '403',
                 meta: {
                     icon: 'el-icon-warning',
