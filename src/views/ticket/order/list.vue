@@ -121,11 +121,6 @@
                         fixed: 'left'
                     },
                     {
-                        label: '用户ID',
-                        prop: 'userId',
-                        width: '110'
-                    },
-                    {
                         label: '乘客状态',
                         prop: 'contStatus',
                         width: '110',
@@ -140,6 +135,11 @@
                         render: row => {
                             return this.formatStatus(row.status);
                         }
+                    },
+                    {
+                        label: '用户ID',
+                        prop: 'userId',
+                        width: '110'
                     },
                     {
                         label: '出发地',
@@ -169,7 +169,7 @@
                     {
                         label: '抢票车次',
                         prop: 'trainCodes',
-                        width: '150'
+                        width: '300'
                     },
                     {
                         label: '抢票席座',

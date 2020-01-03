@@ -155,7 +155,7 @@
                     {
                         label: '抢票车次',
                         prop: 'trainCodes',
-                        width: '150'
+                        width: '300'
                     },
                     {
                         label: '抢票席座',
