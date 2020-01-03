@@ -73,12 +73,14 @@
       url="ticket/order"
       :columns="columns"
       ref="table"
+      fixed-action
     >
       <template #actions="{row}">
         <el-dropdown
           split-button
           trigger="click"
           size="small"
+          @click="$refs['form-modal'].show(row)"
           @command="handleCommand($event, row)"
         >
           修改
@@ -96,14 +98,28 @@
         </el-dropdown>
       </template>
     </base-table>
+
+    <el-row style="margin-top: 30px; color: #595959; font-size: 14px;">
+      提示：{{ seatMap }}
+    </el-row>
+
+    <!--新增界面-->
+    <form-modal
+      ref="form-modal"
+      @success="$refs.table.reload(params)"
+    />
   </div>
 </template>
 
 <script>
+    import FormModal from './form-modal';
+
     export default {
+        components: {FormModal},
         data() {
             return {
                 params: {},
+                seatMap: {},
                 orderStatusList: [],
                 fromStations: [],
                 toStations: [],
@@ -137,11 +153,6 @@
                         }
                     },
                     {
-                        label: '用户ID',
-                        prop: 'userId',
-                        width: '110'
-                    },
-                    {
                         label: '出发地',
                         prop: 'fromStationName',
                         width: '110'
@@ -159,7 +170,10 @@
                     {
                         label: '抢票席座',
                         prop: 'trainSeats',
-                        width: '150'
+                        width: '180',
+                        render: row => {
+                            return this.formatSeat(row.trainSeats);
+                        }
                     },
                     {
                         label: '抢票次数',
@@ -178,6 +192,16 @@
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }
+                    },
+                    {
+                        label: '权重',
+                        prop: 'weight',
+                        width: '110'
+                    },
+                    {
+                        label: '用户ID',
+                        prop: 'userId',
+                        width: '110'
                     },
                     {
                         label: '金额（元）',
@@ -241,6 +265,17 @@
                 }).catch(res => {
                     this.error(res.respMsg);
                 });
+            },
+            formatSeat(trainSeats) {
+                let arr = trainSeats.split(',');
+                let res = '';
+                for (let i = 0; i < arr.length; i++) {
+                    if (i !== 0) {
+                        res += ',';
+                    }
+                    res += this.seatMap[arr[i]];
+                }
+                return res;
             }
         },
         mounted() {
@@ -249,8 +284,16 @@
             }).catch(res => {
                 this.error(res.respMsg);
             });
+            this.axios.get('enum?enumKey=SeatType').then(data => {
+                let enums = data.enums;
+                for (let i = 0; i < enums.length; i++) {
+                    this.seatMap[enums[i].code] = enums[i].name;
+                }
+                this.$forceUpdate();
+            }).catch(res => {
+                this.error(res.respMsg);
+            });
         }
     };
 </script>
-
 

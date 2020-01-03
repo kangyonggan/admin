@@ -65,27 +65,11 @@
 
     <!--表格-->
     <base-table
+      :actions="false"
       url="user/order"
       :columns="columns"
       ref="table"
     >
-      <template #actions="{row}">
-        <el-dropdown
-          split-button
-          trigger="click"
-          size="small"
-        >
-          修改
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="0">
-              撤回
-            </el-dropdown-item>
-            <el-dropdown-item command="1">
-              删除
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </template>
     </base-table>
   </div>
 </template>
@@ -95,6 +79,7 @@
         data() {
             return {
                 params: {},
+                seatMap: {},
                 orderStatusList: [],
                 fromStations: [],
                 toStations: [],
@@ -150,12 +135,20 @@
                     {
                         label: '抢票席座',
                         prop: 'trainSeats',
-                        width: '150'
+                        width: '180',
+                        render: row => {
+                            return this.formatSeat(row.trainSeats);
+                        }
                     },
                     {
                         label: '抢票次数',
                         prop: 'qryCnt',
                         width: '110'
+                    },
+                    {
+                        label: '金额（元）',
+                        prop: 'amount',
+                        width: '120'
                     },
                     {
                         label: '最后抢票时间',
@@ -164,11 +157,6 @@
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }
-                    },
-                    {
-                        label: '金额（元）',
-                        prop: 'amount',
-                        width: '120'
                     },
                     {
                         label: '下单时间',
@@ -214,11 +202,31 @@
                 }).catch(res => {
                     this.error(res.respMsg);
                 });
+            },
+            formatSeat(trainSeats) {
+                let arr = trainSeats.split(',');
+                let res = '';
+                for (let i = 0; i < arr.length; i++) {
+                    if (i !== 0) {
+                        res += ',';
+                    }
+                    res += this.seatMap[arr[i]];
+                }
+                return res;
             }
         },
         mounted() {
             this.axios.get('enum?enumKey=OrderStatus').then(data => {
                 this.orderStatusList = data.enums;
+            }).catch(res => {
+                this.error(res.respMsg);
+            });
+            this.axios.get('enum?enumKey=SeatType').then(data => {
+                let enums = data.enums;
+                console.log(enums);
+                for (let i = 0; i < enums.length; i++) {
+                    this.seatMap[enums[i].code] = enums[i].name;
+                }
             }).catch(res => {
                 this.error(res.respMsg);
             });

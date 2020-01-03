@@ -149,6 +149,13 @@ const routers = [
                 component: (resolve) => require(['./views/ticket/order/list.vue'], resolve)
             },
             {
+                path: 'ticket/contacts',
+                meta: {
+                    name: 'TICKET_CONTACTS'
+                },
+                component: (resolve) => require(['./views/ticket/contacts/list.vue'], resolve)
+            },
+            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'
@@ -161,6 +168,13 @@ const routers = [
                     name: 'USER_ORDER'
                 },
                 component: (resolve) => require(['./views/user/order/list.vue'], resolve)
+            },
+            {
+                path: 'user/contacts',
+                meta: {
+                    name: 'USER_CONTACTS'
+                },
+                component: (resolve) => require(['./views/user/contacts/list.vue'], resolve)
             },
             {
                 path: '403',
