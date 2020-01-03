@@ -143,16 +143,6 @@
                         width: '270'
                     },
                     {
-                        label: '金额（元）',
-                        prop: 'amount',
-                        width: '120'
-                    },
-                    {
-                        label: '抢票次数',
-                        prop: 'qryCnt',
-                        width: '110'
-                    },
-                    {
                         label: '抢票车次',
                         prop: 'trainCodes',
                         width: '350'
@@ -163,12 +153,22 @@
                         width: '150'
                     },
                     {
+                        label: '抢票次数',
+                        prop: 'qryCnt',
+                        width: '110'
+                    },
+                    {
                         label: '最后抢票时间',
                         prop: 'lastQryTime',
                         width: '180',
                         render: row => {
                             return this.util.formatTimestamp(row.createdTime);
                         }
+                    },
+                    {
+                        label: '金额（元）',
+                        prop: 'amount',
+                        width: '120'
                     },
                     {
                         label: '下单时间',
