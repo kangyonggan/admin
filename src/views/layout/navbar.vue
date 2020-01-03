@@ -20,7 +20,7 @@
       @command="handleCommand"
     >
       <span>
-        {{ $store.getters.getUser.name }}
+        {{ $store.getters.getUser.name || $store.getters.getUser.account }}
         <i class="el-icon-arrow-down el-icon--right" />
       </span>
       <el-dropdown-menu slot="dropdown">
