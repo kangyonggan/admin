@@ -192,6 +192,15 @@
 
                 return status;
             },
+            formatContStatus(contStatus) {
+                if (contStatus === '') {
+                    return '审核中';
+                }
+                if (contStatus === '99') {
+                    return '审核通过';
+                }
+                return '审核失败';
+            },
             searchFromStations(key) {
                 this.axios.get('ticket/stations?key=' + key).then(data => {
                     this.fromStations = data.stations;
