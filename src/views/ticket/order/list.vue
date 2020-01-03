@@ -169,7 +169,7 @@
                     {
                         label: '抢票车次',
                         prop: 'trainCodes',
-                        width: '300'
+                        width: '350'
                     },
                     {
                         label: '抢票席座',
