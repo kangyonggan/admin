@@ -3,6 +3,11 @@
     <!--搜索表单-->
     <base-search-form :model="params">
       <base-input
+        label="用户ID"
+        v-model="params.userId"
+        prop="userId"
+      />
+      <base-input
         label="订单号"
         v-model="params.orderNo"
         prop="orderNo"
@@ -65,7 +70,7 @@
 
     <!--表格-->
     <base-table
-      url="user/order"
+      url="ticket/order"
       :columns="columns"
       ref="table"
     >
@@ -74,14 +79,18 @@
           split-button
           trigger="click"
           size="small"
+          @command="handleCommand($event, row)"
         >
           修改
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="0">
-              撤回
+            <el-dropdown-item command="GRABBING">
+              审核通过
             </el-dropdown-item>
-            <el-dropdown-item command="1">
-              删除
+            <el-dropdown-item command="CANCEL">
+              取消抢票
+            </el-dropdown-item>
+            <el-dropdown-item command="REFUND">
+              退票
             </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -110,6 +119,11 @@
                         prop: 'name',
                         width: '110',
                         fixed: 'left'
+                    },
+                    {
+                        label: '用户ID',
+                        prop: 'userId',
+                        width: '110'
                     },
                     {
                         label: '乘客状态',
@@ -182,6 +196,19 @@
             };
         },
         methods: {
+            handleCommand: function (command, row) {
+                this.$confirm('本次操作订单号为：' + row.orderNo + '，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.axios.put('ticket/order/' + row.id + '/status/' + command).then(() => {
+                        this.$refs.table.request();
+                    }).catch(res => {
+                        this.error(res.respMsg);
+                    });
+                });
+            },
             formatStatus(status) {
                 for (let i = 0; i < this.orderStatusList.length; i++) {
                     let item = this.orderStatusList[i];
@@ -191,6 +218,15 @@
                 }
 
                 return status;
+            },
+            formatContStatus(contStatus) {
+                if (contStatus === '') {
+                    return '审核中';
+                }
+                if (contStatus === '99') {
+                    return '审核通过';
+                }
+                return '审核失败';
             },
             searchFromStations(key) {
                 this.axios.get('ticket/stations?key=' + key).then(data => {

@@ -142,6 +142,13 @@ const routers = [
                 component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
             },
             {
+                path: 'ticket/order',
+                meta: {
+                    name: 'TICKET_ORDER'
+                },
+                component: (resolve) => require(['./views/ticket/order/list.vue'], resolve)
+            },
+            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'
