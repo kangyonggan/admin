@@ -69,8 +69,7 @@
       url="user/order"
       :columns="columns"
       ref="table"
-    >
-    </base-table>
+    />
   </div>
 </template>
 
