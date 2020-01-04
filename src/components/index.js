@@ -7,7 +7,6 @@ import BaseDaterange from './base-daterange';
 import BaseTable from './base-table';
 import BaseModal from './base-modal';
 import BaseForm from './base-form';
-import BaseAuthCode from './base-auth-code';
 import BaseAvatar from './base-avatar';
 
 Vue.component('BaseSearchForm', BaseSearchForm);
@@ -18,5 +17,4 @@ Vue.component('BaseDaterange', BaseDaterange);
 Vue.component('BaseTable', BaseTable);
 Vue.component('BaseModal', BaseModal);
 Vue.component('BaseForm', BaseForm);
-Vue.component('BaseAuthCode', BaseAuthCode);
 Vue.component('BaseAvatar', BaseAvatar);

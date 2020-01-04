@@ -52,11 +52,6 @@
         </el-form>
       </el-card>
     </el-col>
-
-    <base-auth-code
-      ref="authCode"
-      @success="login"
-    />
   </div>
 </template>
 
@@ -86,22 +81,20 @@
                     if (!valid) {
                         return;
                     }
-                    this.$refs.authCode.show();
-                });
-            },
-            login() {
-                this.loading = true;
-                this.axios.post('login', this.params).then((data) => {
-                    this.$store.commit('setUser', data.user);
-                    this.$store.commit('setMenus', data.menus);
-                    let redirectUrl = this.$route.query.redirectUrl || '/';
-                    this.$router.push({
-                        path: redirectUrl
+
+                    this.loading = true;
+                    this.axios.post('login', this.params).then((data) => {
+                        this.$store.commit('setUser', data.user);
+                        this.$store.commit('setMenus', data.menus);
+                        let redirectUrl = this.$route.query.redirectUrl || '/';
+                        this.$router.push({
+                            path: redirectUrl
+                        });
+                    }).catch(res => {
+                        this.error(res.respMsg);
+                    }).finally(() => {
+                        this.loading = false;
                     });
-                }).catch(res => {
-                    this.error(res.respMsg);
-                }).finally(() => {
-                    this.loading = false;
                 });
             }
         },

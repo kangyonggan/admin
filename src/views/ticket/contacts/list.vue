@@ -40,6 +40,12 @@
         >
           新增
         </el-button>
+        <el-button
+          type="danger"
+          @click="syncContacts"
+        >
+          同步联系人
+        </el-button>
       </template>
     </base-search-form>
 
@@ -75,10 +81,6 @@
             return {
                 params: {},
                 columns: [
-                    {
-                        label: 'ID',
-                        prop: 'id'
-                    },
                     {
                         label: '用户ID',
                         prop: 'userId'
@@ -118,6 +120,19 @@
                     type: 'warning'
                 }).then(() => {
                     this.axios.delete('ticket/contacts/' + row.id).then(() => {
+                        this.$refs.table.request();
+                    }).catch(res => {
+                        this.error(res.respMsg);
+                    });
+                });
+            },
+            syncContacts() {
+                this.$confirm('将同步所有联系人，是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.axios.put('ticket/contacts/sync').then(() => {
                         this.$refs.table.request();
                     }).catch(res => {
                         this.error(res.respMsg);

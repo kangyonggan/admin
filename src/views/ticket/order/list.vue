@@ -73,7 +73,7 @@
       url="ticket/order"
       :columns="columns"
       ref="table"
-      fixed-action
+      :fixed-action="true"
     >
       <template #actions="{row}">
         <el-dropdown
