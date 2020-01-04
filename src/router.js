@@ -156,6 +156,13 @@ const routers = [
                 component: (resolve) => require(['./views/ticket/contacts/list.vue'], resolve)
             },
             {
+                path: 'ticket/crab',
+                meta: {
+                    name: 'TICKET_CRAB'
+                },
+                component: (resolve) => require(['./views/ticket/crab/index.vue'], resolve)
+            },
+            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'
