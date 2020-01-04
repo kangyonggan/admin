@@ -12,6 +12,13 @@
             登录
           </el-button>
           <el-button
+            type="primary"
+            size="medium"
+            @click="reLogin"
+          >
+            重连
+          </el-button>
+          <el-button
             type="danger"
             size="medium"
             @click="logout"
@@ -203,6 +210,22 @@
                         this.success('成功退出12306');
                         this.stopCrab();
                         this.refreshLoginConf();
+                    }).catch(res => {
+                        this.error(res.respMsg);
+                    }).finally(() => {
+                        this.loginConfLoading = false;
+                    });
+                });
+            },
+            reLogin() {
+                this.$confirm('确定重新连接12306账号，想好了吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.loginConfLoading = true;
+                    this.axios.get('ticket/crab/reLogin').then(data => {
+                        this.loginConf = data.loginConf;
                     }).catch(res => {
                         this.error(res.respMsg);
                     }).finally(() => {
