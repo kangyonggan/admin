@@ -45,10 +45,7 @@
         data() {
             return {
                 captchaPath: '',
-                params: {
-                    username: 'kd56110869',
-                    password: 'keeo0qkz'
-                },
+                params: {},
                 rules: {
                     username: [
                         {required: true, message: '用户名为必填项'}
@@ -64,7 +61,10 @@
         },
         methods: {
             show: function () {
-                this.params = {};
+                this.params = {
+                    username: 'kd56110869',
+                    password: 'keeo0qkz'
+                };
                 this.$refs.modal.show();
                 this.refresh();
             },
