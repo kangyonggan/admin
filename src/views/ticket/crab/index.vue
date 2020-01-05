@@ -1,6 +1,60 @@
 <template>
   <div>
-    <el-card v-loading="loginConfLoading">
+    <el-card v-loading="deviceLoading">
+      <div slot="header">
+        <span>证书管理</span>
+        <div class="actions">
+          <el-button
+            type="danger"
+            size="medium"
+            @click="logDevice"
+          >
+            重载
+          </el-button>
+          <el-button
+            type="warning"
+            size="medium"
+            @click="cookieMap"
+          >
+            刷新
+          </el-button>
+        </div>
+      </div>
+      <div>
+        证书：
+        <span style="font-size: 13px;">{{ deviceId }}</span>
+      </div>
+      <div
+        v-show="deviceId"
+        style="margin-top: 10px;"
+      >
+        过期日期：
+        <span v-if="new Date().getTime() < expiration">
+          {{ util.formatTimestamp(expiration * 1) }}
+        </span>
+        <span
+          v-else
+          style="color: red"
+        >
+          {{ expiration }}
+        </span>
+      </div>
+
+      <div
+        style="margin-top: 10px;"
+        v-show="cookies"
+      >
+        Cookies：
+        <div class="code">
+          {{ cookies }}
+        </div>
+      </div>
+    </el-card>
+
+    <el-card
+      v-loading="loginConfLoading"
+      style="margin-top: 20px;"
+    >
       <div slot="header">
         <span>登录状态</span>
         <div class="actions">
@@ -147,12 +201,16 @@
             return {
                 crabLoading: false,
                 loginConfLoading: false,
+                deviceLoading: false,
                 order: undefined,
                 isStop: true,
                 loginConf: undefined,
                 timer: undefined,
                 qrPath: '',
-                status: ''
+                status: '',
+                expiration: '',
+                deviceId: '',
+                cookies: undefined
             };
         },
         methods: {
@@ -281,11 +339,39 @@
                 }).catch(res => {
                     this.error(res.respMsg);
                 });
+            },
+            cookieMap() {
+                this.axios.get('ticket/crab/cookieMap').then(data => {
+                    this.cookies = data.cookieMap;
+                    this.deviceId = data.cookieMap.RAIL_DEVICEID;
+                    this.expiration = data.cookieMap.RAIL_EXPIRATION;
+                }).catch(res => {
+                    this.error(res.respMsg);
+                });
+            },
+            logDevice() {
+                this.$confirm('确定重新加载证书，想好了吗?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.deviceLoading = true;
+                    this.axios.get('ticket/crab/logDevice').then(data => {
+                        this.cookies = data.cookieMap;
+                        this.deviceId = data.cookieMap.RAIL_DEVICEID;
+                        this.expiration = data.cookieMap.RAIL_EXPIRATION;
+                    }).catch(res => {
+                        this.error(res.respMsg);
+                    }).finally(() => {
+                        this.deviceLoading = false;
+                    });
+                });
             }
         },
         mounted() {
             this.refresh();
             this.refreshLoginConf();
+            this.cookieMap();
         }
     };
 </script>
@@ -307,5 +393,6 @@
     border-radius: 5px;
     padding: 8px 10px;
     background: #f5f5f5;
+    overflow: auto;
   }
 </style>
