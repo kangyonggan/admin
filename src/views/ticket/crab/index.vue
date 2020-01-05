@@ -42,7 +42,10 @@
         >
           已登录
         </span>
-        <span style="color: red">
+        <span
+          v-else
+          style="color: red"
+        >
           未登录
         </span>
       </div>
@@ -111,7 +114,19 @@
         </div>
       </div>
       <div>
-        当前状态：{{ isStop ? '已停止' : '已启动' }}
+        当前状态：
+        <span
+          v-if="isStop"
+          style="color: red"
+        >
+          已停止
+        </span>
+        <span
+          v-else
+          style="color: green"
+        >
+          已启动
+        </span>
       </div>
       <div
         style="margin-top: 10px;"
