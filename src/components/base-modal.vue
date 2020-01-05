@@ -86,6 +86,7 @@
                         this.$emit('success', data);
                     }).catch(res => {
                         this.error(res.respMsg);
+                        this.$emit('failure', res);
                     }).finally(() => {
                         this.loading = false;
                     });

@@ -61,9 +61,16 @@
           <el-button
             type="success"
             size="medium"
-            @click="login"
+            @click="loginCaptcha"
           >
-            登录
+            验证码登录
+          </el-button>
+          <el-button
+            type="success"
+            size="medium"
+            @click="loginQr"
+          >
+            二维码登录
           </el-button>
           <el-button
             type="primary"
@@ -192,11 +199,18 @@
         </div>
       </div>
     </el-card>
+
+    <login-modal
+      ref="login-modal"
+      @success="refreshLoginConf()"
+    />
   </div>
 </template>
 
 <script>
+    import LoginModal from './login-modal';
     export default {
+        components: {LoginModal},
         data() {
             return {
                 crabLoading: false,
@@ -263,6 +277,7 @@
                 });
             },
             refreshLoginConf() {
+                this.clearInterval();
                 this.loginConfLoading = true;
                 this.axios.get('ticket/crab/refreshLoginConf').then(data => {
                     this.loginConf = data.loginConf;
@@ -281,7 +296,6 @@
                     this.loginConfLoading = true;
                     this.axios.get('ticket/crab/logout').then(() => {
                         this.success('成功退出12306');
-                        this.stopCrab();
                         this.refreshLoginConf();
                     }).catch(res => {
                         this.error(res.respMsg);
@@ -306,25 +320,24 @@
                     });
                 });
             },
-            login() {
-                this.$confirm('确定登录12306账号，想好了吗?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.loginConfLoading = true;
-                    this.axios.get('ticket/crab/login').then(data => {
-                        this.qrPath = data.qrPath;
+            loginCaptcha() {
+                this.clearInterval();
+                this.$refs['login-modal'].show();
+            },
+            loginQr() {
+                this.clearInterval();
+                this.loginConfLoading = true;
+                this.axios.get('ticket/crab/loginQr').then(data => {
+                    this.qrPath = data.qrPath;
 
-                        let that = this;
-                        this.timer = setInterval(function () {
-                            that.checkQr();
-                        }, 1500);
-                    }).catch(res => {
-                        this.error(res.respMsg);
-                    }).finally(() => {
-                        this.loginConfLoading = false;
-                    });
+                    let that = this;
+                    this.timer = setInterval(function () {
+                        that.checkQr();
+                    }, 1500);
+                }).catch(res => {
+                    this.error(res.respMsg);
+                }).finally(() => {
+                    this.loginConfLoading = false;
                 });
             },
             checkQr() {
@@ -332,13 +345,16 @@
                     this.status = data.status;
 
                     if (this.status === '2') {
-                        clearInterval(this.timer);
-                        this.qrPath = '';
+                        this.clearInterval();
                         this.refreshLoginConf();
                     }
                 }).catch(res => {
                     this.error(res.respMsg);
                 });
+            },
+            clearInterval() {
+                clearInterval(this.timer);
+                this.qrPath = '';
             },
             cookieMap() {
                 this.axios.get('ticket/crab/cookieMap').then(data => {
