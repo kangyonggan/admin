@@ -91,6 +91,9 @@
             <el-dropdown-item command="CANCEL">
               取消抢票
             </el-dropdown-item>
+            <el-dropdown-item command="SUCCESS">
+              完成
+            </el-dropdown-item>
             <el-dropdown-item command="REFUND">
               退票
             </el-dropdown-item>
