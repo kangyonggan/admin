@@ -36,7 +36,7 @@
                 let formData = new FormData();
                 formData.append('file', $file);
 
-                this.axios.post('fileUpload/github', formData).then(data => {
+                this.axios.post('fileUpload/weibo', formData).then(data => {
                     // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
                     this.$refs.md.$img2Url(pos, data.url);
                 }).catch(res => {
