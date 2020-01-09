@@ -114,6 +114,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/video/list.vue'], resolve)
             },
             {
+                path: 'sites/imgBed',
+                meta: {
+                    name: 'SITES_IMG_BED'
+                },
+                component: (resolve) => require(['./views/sites/imgBed/index.vue'], resolve)
+            },
+            {
                 path: 'sites/novel/source',
                 meta: {
                     name: 'SITES_NOVEL_SOURCE'
