@@ -28,7 +28,7 @@
           个人资料
         </el-dropdown-item>
         <el-dropdown-item command="1">
-          注销
+          退出
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
