@@ -23,7 +23,7 @@
         </div>
       </li>
 
-      <div style="clear: both"></div>
+      <div style="clear: both" />
     </ul>
 
     <el-pagination
