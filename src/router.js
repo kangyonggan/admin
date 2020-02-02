@@ -54,13 +54,6 @@ const routers = [
                 component: (resolve) => require(['./views/system/dict/list.vue'], resolve)
             },
             {
-                path: 'system/upload',
-                meta: {
-                    name: 'SYSTEM_UPLOAD'
-                },
-                component: (resolve) => require(['./views/system/upload/index.vue'], resolve)
-            },
-            {
                 path: 'sites/article',
                 meta: {
                     name: 'SITES_ARTICLE'
@@ -149,46 +142,11 @@ const routers = [
                 component: (resolve) => require(['./views/query/ckLoginLog/list.vue'], resolve)
             },
             {
-                path: 'ticket/order',
-                meta: {
-                    name: 'TICKET_ORDER'
-                },
-                component: (resolve) => require(['./views/ticket/order/list.vue'], resolve)
-            },
-            {
-                path: 'ticket/contacts',
-                meta: {
-                    name: 'TICKET_CONTACTS'
-                },
-                component: (resolve) => require(['./views/ticket/contacts/list.vue'], resolve)
-            },
-            {
-                path: 'ticket/crab',
-                meta: {
-                    name: 'TICKET_CRAB'
-                },
-                component: (resolve) => require(['./views/ticket/crab/index.vue'], resolve)
-            },
-            {
                 path: 'user/info',
                 meta: {
                     name: 'USER_INFO'
                 },
                 component: (resolve) => require(['./views/user/info/index.vue'], resolve)
-            },
-            {
-                path: 'user/order',
-                meta: {
-                    name: 'USER_ORDER'
-                },
-                component: (resolve) => require(['./views/user/order/list.vue'], resolve)
-            },
-            {
-                path: 'user/contacts',
-                meta: {
-                    name: 'USER_CONTACTS'
-                },
-                component: (resolve) => require(['./views/user/contacts/list.vue'], resolve)
             },
             {
                 path: '403',
