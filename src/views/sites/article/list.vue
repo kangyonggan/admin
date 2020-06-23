@@ -28,6 +28,21 @@
       :columns="columns"
       ref="table"
     >
+      <template #pre-columns>
+        <el-table-column
+          prop="title"
+          label="标题"
+          :sortable="true"
+        >
+          <template slot-scope="scope">
+            <a
+              target="_blank"
+              :href="'/article/' + scope.row.id"
+              style="color: #333;text-decoration: none;"
+            >{{ scope.row.title }}</a>
+          </template>
+        </el-table-column>
+      </template>
       <template #actions="{row}">
         <el-dropdown
           split-button
@@ -55,15 +70,6 @@
             return {
                 params: {},
                 columns: [
-                    {
-                        label: 'ID',
-                        prop: 'id',
-                        width: '70'
-                    },
-                    {
-                        label: '标题',
-                        prop: 'title',
-                    },
                     {
                         label: '访问量',
                         prop: 'viewNum',
