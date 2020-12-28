@@ -18,6 +18,12 @@
         prop="type"
         :items="types"
       />
+      <base-select
+        label="状态"
+        v-model="params.status"
+        prop="status"
+        :items="statuses"
+      />
       <base-daterange
         label="创建日期"
         v-model="params.createdTime"
@@ -56,9 +62,11 @@ export default {
       params: {
         openid: '',
         content: '',
-        type: ''
+        type: '',
+        status: ''
       },
       types: [{code: 'TODO', name: '待办'}, {code: 'NOTE', name: '笔记'}],
+      statuses: [{code: 'NORMAL', name: '正常'}, {code: 'FINISH', name: '完成'}],
       columns: [
         {
           label: 'ID',
@@ -84,6 +92,14 @@ export default {
           width: '80',
           render: row => {
             return row.status === 'NORMAL' ? '正常' : '完成';
+          }
+        },
+        {
+          label: '置顶',
+          prop: 'isTopped',
+          width: '100',
+          render: row => {
+            return this.util.formatStatus(row.isTopped);
           }
         },
         {
