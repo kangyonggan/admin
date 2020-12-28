@@ -99,7 +99,7 @@ export default {
           prop: 'isTopped',
           width: '100',
           render: row => {
-            return this.util.formatStatus(row.isTopped);
+            return row.isTopped ? '是' : '否';
           }
         },
         {
