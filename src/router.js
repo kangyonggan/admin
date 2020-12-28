@@ -128,6 +128,13 @@ const routers = [
                 component: (resolve) => require(['./views/sites/novel/manager/list.vue'], resolve)
             },
             {
+                path: 'sites/note',
+                meta: {
+                    name: 'SITES_NOTE'
+                },
+                component: (resolve) => require(['./views/sites/note/list.vue'], resolve)
+            },
+            {
                 path: 'query/accessLog',
                 meta: {
                     name: 'QUERY_ACCESS_LOG'
